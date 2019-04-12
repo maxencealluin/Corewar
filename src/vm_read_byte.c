@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:39:44 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/12 15:29:14 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:10:32 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	vm_read_byte(t_player *player)
 	read(fd, player->header->prog_name, PROG_NAME_LENGTH);
 	read(fd, tmp, 4);
 	read(fd, tmp, sizeof(unsigned int));
-	player->header->magic = (unsigned int)tmp;
+	player->header->prog_size = (unsigned int)tmp;
 	read(fd, player->header->comment, COMMENT_LENGTH);
 	read(fd, tmp, 4);
 	ft_memdel((void **)&tmp);
