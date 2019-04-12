@@ -6,5 +6,5 @@ git add .
 echo "Comment for the push:"
 read comment
 echo "$comment"
-git commit -m "$branch - $(date)\n$comment"
+git commit -m "$branch - $(date) -- $comment"
 git push
