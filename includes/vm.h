@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/12 11:57:10 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/12 14:30:55 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 # include "op.h"
 # include <time.h>
+
+# define MAGIC_SIZE	4
+# define NAME_SIZE	128
+# define PAD_SIZE	4
+# define BOT_SIZE	4
+# define COMMENT_SIZE	2048
 
 typedef struct	s_process
 {
@@ -33,6 +39,14 @@ typedef struct	s_time
 typedef struct	s_player
 {
 	t_process	*process;
+	char		magic[MAGIC_SIZE];
+	char		name[NAME_SIZE];
+	char		bot[BOT_SIZE];
+	char		comm[COMMENT_SIZE];
+	char		*code;
+	t_header	*header;
+
+
 }				t_player;
 
 typedef struct	s_vm {
@@ -51,4 +65,9 @@ void			initialize_window(t_vm *vm);
 void			close_window();
 
 void			initialize_vm(t_vm *vm);
+
+
+
+void			vm_read_byte();
+
 #endif

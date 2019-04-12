@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/11 17:37:46 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/12 14:15:10 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,11 @@ int		main(int ac, char **av)
 		return (0);
 	initialize_vm(vm);
 	// dump_memory(vm);
-	initialize_window(vm);
-	main_loop(vm);
-	close_window();
+	// initialize_window(vm);
+
+	vm_read_byte();
+
+	// main_loop(vm);
+	// close_window();
 	return (0);
 }
