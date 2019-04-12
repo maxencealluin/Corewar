@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/12 15:14:46 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/12 15:48:58 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 # include "op.h"
 # include <time.h>
+
+# define MAGIC_SIZE	4
+# define NAME_SIZE	128
+# define PAD_SIZE	4
+# define BOT_SIZE	4
+# define COMMENT_SIZE	2048
 
 typedef struct	s_process
 {
@@ -34,6 +40,8 @@ typedef struct	s_time
 typedef struct	s_player
 {
 	t_process	*process;
+	char		*code;
+	t_header	*header;
 	char		*file_path;
 	int			player_number;
 	int			order_arg;
@@ -65,5 +73,7 @@ void			ft_error_too_many();
 void			ft_usage();
 
 void			ft_print_players(t_vm *vm);
+
+void			vm_read_byte();
 
 #endif

@@ -6,7 +6,7 @@
 #    By: malluin <malluin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/22 14:56:26 by malluin           #+#    #+#              #
-#    Updated: 2019/04/12 15:12:42 by malluin          ###   ########.fr        #
+#    Updated: 2019/04/12 15:49:14 by malluin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRC_VM_NAME =		op.c \
 					vm_structs_initialize.c \
 					vm_errors_messages.c \
 					vm_args_parsing.c \
-					vm_debug.c
+					vm_debug.c \
+					vm_read_byte.c
 
 SRC_ASM_NAME = 	op.c \
 					asm_main.c
@@ -31,7 +32,7 @@ SRC_PATH = src
 OBJ_PATH = obj
 HEADER_PATH = includes/
 
-CC = gcc
+CC = gcc -fsanitize=address -g
 CCFLAGS =   -Wall -Wextra  #-Werror
 
 CPPFLAGS = -I ./libftprintf/includes -I ./libftprintf/libft/includes -I $(HEADER_PATH) -MMD
