@@ -6,15 +6,15 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/11 17:36:41 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/12 11:57:10 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
-#include "op.h"
-#include <time.h>
+# include "op.h"
+# include <time.h>
 
 typedef struct	s_process
 {
@@ -25,9 +25,9 @@ typedef struct	s_process
 
 typedef struct	s_time
 {
-	clock_t 	begin;
-	clock_t 	current;
-	clock_t 	pause;
+	clock_t		begin;
+	clock_t		current;
+	clock_t		pause;
 }				t_time;
 
 typedef struct	s_player
@@ -46,9 +46,9 @@ typedef struct	s_vm {
 	int			cycle_sec;
 }				t_vm;
 
-void	refresh_window(t_vm *vm);
-void	initialize_window(t_vm *vm);
-void	close_window();
+void			refresh_window(t_vm *vm);
+void			initialize_window(t_vm *vm);
+void			close_window();
 
-void	initialize_vm(t_vm *vm);
+void			initialize_vm(t_vm *vm);
 #endif
