@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/12 15:28:38 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:41:23 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	dump_memory(t_vm *vm)
 	{
 		if (i % 64 == 0)
 			ft_printf("0x%04x : ", i);
-		ft_printf("%02x ", vm->arena[i++]);
+		ft_printf("%02x ", vm->arena[i++].by);
 		if (i % 64 == 0)
 			ft_printf("\n");
 	}
@@ -66,7 +66,7 @@ void	increment_memory(t_vm *vm)
 {
 	static int i = 0;
 
-	vm->arena[i++]++;
+	vm->arena[i++].by++;
 	if (i == 4096)
 		i = 0;
 }
@@ -97,30 +97,31 @@ void	main_loop(t_vm *vm)
 	}
 }
 
-void	init_player(t_player *player)
+void	read_files(t_vm *vm)
 {
-	if (!(player->header = (t_header *)malloc(sizeof(t_header) * (1))))
-		exit(-1);
+	int		i;
+
+	i = 0;
+	while (i < vm->players_alive)
+		vm_read_byte(vm->players[i++]);
 }
 
 int		main(int ac, char **av)
 {
 	t_vm	*vm;
-	t_player *player1;
 
-	(void)av;
-	(void)ac;
+	if (ac <= 1)
+		ft_usage();
 	if (!(vm = (t_vm *)malloc(sizeof(t_vm))))
 		return (0);
 	initialize_vm(vm);
+	if (ft_parse_args(vm, ac, av) == -1)
+		return (0);
 	// dump_memory(vm);
-	// initialize_window(vm);
-	if (!(player1 = (t_player *)malloc(sizeof(t_player) * (1))))
-		exit(-1);
-	init_player(player1);
-	vm_read_byte(player1);
-
-	// main_loop(vm);
-	// close_window();
+	initialize_window(vm);
+	read_files(vm);
+	// ft_print_players(vm);
+	main_loop(vm);
+	close_window();
 	return (0);
 }

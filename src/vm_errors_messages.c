@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_structs_initialize.c                            :+:      :+:    :+:   */
+/*   vm_errors_messages.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 16:05:00 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/12 16:46:59 by malluin          ###   ########.fr       */
+/*   Created: 2019/04/12 13:45:13 by malluin           #+#    #+#             */
+/*   Updated: 2019/04/12 15:53:22 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
-#include "libft.h"
+#include "libftprintf.h"
 
-void	initialize_vm(t_vm *vm)
+void ft_error_read(char *str)
 {
-	int		i;
+	ft_printf("Can't read source file %s\n", str);
+	exit(-1);
+}
 
-	i = 0;
-	while (i < MAX_PLAYERS)
-		vm->players[i++] = NULL;
-	ft_bzero(vm->arena, MEM_SIZE);
-	vm->cycles = 0;
-	vm->players_alive = 0;
-	vm->cycle_to_die = CYCLE_TO_DIE;
-	vm->cycle_sec = 50;
-	vm->nb_process = 0;
-	vm->stop = 1;
-	vm->number_of_live = 0;
-	vm->last_player_live = 0;
-	vm->dump_cycle = -1;
+void ft_error_too_many()
+{
+	ft_printf("Too many champions\n");
+	exit(-1);
+}
+
+void ft_usage()
+{
+	ft_printf("./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...\n");
+	exit (-1);
 }

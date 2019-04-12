@@ -6,7 +6,7 @@
 #    By: malluin <malluin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/22 14:56:26 by malluin           #+#    #+#              #
-#    Updated: 2019/04/12 14:32:01 by fnussbau         ###   ########.fr        #
+#    Updated: 2019/04/12 15:49:14 by malluin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,9 @@ SRC_VM_NAME =		op.c \
 					vm_ncurses_win.c \
 					vm_ncurses_refresh.c \
 					vm_structs_initialize.c \
+					vm_errors_messages.c \
+					vm_args_parsing.c \
+					vm_debug.c \
 					vm_read_byte.c
 
 SRC_ASM_NAME = 	op.c \

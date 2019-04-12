@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/12 14:30:55 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:39:14 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@
 
 typedef struct	s_process
 {
-	char		regs[REG_NUMBER][REG_SIZE];
-	void		*pc;
-	char		carry;
+	char				regs[REG_NUMBER][REG_SIZE];
+	void				*pc;
+	char				carry;
+	struct s_process	*next;
 }				t_process;
 
 typedef struct	s_time
@@ -39,25 +40,30 @@ typedef struct	s_time
 typedef struct	s_player
 {
 	t_process	*process;
-	char		magic[MAGIC_SIZE];
-	char		name[NAME_SIZE];
-	char		bot[BOT_SIZE];
-	char		comm[COMMENT_SIZE];
 	char		*code;
 	t_header	*header;
-
-
+	char		*file_path;
+	int			player_number;
+	int			order_arg;
 }				t_player;
+
+typedef	struct	s_case {
+	int			id;
+	char		by;
+}				t_case;
 
 typedef struct	s_vm {
 	t_player	*players[MAX_PLAYERS];
-	char		arena[MEM_SIZE];
+	t_case		arena[MEM_SIZE];
 	int			cycles;
 	int			players_alive;
 	int			cycle_to_die;
 	int			nb_process;
 	int			stop;
 	int			cycle_sec;
+	int			number_of_live;
+	int			last_player_live;
+	int			dump_cycle;
 }				t_vm;
 
 void			refresh_window(t_vm *vm);
@@ -66,7 +72,12 @@ void			close_window();
 
 void			initialize_vm(t_vm *vm);
 
+int				ft_parse_args(t_vm *vm, int ac, char **av);
+void			ft_error_read(char *str);
+void			ft_error_too_many();
+void			ft_usage();
 
+void			ft_print_players(t_vm *vm);
 
 void			vm_read_byte();
 
