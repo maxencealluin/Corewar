@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/12 16:41:23 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/12 17:29:33 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	read_files(t_vm *vm)
 
 	i = 0;
 	while (i < vm->players_alive)
-		vm_read_byte(vm->players[i++]);
+		vm_read_byte(vm->players[i++], vm);
 }
 
 int		main(int ac, char **av)
@@ -118,10 +118,10 @@ int		main(int ac, char **av)
 	if (ft_parse_args(vm, ac, av) == -1)
 		return (0);
 	// dump_memory(vm);
-	initialize_window(vm);
+	// initialize_window(vm);
 	read_files(vm);
 	// ft_print_players(vm);
 	main_loop(vm);
-	close_window();
+	// close_window();
 	return (0);
 }

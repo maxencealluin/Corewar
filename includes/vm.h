@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/12 16:39:14 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/12 17:24:40 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ void			ft_usage();
 
 void			ft_print_players(t_vm *vm);
 
-void			vm_read_byte();
+void			vm_read_byte(t_player *player, t_vm *vm);
 
 #endif
