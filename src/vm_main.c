@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/12 14:15:10 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/12 15:28:38 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,16 @@ void	main_loop(t_vm *vm)
 	}
 }
 
+void	init_player(t_player *player)
+{
+	if (!(player->header = (t_header *)malloc(sizeof(t_header) * (1))))
+		exit(-1);
+}
+
 int		main(int ac, char **av)
 {
 	t_vm	*vm;
+	t_player *player1;
 
 	(void)av;
 	(void)ac;
@@ -108,8 +115,10 @@ int		main(int ac, char **av)
 	initialize_vm(vm);
 	// dump_memory(vm);
 	// initialize_window(vm);
-
-	vm_read_byte();
+	if (!(player1 = (t_player *)malloc(sizeof(t_player) * (1))))
+		exit(-1);
+	init_player(player1);
+	vm_read_byte(player1);
 
 	// main_loop(vm);
 	// close_window();
