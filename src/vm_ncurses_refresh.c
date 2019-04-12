@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:40:21 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/12 12:06:43 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/12 16:46:42 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	arena_display(t_vm *vm)
 	{
 		if (i % 64 == 0)
 			printw("	");
-		printw("%02x ", vm->arena[i++]);
+		printw("%02hhx ", vm->arena[i++].by);
 		if (i % 64 == 0)
 			printw("\n");
 	}

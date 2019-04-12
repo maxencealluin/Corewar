@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/12 15:52:51 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/12 16:41:23 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	dump_memory(t_vm *vm)
 	{
 		if (i % 64 == 0)
 			ft_printf("0x%04x : ", i);
-		ft_printf("%02x ", vm->arena[i++]);
+		ft_printf("%02x ", vm->arena[i++].by);
 		if (i % 64 == 0)
 			ft_printf("\n");
 	}
@@ -66,7 +66,7 @@ void	increment_memory(t_vm *vm)
 {
 	static int i = 0;
 
-	vm->arena[i++]++;
+	vm->arena[i++].by++;
 	if (i == 4096)
 		i = 0;
 }
@@ -118,10 +118,10 @@ int		main(int ac, char **av)
 	if (ft_parse_args(vm, ac, av) == -1)
 		return (0);
 	// dump_memory(vm);
-	// initialize_window(vm);
+	initialize_window(vm);
 	read_files(vm);
-	ft_print_players(vm);
-	// main_loop(vm);
-	// close_window();
+	// ft_print_players(vm);
+	main_loop(vm);
+	close_window();
 	return (0);
 }

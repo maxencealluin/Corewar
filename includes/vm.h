@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/12 15:48:58 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/12 16:39:14 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,14 @@ typedef struct	s_player
 	int			order_arg;
 }				t_player;
 
+typedef	struct	s_case {
+	int			id;
+	char		by;
+}				t_case;
+
 typedef struct	s_vm {
 	t_player	*players[MAX_PLAYERS];
-	char		arena[MEM_SIZE];
+	t_case		arena[MEM_SIZE];
 	int			cycles;
 	int			players_alive;
 	int			cycle_to_die;
