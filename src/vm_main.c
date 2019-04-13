@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/13 12:13:09 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/13 12:52:05 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,12 +128,13 @@ int		main(int ac, char **av)
 	if (ft_parse_args(vm, ac, av) == -1)
 		return (0);
 	// dump_memory(vm);
-	// initialize_window(vm);
+	initialize_window(vm);
 	vm->nb_players = count_players(vm);
 	read_files(vm);
-	ft_print_players(vm);
-	exit(0);
+	// ft_print_players(vm);
+	// ft_print_xarena(vm, 50);
+	// exit(0);
 	main_loop(vm);
-	// close_window();
+	close_window();
 	return (0);
 }

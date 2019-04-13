@@ -6,13 +6,42 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:12:29 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/13 10:34:20 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/13 12:51:23 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 #include "libft.h"
 #include "vm.h"
+
+void	ft_print_xstr(int size, char *str, int wid)
+{
+	int		i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (i % wid == 0)
+			ft_printf("\n");
+		ft_printf("%02hhx ", str[i++]);
+
+	}
+	ft_printf("\n");
+}
+
+void	ft_print_xarena(t_vm *vm, int wid)
+{
+	int		i;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		if (i % wid == 0)
+			ft_printf("\n");
+		ft_printf("%02hhx ", vm->arena[i++].by);
+	}
+	ft_printf("\n");
+}
 
 void	ft_print_players(t_vm *vm)
 {

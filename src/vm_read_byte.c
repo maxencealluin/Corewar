@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:39:44 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/13 12:20:05 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/13 12:50:50 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,68 +15,20 @@
 #include "libftprintf.h"
 #include "fcntl.h"
 
-void	error_champ_to_big()
+void	put_player(char *buff, t_vm *vm, int idx)
 {
-	ft_printf("Error: Champion is too big");
-	exit(0);
-}
-
-void	error_read()
-{
-	ft_printf("Error: reading champion code");
-	exit(0);
-}
-
-void	ft_print_xstr(int size, char *str, int wid)
-{
-	int		i;
-
-	i = 0;
-	while (i < size)
-	{
-		if (i % wid == 0)
-			ft_printf("\n");
-		ft_printf("%02hhx ", str[i++]);
-
-	}
-	ft_printf("\n");
-}
-
-void	ft_print_xarena(t_vm *vm, int wid)
-{
-	int		i;
-
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		if (i % wid == 0)
-			ft_printf("\n");
-		ft_printf("%02hhx ", vm->arena[i++].by);
-
-	}
-	ft_printf("\n");
-}
-
-void	put_player(char *buff, t_vm *vm)
-{
-	ft_printf("arena before\n");
-	ft_print_xarena(vm, 50);
-	ft_printf("\n");
-	ft_print_xstr(CHAMP_MAX_SIZE, buff, 22);
-	ft_printf("\n");
-	int i = 0;
+	int i;
 	int zero;
 
-	zero = MEM_SIZE / vm->players_alive * (vm->players_alive - vm->nb_players--);
-
+	i = 0;
+	zero = MEM_SIZE / vm->players_alive
+		* (vm->players_alive - vm->nb_players--);
 	while (i < CHAMP_MAX_SIZE)
 	{
 		ft_memmove(&vm->arena[zero + i].by, &buff[i], 1);
+		vm->arena[zero + i].id = idx;
 		i++;
 	}
-	ft_printf("arena after\n");
-	ft_print_xarena(vm, 50);
-	ft_printf("\n");
 }
 
 void	read_player_code(int fd, t_player *player, t_vm *vm)
@@ -102,7 +54,7 @@ void	read_player_code(int fd, t_player *player, t_vm *vm)
 	}
 	else
 	{
-		put_player(buff, vm);
+		put_player(buff, vm, player->player_number);
 		ft_memdel((void **)&buff);
 	}
 }

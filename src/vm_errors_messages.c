@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:45:13 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/12 15:53:22 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/13 12:43:42 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,16 @@ void ft_usage()
 {
 	ft_printf("./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...\n");
 	exit (-1);
+}
+
+void	error_champ_to_big()
+{
+	ft_printf("Error: Champion is too big");
+	exit(0);
+}
+
+void	error_read()
+{
+	ft_printf("Error: reading champion code");
+	exit(0);
 }

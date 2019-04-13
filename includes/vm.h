@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/13 12:12:54 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/13 12:43:41 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,18 @@ void			initialize_vm(t_vm *vm);
 
 int				ft_parse_args(t_vm *vm, int ac, char **av);
 void			ft_error_read(char *str);
+void			error_read();
+void			error_champ_to_big();
+
 void			ft_error_too_many();
 void			ft_usage();
 
-void			ft_print_players(t_vm *vm);
 
 void			vm_read_byte(t_player *player, t_vm *vm);
+
+
+void			ft_print_players(t_vm *vm);
+void			ft_print_xstr(int size, char *str, int wid);
+void			ft_print_xarena(t_vm *vm, int wid);
 
 #endif
