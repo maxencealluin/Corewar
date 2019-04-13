@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:39:44 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/13 11:59:36 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/13 12:20:05 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,15 @@ void	put_player(char *buff, t_vm *vm)
 	ft_print_xstr(CHAMP_MAX_SIZE, buff, 22);
 	ft_printf("\n");
 	int i = 0;
+	int zero;
+
+	zero = MEM_SIZE / vm->players_alive * (vm->players_alive - vm->nb_players--);
+
 	while (i < CHAMP_MAX_SIZE)
 	{
-		ft_memmove(&vm->arena[i].by, &buff[i], 1);
+		ft_memmove(&vm->arena[zero + i].by, &buff[i], 1);
 		i++;
 	}
-	ft_printf("00- %02hhx\n", vm->arena[0].by);
-	ft_printf("01- %02hhx\n", vm->arena[1].by);
 	ft_printf("arena after\n");
 	ft_print_xarena(vm, 50);
 	ft_printf("\n");
