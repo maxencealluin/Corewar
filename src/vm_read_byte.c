@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:39:44 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/13 10:13:26 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/13 11:29:05 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,87 @@ void	error_read()
 	exit(0);
 }
 
-void	player_code(int fd, t_player *player, t_vm *vm)
+void	ft_print_xstr(int size, char *str, int wid)
 {
-	char	*buff;
+	int		i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (i % wid == 0)
+			ft_printf("\n");
+		ft_printf("%02hhx ", str[i++]);
+
+	}
+	ft_printf("\n");
+}
+
+void	ft_print_xarena(t_vm *vm, int wid)
+{
+	int		i;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		if (i % wid == 0)
+			ft_printf("\n");
+		ft_printf("%02hhx ", vm->arena[i++].by);
+
+	}
+	ft_printf("\n");
+}
+
+void	put_player(char *buff, t_vm *vm)
+{
+	ft_printf("arena before\n");
+	ft_print_xarena(vm, 50);
+	ft_printf("\n");
+	ft_print_xstr(CHAMP_MAX_SIZE, buff, 22);
+	ft_printf("\n");
+	int i = 0;
+	while (i < CHAMP_MAX_SIZE)
+	{
+		ft_memmove(&vm->arena[i].by, &buff[i], 1);
+		i++;
+	}
+	ft_printf("00- %02hhx\n", vm->arena[0].by);
+	ft_printf("01- %02hhx\n", vm->arena[1].by);
+	ft_printf("arena after\n");
+	ft_print_xarena(vm, 50);
+	ft_printf("\n");
+}
+
+void	read_player_code(int fd, t_player *player, t_vm *vm)
+{
+	unsigned char	*buff;
 	char	test;
 	int		res;
 
-	if (!(buff = (char *)malloc(sizeof(char) * (CHAMP_MAX_SIZE + 1))))
+	if (!(buff = (unsigned char *)malloc(sizeof(unsigned char) * (CHAMP_MAX_SIZE + 1))))
 		exit(-1);
-	res = read(fd, buff, CHAMP_MAX_SIZE - 1);
-	ft_printf("size %5d\n", res);
+	ft_bzero(buff, CHAMP_MAX_SIZE);
+	res = read(fd, buff, CHAMP_MAX_SIZE);
 	res = read(fd, &test, 1);
-	ft_printf("res %5d \n ", res);
-	ft_printf("res %5d \n ", test == '\0');
-	ft_printf("test >%s< \n", &test);
+	// ft_printf("size %5d\n", res);
+	// ft_printf("res %5d \n ", res);
+	// ft_printf("res %5d \n ", test == '\0');
+	// ft_printf("test >%s< \n", &test);
 	if (res > 0 && test != '\0')
+	{
+		ft_memdel((void **)&buff);
 		error_champ_to_big();
+	}
 	else if (res == -1)
+	{
+		ft_memdel((void **)&buff);
 		error_read();
-	// else
-	// 	place_player(buff, vm->arena);
-	ft_printf("code %s ", buff);
+	}
+	else
+	{
+		put_player(buff, vm);
+	// ft_printf("code %s ", buff);
+		ft_memdel((void **)&buff);
+	}
 }
 
 void	vm_read_byte(t_player *player, t_vm *vm)
@@ -63,22 +123,18 @@ void	vm_read_byte(t_player *player, t_vm *vm)
 	read(fd, player->header->prog_name, PROG_NAME_LENGTH);
 	read(fd, tmp, 4);
 	read(fd, tmp, sizeof(unsigned int));
-	ft_printf(">%08b<\n", tmp[3]);
-	ft_printf(">%08b<\n", tmp[2]);
-	ft_printf(">%08b<\n", tmp[1]);
-	ft_printf(">%08b<\n", tmp[0]);
+	// ft_printf(">%08b<\n", tmp[3]);
+	// ft_printf(">%08b<\n", tmp[2]);
+	// ft_printf(">%08b<\n", tmp[1]);
+	// ft_printf(">%08b<\n", tmp[0]);
 	// player->header->prog_size = NULL;
 	// ft_printf("prog_size>%024b<\n", player->header->prog_size);
 	player->header->prog_size = tmp[3] + (tmp[2] << 8) + (tmp[1] << 16) + (tmp[0] << 24);
 	// ft_printf("prog_size>%024b<\n", player->header->prog_size);
 	// ft_printf("prog_size>%024x<\n", player->header->prog_size);
-
 	// player->header->prog_size = (unsigned int)tmp;
 	read(fd, player->header->comment, COMMENT_LENGTH);
 	read(fd, tmp, 4);
 	ft_memdel((void **)&tmp);
-
-
-	ft_printf("prog size %d \n", player->header->prog_size);
-	player_code(fd, player, vm);
+	read_player_code(fd, player, vm);
 }

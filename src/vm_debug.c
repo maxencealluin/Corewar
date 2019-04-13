@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:12:29 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/12 16:08:48 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/13 10:34:20 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,8 @@ void	ft_print_players(t_vm *vm)
 		ft_printf("\n\n");
 		i++;
 	}
+
+	ft_printf("---------- ARENA ----------\n");
+	ft_printf("%p\n", vm->arena);
+	ft_printf("%s\n", vm->arena);
 }
