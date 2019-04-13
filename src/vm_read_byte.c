@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:39:44 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/12 18:07:27 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/13 09:27:32 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,13 @@ void	vm_read_byte(t_player *player, t_vm *vm)
 	read(fd, player->header->prog_name, PROG_NAME_LENGTH);
 	read(fd, tmp, 4);
 	read(fd, tmp, sizeof(unsigned int));
+	ft_printf(">%08b<\n", tmp[3]);
+	ft_printf(">%08b<\n", tmp[2]);
+	ft_printf(">%08b<\n", tmp[1]);
+	ft_printf(">%08b<\n", tmp[0]);
+	player->header->prog_size = NULL;
+	ft_printf("prog_size>%08b<\n", player->header->prog_size);
+	exit(0);
 	player->header->prog_size = tmp[3] + (tmp[2] << 8) + (tmp[1] << 16) + (tmp[0] << 24);
 	// player->header->prog_size = (unsigned int)tmp;
 	read(fd, player->header->comment, COMMENT_LENGTH);

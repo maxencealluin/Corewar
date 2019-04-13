@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/12 17:29:33 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/13 09:45:49 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int		main(int ac, char **av)
 	if (!(vm = (t_vm *)malloc(sizeof(t_vm))))
 		return (0);
 	initialize_vm(vm);
+	exit(0);
 	if (ft_parse_args(vm, ac, av) == -1)
 		return (0);
 	// dump_memory(vm);
