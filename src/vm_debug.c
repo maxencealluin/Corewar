@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:12:29 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/15 13:39:25 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/15 16:07:47 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_print_players(t_vm *vm)
 		ft_printf("Magic: %07x\n", vm->players[i]->header->magic);
 		ft_printf("prog_name: %s\n", vm->players[i]->header->prog_name);
 		ft_printf("comment: %s\n", vm->players[i]->header->comment);
+		ft_printf("pc: %d\n", (int)vm->players[i]->process->pc);
 		ft_printf("\n\n");
 		i++;
 	}

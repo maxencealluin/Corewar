@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/15 15:15:35 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/15 16:00:28 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	main_loop(t_vm *vm)
 			continue;
 
 		increment_memory(vm);
+		launch_process(vm);
 
 		vm->cycles++;
 		cycles++;
@@ -149,7 +150,6 @@ int		main(int ac, char **av)
 	// ft_print_xarena(vm, 50);
 	// vm->arena[MEM_SIZE - 1].by = 255;
 	// print_op();
-	// exit(0);
 
 	// main_loop(vm);
 	// close_window();

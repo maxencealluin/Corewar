@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/04/15 15:12:33 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/15 16:00:28 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,9 @@ void		pick_order(t_vm *vm, int *tab)
 		i++;
 	}
 	sort_tab(tab, vm->nb_players);
+}
+
+void	launch_process(t_vm *vm)
+{
+
 }
