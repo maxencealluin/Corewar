@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/04/15 14:47:12 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/15 15:12:33 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,26 +69,18 @@ void	sort_tab(int *tab, int size)
 	}
 }
 
-void		pick_order(t_vm *vm)
+/*
+** order the player ids from last to first
+*/
+void		pick_order(t_vm *vm, int *tab)
 {
 	int i;
-	int count;
-	int tab[vm->nb_players];
+
 	i = 0;
-	count = 0;
 	while (i < vm->nb_players)
 	{
-		// 	if (vm->players[i]->player_number > value count + 1)
 		tab[i] = vm->players[i]->player_number;
-		ft_printf("order: %5d \n", tab[i]);
-			i++;
+		i++;
 	}
 	sort_tab(tab, vm->nb_players);
-	i = 0;
-	while (i < vm->nb_players)
-	{
-		ft_printf("order: %5d \n", tab[i]);
-			i++;
-	}
-		count++;
 }

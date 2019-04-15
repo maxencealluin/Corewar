@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/15 13:59:59 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/15 15:13:38 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void			ft_usage();
 void			vm_read_byte(t_player *player, t_vm *vm);
 
 
-void			pick_order(t_vm *vm);
+void			pick_order(t_vm *vm, int *tab);
 
 void			print_op();
 

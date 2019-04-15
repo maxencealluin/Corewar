@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/15 15:04:14 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/15 15:15:35 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int			count_players(t_vm *vm)
 int		main(int ac, char **av)
 {
 	t_vm	*vm;
+	int		*order;
 
 	if (ac <= 1)
 		ft_usage();
@@ -138,12 +139,12 @@ int		main(int ac, char **av)
 	// dump_memory(vm);
 	// initialize_window(vm);
 	vm->nb_players = count_players(vm);
-
+	if (!(order = (int *)malloc(sizeof(int) * vm->nb_players)))
+		return (NULL);
 	read_files(vm);
 	ft_print_players(vm);
 	ft_printf("-----------------\n");
-
-	pick_order(vm);
+	pick_order(vm, order);
 	exit(0);
 	// ft_print_xarena(vm, 50);
 	// vm->arena[MEM_SIZE - 1].by = 255;
