@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:39:44 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/15 16:08:17 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/15 16:47:34 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "libftprintf.h"
 #include "fcntl.h"
 
-void	put_player(char *buff, t_vm *vm, int idx)
+void	put_player(char *buff, t_vm *vm, t_player *player, int idx)
 {
 	int i;
 	int zero;
@@ -23,8 +23,8 @@ void	put_player(char *buff, t_vm *vm, int idx)
 	i = 0;
 	zero = MEM_SIZE / vm->players_alive
 		* (vm->players_alive - vm->nb_players--);
-	vm->players[i]->process->pc = zero;
-	while (i < CHAMP_MAX_SIZE)
+	player->process->pc = zero;
+	while (i < CHAMP_MAX_SIZE && i < player->header->prog_size)
 	{
 		ft_memmove(&vm->arena[zero + i].by, &buff[i], 1);
 		vm->arena[zero + i].id = idx;
@@ -55,7 +55,7 @@ void	read_player_code(int fd, t_player *player, t_vm *vm)
 	}
 	else
 	{
-		put_player(buff, vm, player->player_number);
+		put_player(buff, vm, player, player->player_number);
 		ft_memdel((void **)&buff);
 	}
 }
