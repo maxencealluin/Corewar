@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/15 09:05:31 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/15 10:22:27 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,14 @@ void	event_handler(t_vm *vm, t_time *time, int *cycles)
 
 void	increment_memory(t_vm *vm)
 {
-	static int i = 0;
+	static int i = -1;
+	//
+	// vm->arena[i++].by++;
+	// if (i == 4096)
+	// 	i = 0;
 
-	vm->arena[i++].by++;
-	if (i == 4096)
-		i = 0;
+	if (vm->arena[++i].by == 1)
+		vm->arena[i].by = (char)255;
 }
 
 void	main_loop(t_vm *vm)
@@ -133,9 +136,10 @@ int		main(int ac, char **av)
 	read_files(vm);
 	// ft_print_players(vm);
 	// ft_print_xarena(vm, 50);
+	// vm->arena[MEM_SIZE - 1].by = 255;
+	// print_op();
 	// exit(0);
-	vm->arena[MEM_SIZE - 1].by = 255;
-	
+
 	main_loop(vm);
 	close_window();
 	return (0);
