@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:05:00 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/13 09:58:12 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/15 13:49:09 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ void	initialize_vm(t_vm *vm)
 	vm->number_of_live = 0;
 	vm->last_player_live = 0;
 	vm->dump_cycle = -1;
+	vm->nb_players = 0;
 }

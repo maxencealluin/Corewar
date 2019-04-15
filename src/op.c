@@ -6,11 +6,13 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/04/15 09:27:46 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/15 14:47:12 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
+#include "vm.h"
+#include "libftprintf.h"
 
 t_op    op_tab[17] =
 {
@@ -42,4 +44,51 @@ t_op    op_tab[17] =
 void	print_op()
 {
 	ft_printf(">>%s\n", op_tab[0].op_name);
+}
+
+void	sort_tab(int *tab, int size)
+{
+	int i;
+	int j;
+	int tmp;
+
+	i = 0;
+	j = 0;
+	tmp = 0;
+	while (i < size - 1)
+	{
+		if (tab[i] > tab[i + 1])
+			i++;
+		else
+		{
+			tmp = tab[i + 1];
+			tab[i + 1] = tab[i];
+			tab[i] = tmp;
+			i = 0;
+		}
+	}
+}
+
+void		pick_order(t_vm *vm)
+{
+	int i;
+	int count;
+	int tab[vm->nb_players];
+	i = 0;
+	count = 0;
+	while (i < vm->nb_players)
+	{
+		// 	if (vm->players[i]->player_number > value count + 1)
+		tab[i] = vm->players[i]->player_number;
+		ft_printf("order: %5d \n", tab[i]);
+			i++;
+	}
+	sort_tab(tab, vm->nb_players);
+	i = 0;
+	while (i < vm->nb_players)
+	{
+		ft_printf("order: %5d \n", tab[i]);
+			i++;
+	}
+		count++;
 }
