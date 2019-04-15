@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/04/15 16:00:28 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/15 18:19:42 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,5 @@ void		pick_order(t_vm *vm, int *tab)
 
 void	launch_process(t_vm *vm)
 {
-
+	//change id to visualise the carriage
 }

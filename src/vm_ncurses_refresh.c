@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:40:21 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/15 17:24:10 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/15 18:21:15 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ void	arena_display(t_vm *vm)
 		init_pair(4, COLOR_RED, COLOR_MAGENTA);
 		if (i % 64 == 0)
 			printw("	");
-			attron(COLOR_PAIR(vm->arena[i].id));
-			printw("%02hhx ", vm->arena[i].by);
-			attroff(COLOR_PAIR(vm->arena[i++].id));
+		attron(COLOR_PAIR(vm->arena[i].id));
+		printw("%02hhx ", vm->arena[i].id);
+		attroff(COLOR_PAIR(vm->arena[i].id));
+		i++;
 		if (i % 64 == 0)
 			printw("\n");
 	}

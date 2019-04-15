@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/15 15:13:38 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/15 18:15:46 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct	s_vm {
 	int			last_player_live;
 	int			dump_cycle;
 	int			nb_players;
+	int			*order;
 }				t_vm;
 
 void			refresh_window(t_vm *vm);
