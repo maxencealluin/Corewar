@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/13 12:52:05 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/15 09:05:31 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ int		main(int ac, char **av)
 	// ft_print_players(vm);
 	// ft_print_xarena(vm, 50);
 	// exit(0);
+	vm->arena[MEM_SIZE - 1].by = 255;
+	
 	main_loop(vm);
 	close_window();
 	return (0);
