@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 19:01:36 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/17 19:21:08 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct	s_vm {
 	int			dump_cycle;
 	int			nb_players;
 	char		visualization;
+	int			*order;
 }				t_vm;
 
 // NCURSES
@@ -78,6 +79,8 @@ typedef struct	s_vm {
 void			refresh_window(t_vm *vm);
 void			initialize_window(t_vm *vm);
 void			close_window();
+int				count_players(t_vm *vm);
+
 
 
 // INTIALIZATION
@@ -107,8 +110,14 @@ void			main_loop(t_vm *vm);
 void			print_intro(t_vm *vm);
 void			dump_memory(t_vm *vm);
 
+// ?? franck
+
+void			pick_order(t_vm *vm, int *tab);
+void			print_op();
+
 
 // DEBUG
+
 void			ft_print_players(t_vm *vm);
 void			ft_print_xstr(int size, char *str, int wid);
 void			ft_print_xarena(t_vm *vm, int wid);

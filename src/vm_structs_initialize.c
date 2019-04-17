@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:05:00 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 18:38:58 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/17 19:25:17 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ void		initialize_vm(t_vm *vm)
 	i = 0;
 	while (i < MAX_PLAYERS)
 		vm->players[i++] = NULL;
-	ft_bzero(vm->arena, MEM_SIZE);
+	ft_bzero(vm->arena, sizeof(vm->arena));
 	// ft_bzero(vm->play_order, MAX_PLAYERS);
 	vm->cycles = 0;
 	vm->players_alive = 0;
+	vm->nb_players =0;
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	vm->cycle_sec = 50;
 	vm->nb_process = 0;

@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:40:21 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 11:42:04 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/17 19:24:25 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,32 @@
 void	arena_display(t_vm *vm)
 {
 	int i = 0;
+	int col = 0;
+	char by = 0;
 
 	// attron(A_BOLD);
 	move(2,0);
+	if (has_colors() == FALSE)
+	{
+		endwin();
+		printf("Your terminal does not support color\n");
+		exit(1);
+	}
+	start_color();
+	init_pair(0, COLOR_WHITE, COLOR_BLACK);
+	init_pair(1, COLOR_YELLOW, COLOR_GREEN);
+	init_pair(2, COLOR_CYAN, COLOR_BLUE);
+	init_pair(3, COLOR_BLACK, COLOR_WHITE);
+	init_pair(4, COLOR_RED, COLOR_MAGENTA);
 	while (i < MEM_SIZE)
 	{
+
 		if (i % 64 == 0)
 			printw("	");
-		if (vm->arena[i].by != 0)
-			attron(COLOR_PAIR(1));
-		printw("%02hhx ", vm->arena[i++].by);
-		if (vm->arena[i - 1].by != 0)
-			attroff(COLOR_PAIR(1));
+		attron(COLOR_PAIR(vm->arena[i].id));
+		printw("%02hhx ", vm->arena[i].id);
+		attroff(COLOR_PAIR(vm->arena[i].id));
+		i++;
 		if (i % 64 == 0)
 			printw("\n");
 	}
@@ -60,6 +74,7 @@ void 	borders()
 
 	// attron(COLOR_PAIR(1));
 	attron(A_BOLD);
+	attron(COLOR_PAIR(0));
 	border('|', '|', '-', '-', '+', '+', '+', '+');
 	// box(boite, ACS_VLINE, ACS_HLINE);
 	boite = subwin(stdscr, LINES, COLS * 1 / 4, 0, COLS - COLS / 4);
@@ -68,6 +83,7 @@ void 	borders()
 	ft_memdel((void **)&boite);
 	attroff(A_BOLD);
 	// attroff(COLOR_PAIR(1));
+	attroff(COLOR_PAIR(0));
 }
 
 void	refresh_window(t_vm *vm)

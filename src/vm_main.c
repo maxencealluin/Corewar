@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 18:51:56 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/17 19:24:00 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	read_files(t_vm *vm)
 	int		i;
 
 	i = 0;
+	vm->nb_players = count_players(vm);
 	while (i < vm->players_alive)
 	{
 		if (vm->players[i] != NULL)
@@ -33,7 +34,7 @@ int		main(int ac, char **av)
 {
 	t_vm	*vm;
 
-		if (ac <= 1)
+	if (ac <= 1)
 		ft_usage();
 	if (!(vm = (t_vm *)malloc(sizeof(t_vm))))
 		return (0);
@@ -61,7 +62,21 @@ int		main(int ac, char **av)
 }
 
 
-
+// initialize_window(vm);
+// vm->nb_players = count_players(vm);
+// if (!(vm->order = (int *)malloc(sizeof(int) * vm->nb_players)))
+// 	return (NULL);
+// read_files(vm);
+// // ft_print_players(vm);
+// // ft_printf("-----------------\n");
+// pick_order(vm, vm->order);
+// // exit(0);
+// // ft_print_xarena(vm, 50);
+// // vm->arena[MEM_SIZE - 1].by = 255;
+// // print_op();
+//
+// main_loop(vm);
+// close_window();
 
 
 // void	fix_play_order(t_vm *vm, int i, int idx)
