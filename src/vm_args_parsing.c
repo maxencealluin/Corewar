@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 12:16:01 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/13 09:56:57 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/17 18:47:09 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,6 @@ int		file_exists(char *path)
 	return (1);
 }
 
-void	add_player(t_vm *vm, char *path, int next_nb, int i)
-{
-	int		j;
-
-	j = 0;
-	while (vm->players[j] != NULL && j < MAX_PLAYERS)
-		j++;
-	if (j == MAX_PLAYERS)
-		ft_error_too_many();
-	if (!(vm->players[j] = (t_player *)malloc(sizeof(t_player))))
-		exit (-1);
-	vm->players[j]->file_path = ft_strdup(path);
-	vm->players[j]->player_number = next_nb;
-	vm->players[j]->order_arg = i;
-	vm->players[j]->process = NULL;
-	vm->players_alive += 1;
-	if (!(vm->players[j]->header = (t_header *)malloc(sizeof(t_header))))
-		exit(-1);
-	vm->players[j]->header->magic = 0;
-	ft_bzero(vm->players[j]->header->prog_name, PROG_NAME_LENGTH);
-	vm->players[j]->header->prog_size = 0;
-	ft_bzero(vm->players[j]->header->comment, COMMENT_LENGTH);
-}
-
 void	reorder_players(t_vm *vm)
 {
 	int		j;
@@ -63,7 +39,7 @@ void	reorder_players(t_vm *vm)
 	while (c < vm->players_alive)
 	{
 		j = 0;
-		while (j < vm->players_alive)
+		while (j < vm->players_alive && vm->players[j] != NULL)
 		{
 			if (vm->players[j++]->player_number == to_assign)
 			{
@@ -72,10 +48,21 @@ void	reorder_players(t_vm *vm)
 				continue;
 			}
 		}
-		if (vm->players[c]->player_number == 0)
+		if (vm->players[c] != NULL && vm->players[c]->player_number == 0)
 			vm->players[c]->player_number = to_assign;
 		c++;
 	}
+	vm->nb_players = vm->players_alive;
+}
+
+int		read_player_number(char *str)
+{
+	long long nb;
+
+	nb = ft_atol(str);
+	if (nb < 0 || nb > 2147483647 || ft_strlen(str) > 11)
+		ft_incorrect_number();
+	return ((int)nb);
 }
 
 int		ft_parse_args(t_vm *vm, int ac, char **av)
@@ -99,9 +86,14 @@ int		ft_parse_args(t_vm *vm, int ac, char **av)
 			if (i++ >= ac - 2)
 				ft_error_read("-n");
 			else
-				next_nb = ft_atoi(av[i++]);
+				next_nb = read_player_number(av[i++]);
 			if (file_exists(av[i]) == 0)
 				ft_error_read(av[i]);
+		}
+		else if (ft_strcmp(av[i], "-v") == 0)
+		{
+			vm->visualization = 1;
+			i++;
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:40:21 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/12 16:46:42 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/17 11:42:04 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ void	arena_display(t_vm *vm)
 	{
 		if (i % 64 == 0)
 			printw("	");
+		if (vm->arena[i].by != 0)
+			attron(COLOR_PAIR(1));
 		printw("%02hhx ", vm->arena[i++].by);
+		if (vm->arena[i - 1].by != 0)
+			attroff(COLOR_PAIR(1));
 		if (i % 64 == 0)
 			printw("\n");
 	}
@@ -54,14 +58,16 @@ void 	borders()
 	WINDOW *boite;
 
 
-	attron(COLOR_PAIR(1));
+	// attron(COLOR_PAIR(1));
+	attron(A_BOLD);
 	border('|', '|', '-', '-', '+', '+', '+', '+');
 	// box(boite, ACS_VLINE, ACS_HLINE);
 	boite = subwin(stdscr, LINES, COLS * 1 / 4, 0, COLS - COLS / 4);
 	wborder(boite, '|', '|', '-', '-', '+', '+', '+', '+');
 	// box(boite, ACS_VLINE, ACS_HLINE);
 	ft_memdel((void **)&boite);
-	attroff(COLOR_PAIR(1));
+	attroff(A_BOLD);
+	// attroff(COLOR_PAIR(1));
 }
 
 void	refresh_window(t_vm *vm)
@@ -71,5 +77,4 @@ void	refresh_window(t_vm *vm)
 	borders();
 	move(LINES - 1,COLS - 1);
 	refresh();
-	// getch();
 }

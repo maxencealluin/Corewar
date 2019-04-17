@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_ncurses_win.c                                   :+:      :+:    :+:   */
+/*   vm_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 14:37:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 11:34:22 by malluin          ###   ########.fr       */
+/*   Created: 2019/04/17 13:07:52 by malluin           #+#    #+#             */
+/*   Updated: 2019/04/17 14:14:54 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-#include <ncurses.h>
 
-void	initialize_window(t_vm *vm)
+int		read_reg(unsigned char *str)
 {
-	initscr();
-	start_color();
-	init_pair(1, COLOR_RED, COLOR_BLACK);
-	cbreak();
-	nodelay(stdscr, TRUE);
-	noecho();
-	keypad(stdscr, TRUE);
-	refresh_window(vm);
+	int		i;
+	int		res;
+
+	res = 0;
+	i = REG_SIZE - 1;
+	while (i >= 0)
+	{
+		res += (str[i] << (REG_SIZE - i - 1) * 8);
+		i--;
+	}
+	return (res);
 }
 
-void	close_window()
+void	assign_reg(t_process *process, short reg, int value)
 {
-	endwin();
+	int		i;
+
+	i = 0;
+	while (i < REG_SIZE)
+	{
+		process->regs[reg][i] = 0xFF & (value >> (REG_SIZE - 1 - i) * 8);
+		i++;
+	}
 }

@@ -6,96 +6,13 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/15 09:05:31 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/17 18:51:56 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
 #include "libftprintf.h"
-#include <ncurses.h>
-#include <time.h>
-
-void	dump_memory(t_vm *vm)
-{
-	int i = 0;
-
-	while (i < MEM_SIZE)
-	{
-		if (i % 64 == 0)
-			ft_printf("0x%04x : ", i);
-		ft_printf("%02x ", vm->arena[i++].by);
-		if (i % 64 == 0)
-			ft_printf("\n");
-	}
-}
-
-void	reset_time(t_time *time, int *cycles)
-{
-	time->begin = clock();
-	time->pause = clock();
-	*cycles = 0;
-}
-
-void	event_handler(t_vm *vm, t_time *time, int *cycles)
-{
-	int ch;
-
-	if ((ch = getch()) != ERR)
-	{
-		if (ch == ' ')
-		{
-			vm->stop = !(vm->stop);
-			if (vm->stop == 0)
-				time->begin += clock() - time->pause;
-			else
-				time->pause = clock();
-		}
-		else if (ch == KEY_RIGHT || ch == KEY_LEFT)
-		{
-			if (ch == KEY_RIGHT)
-				vm->cycle_sec = vm->cycle_sec >= 590 ? 600 : vm->cycle_sec + 10;
-			else if (ch == KEY_LEFT)
-				vm->cycle_sec = vm->cycle_sec <= 10 ? 1 : vm->cycle_sec - 10;
-			reset_time(time, cycles);
-		}
-	}
-}
-
-void	increment_memory(t_vm *vm)
-{
-	static int i = 0;
-
-	vm->arena[i++].by++;
-	if (i == 4096)
-		i = 0;
-}
-
-void	main_loop(t_vm *vm)
-{
-	int		cycles;
-	t_time	*time;
-
-	if (!(time = (t_time *)malloc(sizeof(t_time))))
-		exit(-1);
-	time->begin = clock();
-	time->pause = clock();
-	cycles = 0;
-	while (1)
-	{
-		event_handler(vm, time, &cycles);
-		refresh_window(vm);
-		time->current = clock();
-		move(10, COLS - COLS/6);
-		// printw("  %d %d ", time->current, time->begin);
-		if (((time->current - time->begin) / 1000 < (unsigned long)
-		(cycles * 1000 / vm->cycle_sec)) || vm->stop == 1)
-			continue;
-		increment_memory(vm);
-		vm->cycles++;
-		cycles++;
-	}
-}
 
 void	read_files(t_vm *vm)
 {
@@ -103,17 +20,13 @@ void	read_files(t_vm *vm)
 
 	i = 0;
 	while (i < vm->players_alive)
-		vm_read_byte(vm->players[i++], vm);
-}
-
-int			count_players(t_vm *vm)
-{
-	int i;
-
-	i = 0;
-	while (vm->players[i] != NULL)
+	{
+		if (vm->players[i] != NULL)
+			vm_read_byte(vm->players[i], vm);
 		i++;
-	return (i);
+	}
+	// fix_play_order(vm, 0, 0);
+	// printf("%d %d %d %d\n\n", vm->play_order[0], vm->play_order[1], vm->play_order[2], vm->play_order[3]);
 }
 
 int		main(int ac, char **av)
@@ -127,16 +40,56 @@ int		main(int ac, char **av)
 	initialize_vm(vm);
 	if (ft_parse_args(vm, ac, av) == -1)
 		return (0);
-	// dump_memory(vm);
-	initialize_window(vm);
-	vm->nb_players = count_players(vm);
 	read_files(vm);
-	// ft_print_players(vm);
+	create_processes(vm);
+	ft_print_players(vm);
 	// ft_print_xarena(vm, 50);
 	// exit(0);
-	vm->arena[MEM_SIZE - 1].by = 255;
-	
-	main_loop(vm);
-	close_window();
+	// vm->arena[MEM_SIZE - 1].by = 255;
+	if (vm->visualization == 1)
+	{
+		initialize_window(vm);
+		main_loop(vm);
+		close_window();
+	}
+	else
+	{
+		print_intro(vm);
+		main_loop(vm);
+	}
 	return (0);
 }
+
+
+
+
+
+// void	fix_play_order(t_vm *vm, int i, int idx)
+// {
+// 	int		max;
+// 	int		j;
+// 	int		prevmax;
+//
+// 	i = 0;
+// 	idx = 0;
+// 	prevmax = 0;
+// 	while (i < vm->players_alive)
+// 	{
+// 		j = -1;
+// 		max = 0;
+// 		while (++j < vm->players_alive)
+// 		{
+// 			if (vm->players[j]->order_arg > max && (prevmax == 0
+// 				|| vm->players[j]->order_arg < prevmax))
+// 			{
+// 				max = vm->players[j]->order_arg;
+// 				idx = j;
+// 				prevmax = max;
+// 			}
+// 		}
+// 		vm->play_order[i++] = idx;
+// 	}
+// }
+
+// Surement useless fix_play_order car au final l'ordre de creation des joueurs est en fonction de leur ordre en argv
+// donc suffit de boucler de facon decroissante pour avoir le bon ordre

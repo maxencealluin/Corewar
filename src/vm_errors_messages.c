@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:45:13 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/13 12:43:42 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/17 16:17:15 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ void ft_error_too_many()
 void ft_usage()
 {
 	ft_printf("./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...\n");
+	exit (-1);
+}
+
+void ft_incorrect_number()
+{
+	ft_printf("The provided number is incorrect, please provide a positive integer.\n");
 	exit (-1);
 }
 

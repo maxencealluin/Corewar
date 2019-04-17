@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:39:44 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/13 12:50:50 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/17 18:52:11 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,18 @@
 #include "libftprintf.h"
 #include "fcntl.h"
 
-void	put_player(char *buff, t_vm *vm, int idx)
+void	put_player(t_vm *vm, t_player *player, unsigned char *buff, int idx)
 {
-	int i;
-	int zero;
+	int			i;
+	int			zero;
+	static int	nb_players = 5;
 
 	i = 0;
-	zero = MEM_SIZE / vm->players_alive
-		* (vm->players_alive - vm->nb_players--);
+	nb_players = nb_players == 5 ? vm->nb_players : nb_players;
+	if (vm->players_alive == 0)
+		return ;
+	zero = MEM_SIZE / vm->players_alive * (vm->players_alive - nb_players--);
+	player->code_start = &(vm->arena[zero]);
 	while (i < CHAMP_MAX_SIZE)
 	{
 		ft_memmove(&vm->arena[zero + i].by, &buff[i], 1);
@@ -54,7 +58,7 @@ void	read_player_code(int fd, t_player *player, t_vm *vm)
 	}
 	else
 	{
-		put_player(buff, vm, player->player_number);
+		put_player(vm, player, buff, player->player_number);
 		ft_memdel((void **)&buff);
 	}
 }

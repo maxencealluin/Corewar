@@ -6,7 +6,7 @@
 #    By: malluin <malluin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/22 14:56:26 by malluin           #+#    #+#              #
-#    Updated: 2019/04/12 15:49:14 by malluin          ###   ########.fr        #
+#    Updated: 2019/04/17 16:18:23 by malluin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,17 @@ NAME_ASM = asm
 
 SRC_VM_NAME =		op.c \
 					vm_main.c \
+					vm_core.c \
 					vm_ncurses_win.c \
 					vm_ncurses_refresh.c \
 					vm_structs_initialize.c \
 					vm_errors_messages.c \
 					vm_args_parsing.c \
 					vm_debug.c \
-					vm_read_byte.c
+					vm_read_byte.c \
+					vm_process_mgmt.c \
+					vm_utils.c \
+					vm_print.c
 
 SRC_ASM_NAME = 	op.c \
 					asm_main.c
