@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 19:24:00 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/17 19:29:11 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	read_files(t_vm *vm)
 	int		i;
 
 	i = 0;
-	vm->nb_players = count_players(vm);
 	while (i < vm->players_alive)
 	{
 		if (vm->players[i] != NULL)

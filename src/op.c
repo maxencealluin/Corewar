@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/04/15 18:19:42 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/17 19:26:50 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,44 +46,44 @@ void	print_op()
 	ft_printf(">>%s\n", op_tab[0].op_name);
 }
 
-void	sort_tab(int *tab, int size)
-{
-	int i;
-	int j;
-	int tmp;
-
-	i = 0;
-	j = 0;
-	tmp = 0;
-	while (i < size - 1)
-	{
-		if (tab[i] > tab[i + 1])
-			i++;
-		else
-		{
-			tmp = tab[i + 1];
-			tab[i + 1] = tab[i];
-			tab[i] = tmp;
-			i = 0;
-		}
-	}
-}
+// void	sort_tab(int *tab, int size)
+// {
+// 	int i;
+// 	int j;
+// 	int tmp;
+//
+// 	i = 0;
+// 	j = 0;
+// 	tmp = 0;
+// 	while (i < size - 1)
+// 	{
+// 		if (tab[i] > tab[i + 1])
+// 			i++;
+// 		else
+// 		{
+// 			tmp = tab[i + 1];
+// 			tab[i + 1] = tab[i];
+// 			tab[i] = tmp;
+// 			i = 0;
+// 		}
+// 	}
+// }
 
 /*
 ** order the player ids from last to first
 */
-void		pick_order(t_vm *vm, int *tab)
-{
-	int i;
-
-	i = 0;
-	while (i < vm->nb_players)
-	{
-		tab[i] = vm->players[i]->player_number;
-		i++;
-	}
-	sort_tab(tab, vm->nb_players);
-}
+// void		pick_order(t_vm *vm, int *tab)
+// {
+// 	int i;
+//
+// 	i = 0;
+// 	while (i < vm->nb_players)
+// 	{
+// 		tab[i] = vm->players[i]->player_number;
+// 		i++;
+// 	}
+// 	sort_tab(tab, vm->nb_players);
+// }
 
 void	launch_process(t_vm *vm)
 {

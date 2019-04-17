@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:40:21 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 19:24:25 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/17 19:38:16 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 void	arena_display(t_vm *vm)
 {
 	int i = 0;
-	int col = 0;
-	char by = 0;
+	// int col = 0;
+	// char by = 0;
 
 	// attron(A_BOLD);
 	move(2,0);
@@ -30,17 +30,17 @@ void	arena_display(t_vm *vm)
 	}
 	start_color();
 	init_pair(0, COLOR_WHITE, COLOR_BLACK);
-	init_pair(1, COLOR_YELLOW, COLOR_GREEN);
-	init_pair(2, COLOR_CYAN, COLOR_BLUE);
-	init_pair(3, COLOR_BLACK, COLOR_WHITE);
-	init_pair(4, COLOR_RED, COLOR_MAGENTA);
+	init_pair(1, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(2, COLOR_CYAN, COLOR_BLACK);
+	init_pair(3, COLOR_BLUE, COLOR_BLACK);
+	init_pair(4, COLOR_RED, COLOR_BLACK);
 	while (i < MEM_SIZE)
 	{
 
 		if (i % 64 == 0)
 			printw("	");
 		attron(COLOR_PAIR(vm->arena[i].id));
-		printw("%02hhx ", vm->arena[i].id);
+		printw("%02hhx ", vm->arena[i].by);
 		attroff(COLOR_PAIR(vm->arena[i].id));
 		i++;
 		if (i % 64 == 0)

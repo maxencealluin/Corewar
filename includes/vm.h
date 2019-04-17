@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 19:21:08 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/17 19:27:29 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void			dump_memory(t_vm *vm);
 
 // ?? franck
 
-void			pick_order(t_vm *vm, int *tab);
+// void			pick_order(t_vm *vm, int *tab); 
 void			print_op();
 
 

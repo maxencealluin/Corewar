@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:39:44 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/17 19:24:48 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/17 19:28:31 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 
 void	put_player(t_vm *vm, t_player *player, unsigned char *buff, int idx)
 {
-	int			i;
-	int			zero;
-	static int	nb_players = 5;
+	unsigned int	i;
+	int				zero;
+	static int		nb_players = 5;
 
 	i = 0;
 	nb_players = nb_players == 5 ? vm->nb_players : nb_players;

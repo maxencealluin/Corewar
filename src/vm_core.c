@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 18:50:59 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/17 19:41:54 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	run_process(t_vm *vm, t_player *player)
 			//do action
 			//go forward
 		}
+		i++;
 	}
 }
 
