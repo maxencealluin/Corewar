@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/18 16:42:45 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/18 18:59:25 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ typedef struct	s_process
 	int					pc;
 	char				carry;
 	int					wait_cycles;
+	int					last_live;
+	int					step_over;
+	int					id_parent;
 	struct s_process	*next;
 }				t_process;
 
@@ -40,7 +43,6 @@ typedef struct	s_time
 
 typedef struct	s_player
 {
-	t_process	**process;
 	char		*code;
 	t_header	*header;
 	int			code_start;
@@ -59,6 +61,7 @@ typedef	struct	s_case {
 
 typedef struct	s_vm {
 	t_player	*players[MAX_PLAYERS];
+	t_process	*process;
 	t_case		arena[MEM_SIZE];
 	// char		play_order[MAX_PLAYERS];
 	int			cycles;
@@ -67,12 +70,13 @@ typedef struct	s_vm {
 	int			nb_process;
 	int			stop;
 	int			cycle_sec;
-	int			number_of_live;
 	int			last_player_live;
 	int			dump_cycle;
 	int			nb_players;
 	char		visualization;
 	int			*order;
+	char		current_checks;
+	int			number_of_live;
 }				t_vm;
 
 // NCURSES
@@ -101,6 +105,9 @@ void			vm_read_byte(t_player *player, t_vm *vm);
 void			create_processes(t_vm *vm);
 int				read_reg(unsigned char *str);
 void			assign_reg(t_process *process, short reg, int value);
+
+void			remove_process(t_vm *vm, t_process *node);
+
 
 // MAIN LOOP
 

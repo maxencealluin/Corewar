@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:12:29 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 19:21:32 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/18 17:39:45 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,28 @@ void	ft_print_xarena(t_vm *vm, int wid)
 	ft_printf("\n");
 }
 
-void	ft_print_process(t_player *play)
+void	ft_print_process(t_vm *vm)
 {
 	int		i;
 	int		j;
+	t_process *process;
 
 	i = 0;
-	while (play != NULL && i < play->nb_process)
+	process = vm->process;
+	while (process != NULL)
 	{
 		j = 0;
-		ft_printf("Process %2d\n", i);
-		ft_printf("PC %p\n", play->process[i]->pc);
-		ft_printf("carry %d\n", play->process[i]->carry);
+		ft_printf("\nProcess %2d  | ", i);
+		ft_printf("PC %d  | ", process->pc);
+		ft_printf("carry %d\n", process->carry);
 		while (j < REG_NUMBER)
 		{
-			ft_printf("reg %d: %d\n", j, read_reg(play->process[i]->regs[j]));
-			// ft_printf("%hhd %hhd %hhd %hhd\n", play->process[i]->regs[j][0], play->process[i]->regs[j][1], play->process[i]->regs[j][2], play->process[i]->regs[j][3]);
-			j++;
+			ft_printf("reg %2d: %3d | reg %2d: %3d\n", j, read_reg(process->regs[j]), j + 1, read_reg(process->regs[j + 1]));
+			// ft_printf("%hhd %hhd %hhd %hhd\n", process->regs[j][0], process->regs[j][1], process->regs[j][2], process->regs[j][3]);
+			j += 2;
 		}
 		i++;
+		process = process->next;
 	}
 }
 
@@ -78,11 +81,10 @@ void	ft_print_players(t_vm *vm)
 		ft_printf("Magic: %07x\n", vm->players[i]->header->magic);
 		ft_printf("prog_name: %s\n", vm->players[i]->header->prog_name);
 		ft_printf("comment: %s\n", vm->players[i]->header->comment);
-		ft_print_process(vm->players[i]);
 		ft_printf("\n\n");
 		i++;
 	}
-
+	ft_print_process(vm);
 	ft_printf("---------- ARENA ----------\n");
 	ft_printf("%p\n", vm->arena);
 	ft_printf("%s\n", vm->arena);
