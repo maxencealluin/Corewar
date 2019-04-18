@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/18 13:18:23 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/18 18:32:45 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct	s_vm {
 	int			nb_players;
 	char		visualization;
 	int			*order;
+	int			enc[4];
 }				t_vm;
 
 // NCURSES

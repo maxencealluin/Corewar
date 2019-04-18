@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:05:00 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 19:25:17 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/18 18:32:28 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ void		initialize_vm(t_vm *vm)
 	vm->last_player_live = 0;
 	vm->dump_cycle = -1;
 	vm->visualization = 0;
+	vm->enc[0] = 0;
+	vm->enc[1] = 1;
+	vm->enc[2] = 4;
+	vm->enc[3] = 2;
 }
 
 void	add_player(t_vm *vm, char *path, int next_nb, int i)
