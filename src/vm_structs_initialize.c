@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:05:00 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 19:25:17 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/18 16:47:27 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	add_player(t_vm *vm, char *path, int next_nb, int i)
 	vm->players[j]->file_path = ft_strdup(path);
 	vm->players[j]->player_number = next_nb;
 	vm->players[j]->process = NULL;
-	vm->players[j]->code_start = NULL;
+	vm->players[j]->code_start = 0;
 	vm->players[j]->order_arg = i;
 	vm->players[j]->nb_process = 0;
 	vm->players[j]->alive = 1;

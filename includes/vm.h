@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/18 13:18:23 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/18 16:42:45 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 typedef struct	s_process
 {
 	unsigned char		regs[REG_NUMBER][REG_SIZE];
-	void				*pc;
+	int					pc;
 	char				carry;
 	int					wait_cycles;
 	struct s_process	*next;
@@ -43,7 +43,7 @@ typedef struct	s_player
 	t_process	**process;
 	char		*code;
 	t_header	*header;
-	void		*code_start;
+	int			code_start;
 	char		*file_path;
 	int			player_number;
 	int			order_arg;
