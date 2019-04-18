@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 19:41:54 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/18 15:48:26 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,39 @@ void	event_handler(t_vm *vm, t_time *time, int *cycles)
 	}
 }
 
+void	process_forward(t_vm *vm, t_player *player, int idx)
+{
+	t_case	*place;
+
+	place = (t_case *)player->process[idx]->pc;
+	if (place == NULL)
+		return ;
+	place->proc_id = 0;
+	if (player->process[idx]->pc == &(vm->arena[4095]))
+		player->process[idx]->pc = vm->arena;
+	else
+		player->process[idx]->pc += sizeof(t_case);
+	place = (t_case *)player->process[idx]->pc;
+	place->proc_id = 1;
+}
+
 void	run_process(t_vm *vm, t_player *player)
 {
 	int		i;
+	t_case	*place;
 
 	i = 0;
 	while (i < player->nb_process)
 	{
+		place = (t_case *)player->process[i]->pc;
+		if (place->proc_id == 0)
+			place->proc_id = 1;
+		// set the op code
 		if (player->process[i]->wait_cycles != 0)
 			player->process[i]->wait_cycles--;
-		else
+		if (player->process[i]->wait_cycles == 0)
 		{
-			;
+			process_forward(vm, player, i);
 			//do action
 			//go forward
 		}
