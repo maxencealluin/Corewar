@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/19 08:28:39 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/19 09:23:56 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,37 @@ void	ft_load(t_vm *vm, t_process *p, int pos)
 {
 	unsigned char c;
 	int *by;
+	int count;
 
 	ft_printf("load\n");
 	c  = vm->arena[pos].by;
 	if (!(by = (int *)malloc(sizeof(int) * 4)))
 		exit(-1);
 	if (!(by = ft_decode_byte(c, by, vm)))
-		exit(-1);;
-	ft_printf("%d // %d // %d // %d \n", by[0], by[1], by[2], by[3]);
+		exit(-1);
+	ft_printf("%d // %d // %d // %d -- %d\n", by[0], by[1], by[2], by[3], pos);
+	//second parameter must be a register
+	if (by[1] != 1 && (vm->arena[pos + by[0] + 1].by > 16
+		|| vm->arena[pos + by[0] + 1].by <= 0))
+	{
+		error_read();
+	}
+	count = 0;
+	while (count < by[0])
+	{
+		count++;
+		// ft_printf("current byte[%d] value \n%02hhx\n", i, vm->arena[pos + count].by);
+		p->regs[by[1]][count] = vm->arena[pos + count].by;
+		ft_printf("in reg %02b \n", p->regs[3][count]);
+	}
+	//set the new carry
 	ft_memdel((void **)&by);
 }
 
 void	p_run(t_vm *vm, t_process *p, int pc)
 {
 	//choose the function on the byte
+	//wait function
 	ft_printf("current byte value \n%02hhx\n", vm->arena[pc].by);
 	pc++;
 	ft_load(vm, p, pc);
@@ -78,7 +95,7 @@ int		main(int ac, char **av)
 	read_files(vm);
 	create_processes(vm);
 	ft_print_players(vm);
-	// ft_print_xarena(vm, 50);
+	ft_print_xarena(vm, 50);
 
 	t_process *p = *vm->players[0]->process;
 	ft_print_process(vm->players[0]);
