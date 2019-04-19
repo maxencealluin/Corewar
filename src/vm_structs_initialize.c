@@ -34,6 +34,10 @@ void		initialize_vm(t_vm *vm)
 	vm->last_player_live = 0;
 	vm->dump_cycle = -1;
 	vm->visualization = 0;
+	vm->enc[0] = 0;
+	vm->enc[1] = 1;
+	vm->enc[2] = 4;
+	vm->enc[3] = 2;
 	vm->current_checks = 0;
 }
 

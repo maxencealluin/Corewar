@@ -6,11 +6,12 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/18 18:59:37 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/19 10:05:14 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include "op.h"
 #include "libft.h"
 #include "libftprintf.h"
 
@@ -29,6 +30,16 @@ void	read_files(t_vm *vm)
 	// printf("%d %d %d %d\n\n", vm->play_order[0], vm->play_order[1], vm->play_order[2], vm->play_order[3]);
 }
 
+void	p_run(t_vm *vm, t_process *p, int pc)
+{
+	//choose the function on the byte
+	//wait function
+	ft_printf("current byte value \n%02hhx\n", vm->arena[pc].by);
+	pc++;
+	op_load(vm, p, pc);
+	ft_print_process(vm->players[0]);
+}
+
 int		main(int ac, char **av)
 {
 	t_vm	*vm;
@@ -43,8 +54,14 @@ int		main(int ac, char **av)
 	read_files(vm);
 	create_processes(vm);
 	ft_print_players(vm);
-	// ft_print_xarena(vm, 50);
-	// exit(0);
+	ft_print_xarena(vm, 50);
+
+	t_process *p = *vm->players[0]->process;
+	ft_print_process(vm->players[0]);
+	//1 correspond q lendorit ou il faudra mettre pc, l avancement dans la memoire
+	int pc = 0;
+	p_run(vm, p, pc);
+	exit(0);
 	// vm->arena[MEM_SIZE - 1].by = 255;
 	if (vm->visualization == 1)
 	{

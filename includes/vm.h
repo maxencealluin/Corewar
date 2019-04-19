@@ -75,6 +75,7 @@ typedef struct	s_vm {
 	int			nb_players;
 	char		visualization;
 	int			*order;
+	int			enc[4];
 	char		current_checks;
 	int			number_of_live;
 }				t_vm;
@@ -119,6 +120,10 @@ void			print_intro(t_vm *vm);
 void			dump_memory(t_vm *vm);
 
 // ?? franck
+int				*ft_decode_byte(unsigned char c, int *tab, t_vm *vm);
+int				is_register(unsigned char decoded_by, unsigned char arena_by);
+void			op_load(t_vm *vm, t_process *p, int pos);
+
 
 // void			pick_order(t_vm *vm, int *tab);
 void			print_op();
@@ -138,5 +143,8 @@ void			error_champ_to_big();
 void			ft_error_too_many();
 void			ft_usage();
 void			ft_incorrect_number();
+void			error_param();
+
+
 
 #endif

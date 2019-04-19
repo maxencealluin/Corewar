@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:45:13 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 16:17:15 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/19 09:33:37 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,18 @@ void ft_incorrect_number()
 
 void	error_champ_to_big()
 {
-	ft_printf("Error: Champion is too big");
+	ft_printf("Error: Champion is too big\n");
 	exit(0);
 }
 
 void	error_read()
 {
-	ft_printf("Error: reading champion code");
+	ft_printf("Error: reading champion code\n");
+	exit(0);
+}
+
+void	error_param()
+{
+	ft_printf("Error: wrong parameters in exec code\n");
 	exit(0);
 }
