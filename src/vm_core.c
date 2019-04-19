@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/18 19:03:18 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/19 16:06:53 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <ncurses.h>
 #include <time.h>
 #include "libftprintf.h"
+
+#include "op_func.h"
 
 void	reset_time(t_time *time, int *cycles)
 {
@@ -47,24 +49,60 @@ void	event_handler(t_vm *vm, t_time *time, int *cycles)
 	}
 }
 
-void	process_forward(t_vm *vm, t_process *proc)
+void	pc_forward_sequence(t_vm *vm, t_process *proc) // a ecrire
+{
+	vm->arena[proc->pc].proc_id = 0;
+	proc->pc = (proc->pc + 1) % 4096;
+	vm->arena[proc->pc].proc_id = 1;
+} // temp
+
+void	pc_forward_one(t_vm *vm, t_process *proc)
 {
 	vm->arena[proc->pc].proc_id = 0;
 	proc->pc = (proc->pc + 1) % 4096;
 	vm->arena[proc->pc].proc_id = 1;
 }
 
-void	read_op_code(t_vm *vm, t_process *process)
+extern t_op op_tab[17];
+
+void	read_op_code(t_vm *vm, t_process *proc)
 {
-	;
+
+	proc->next_op = vm->arena[proc->pc].by;
+	if (proc->next_op >= 1 && proc->next_op <= 16)
+		proc->wait_cycles = op_tab[proc->next_op - 1].cycles;
+}
+
+void	op_live(t_vm *vm, t_process *proc)
+{
+	int		i;
+
+	i = 0;
+	proc->last_live = vm->cycles;
+	vm->number_of_live += 1;
+	// LIRE NOMBRE 
+	while (i < MAX_PLAYERS)
+	{
+		if (0 == vm->players[i++]->player_number)
+			vm->last_player_live = 0;
+	}
+}
+
+int		perform_op(t_vm *vm, t_process *proc)
+{
+	if (op_func[proc->next_op - 1] != NULL)
+		op_func[proc->next_op - 1](vm, proc);
+	else
+		return (0);
+	return (1);
 }
 
 void	run_process(t_vm *vm)
 {
-	int			i;
+	int			res;
 	t_process	*proc;
 
-	i = 0;
+	res = 0;
 	proc = vm->process;
 	//inner loop
 	while (proc)
@@ -88,33 +126,19 @@ void	run_process(t_vm *vm)
 		//act if wait cycle over
 		if (proc->wait_cycles == 0)
 		{
-			process_forward(vm, proc);
 			//do action
-			//go forward
+			if (proc->next_op >= 1 && proc->next_op <= 16)
+				res = perform_op(vm, proc);
+
+			if (res == 1)
+				pc_forward_sequence(vm, proc); //go forward to next instruction
+			else
+				pc_forward_one(vm, proc); //go forward one byte
 		}
 		proc = proc->next;
 	}
 }
 
-void	remove_dead_process(t_vm *vm)
-{
-	t_process *proc;
-	t_process *tmp;
-
-	proc = vm->process;
-	while (proc)
-	{
-		if (proc->last_live <= vm->cycles - vm->cycle_to_die)
-		{
-			vm->arena[proc->pc].proc_id = 0;
-			tmp = proc;
-			proc = proc->next;
-			remove_process(vm, tmp);
-			continue;
-		}
-		proc = proc->next;
-	}
-}
 
 void	ft_step(t_vm *vm)
 {
@@ -125,7 +149,7 @@ void	ft_step(t_vm *vm)
 	if (vm->cycles % vm->cycle_to_die == 0)
 	{
 		vm->current_checks++;
-		remove_dead_process(vm);
+		// remove_dead_process(vm);
 		if (vm->current_checks >= MAX_CHECKS || vm->number_of_live > NBR_LIVE)
 		{
 			vm->cycle_to_die -= CYCLE_DELTA;
@@ -137,13 +161,6 @@ void	ft_step(t_vm *vm)
 	increment_memory(vm);
 	vm->cycles++;
 }
-
-/*
-** thing to do : check if 21 live ? decrease cycle to die by cycle delta
-**
-**
-**
-*/
 
 void	main_loop(t_vm *vm)
 {

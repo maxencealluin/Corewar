@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 11:42:41 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/18 19:00:57 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/19 13:14:30 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_process	*new_process(int id_parent, int pc)
 	node->wait_cycles = 0;
 	node->last_live = 0;
 	node->step_over = 0;
+	node->next_op = 0;
 	node->id_parent = id_parent;
 	node->next = NULL;
 	ft_bzero(node->regs, REG_NUMBER * REG_SIZE);
@@ -65,6 +66,26 @@ void	remove_process(t_vm *vm, t_process *node)
 		parent->next = node->next;
 		ft_memdel((void **)&node);
 		vm->nb_process--;
+	}
+}
+
+void	remove_dead_process(t_vm *vm)
+{
+	t_process *proc;
+	t_process *tmp;
+
+	proc = vm->process;
+	while (proc)
+	{
+		if (proc->last_live <= vm->cycles - vm->cycle_to_die)
+		{
+			vm->arena[proc->pc].proc_id = 0;
+			tmp = proc;
+			proc = proc->next;
+			remove_process(vm, tmp);
+			continue;
+		}
+		proc = proc->next;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/19 10:05:14 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/19 13:05:07 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ void	p_run(t_vm *vm, t_process *p, int pc)
 {
 	//choose the function on the byte
 	//wait function
+	pc = p->pc;
 	ft_printf("current byte value \n%02hhx\n", vm->arena[pc].by);
 	pc++;
 	op_load(vm, p, pc);
-	ft_print_process(vm->players[0]);
+	ft_print_process(vm);
 }
 
 int		main(int ac, char **av)
@@ -54,15 +55,15 @@ int		main(int ac, char **av)
 	read_files(vm);
 	create_processes(vm);
 	ft_print_players(vm);
-	ft_print_xarena(vm, 50);
 
-	t_process *p = *vm->players[0]->process;
-	ft_print_process(vm->players[0]);
-	//1 correspond q lendorit ou il faudra mettre pc, l avancement dans la memoire
-	int pc = 0;
-	p_run(vm, p, pc);
-	exit(0);
-	// vm->arena[MEM_SIZE - 1].by = 255;
+
+	// ft_print_xarena(vm, 50);
+	// t_process *p = vm->process;
+	// // ft_print_process(vm);
+	// //1 correspond q lendorit ou il faudra mettre pc, l avancement dans la memoire
+	// p_run(vm, p, 0);
+	// exit(0);
+
 	if (vm->visualization == 1)
 	{
 		initialize_window(vm);
@@ -76,24 +77,6 @@ int		main(int ac, char **av)
 	}
 	return (0);
 }
-
-
-// initialize_window(vm);
-// vm->nb_players = count_players(vm);
-// if (!(vm->order = (int *)malloc(sizeof(int) * vm->nb_players)))
-// 	return (NULL);
-// read_files(vm);
-// // ft_print_players(vm);
-// // ft_printf("-----------------\n");
-// pick_order(vm, vm->order);
-// // exit(0);
-// // ft_print_xarena(vm, 50);
-// // vm->arena[MEM_SIZE - 1].by = 255;
-// // print_op();
-//
-// main_loop(vm);
-// close_window();
-
 
 // void	fix_play_order(t_vm *vm, int i, int idx)
 // {

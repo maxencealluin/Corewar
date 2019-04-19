@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:40:21 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/18 19:00:35 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/19 14:54:45 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ void	menu(t_vm *vm)
 	printw("Process: %d", vm->nb_process);
 	move(8, COLS - COLS/6);
 	printw("Cycle per sec: %d", vm->cycle_sec);
+	move(9, COLS - COLS/6);
+	printw("Number of lives: %d", vm->number_of_live);
+	move(10, COLS - COLS/6);
+	printw("Last player live: %d", vm->last_player_live);
+	move(15, COLS - COLS/6);
 	attroff(A_BOLD);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 09:41:33 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/19 10:24:58 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:13:02 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 
 void	op_load(t_vm *vm, t_process *p, int pos)
 {
-	unsigned char c;
-	int *by;
-	int count;
-	char test;
+	unsigned char	c;
+	int				*by;
+	int				count;
+	char			test;
 
 	ft_printf("load\n");
 	c  = vm->arena[pos].by;
@@ -51,17 +51,17 @@ void	op_load(t_vm *vm, t_process *p, int pos)
 	ft_memdel((void **)&by);
 }
 
-void	op_store(t_vm *vm, t_process *p, int pos)
-{
-
-}
-
-void	op_add(t_vm *vm, t_process *p, int pos)
-{
-
-}
-
-void	op_sub(t_vm *vm, t_process *p, int pos)
-{
-
-}
+// void	op_store(t_vm *vm, t_process *p, int pos)
+// {
+// 	;
+// }
+//
+// void	op_add(t_vm *vm, t_process *p, int pos)
+// {
+// 	;
+// }
+//
+// void	op_sub(t_vm *vm, t_process *p, int pos)
+// {
+// 	;
+// }

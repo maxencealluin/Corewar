@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/18 18:59:25 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/19 15:49:14 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_process
 	int					last_live;
 	int					step_over;
 	int					id_parent;
+	unsigned char		next_op;
 	struct s_process	*next;
 }				t_process;
 
@@ -80,6 +81,19 @@ typedef struct	s_vm {
 	int			number_of_live;
 }				t_vm;
 
+typedef struct		s_op {
+	char	*op_name;
+	int		nb_args;
+	int		args_size[3];
+	int		op_num;
+	int		cycles;
+	char	*op_desc;
+	int		encoding;
+	int		size_direct;
+}					t_op;
+
+
+
 // NCURSES
 
 void			refresh_window(t_vm *vm);
@@ -108,6 +122,7 @@ int				read_reg(unsigned char *str);
 void			assign_reg(t_process *process, short reg, int value);
 
 void			remove_process(t_vm *vm, t_process *node);
+void			remove_dead_process(t_vm *vm);
 
 
 // MAIN LOOP
@@ -122,11 +137,15 @@ void			dump_memory(t_vm *vm);
 // ?? franck
 int				*ft_decode_byte(unsigned char c, int *tab, t_vm *vm);
 int				is_register(unsigned char decoded_by, unsigned char arena_by);
-void			op_load(t_vm *vm, t_process *p, int pos);
 
 
 // void			pick_order(t_vm *vm, int *tab);
 void			print_op();
+
+
+// OPERATIONS
+void			op_load(t_vm *vm, t_process *proc, int pos);
+void			op_live(t_vm *vm, t_process *proc);
 
 
 // DEBUG
@@ -135,6 +154,7 @@ void			ft_print_players(t_vm *vm);
 void			ft_print_xstr(int size, char *str, int wid);
 void			ft_print_xarena(t_vm *vm, int wid);
 void			increment_memory(t_vm *vm);
+void			ft_print_process(t_vm *vm);
 
 // ERRORS
 void			ft_error_read(char *str);
@@ -144,7 +164,5 @@ void			ft_error_too_many();
 void			ft_usage();
 void			ft_incorrect_number();
 void			error_param();
-
-
 
 #endif
