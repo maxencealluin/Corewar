@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/19 09:40:21 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/19 10:21:02 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void			dump_memory(t_vm *vm);
 
 // ?? franck
 int				*ft_decode_byte(unsigned char c, int *tab, t_vm *vm);
+int				is_register(unsigned char decoded_by, unsigned char arena_by);
 void			op_load(t_vm *vm, t_process *p, int pos);
 
 

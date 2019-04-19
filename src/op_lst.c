@@ -6,13 +6,19 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 09:41:33 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/19 10:11:59 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/19 10:24:58 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "op.h"
 #include "libftprintf.h"
+
+/*
+**second parameter must be a register
+**change carry to one if first parameter is 0
+**set the new carry
+*/
 
 void	op_load(t_vm *vm, t_process *p, int pos)
 {
@@ -27,14 +33,9 @@ void	op_load(t_vm *vm, t_process *p, int pos)
 		exit(-1);
 	if (!(by = ft_decode_byte(c, by, vm)))
 		exit(-1);
-	ft_printf("%d // %d // %d // %d -- %d\n", by[0], by[1], by[2], by[3], pos);
-	//second parameter must be a register
-	//change carry to one if first parameter is 0
-	if (by[1] != 1 && (vm->arena[pos + by[0] + 1].by > 16
-		|| vm->arena[pos + by[0] + 1].by <= 0))
-	{
+	// ft_printf("%d // %d // %d // %d -- %d\n", by[0], by[1], by[2], by[3], pos);
+	if (is_register(by[1], vm->arena[pos + by[0] + 1].by) == 0)
 		error_param();
-	}
 	count = 0;
 	while (count < by[0])
 	{
@@ -46,11 +47,7 @@ void	op_load(t_vm *vm, t_process *p, int pos)
 	test = (p->regs[by[1]][0] << 6) + (p->regs[by[1]][1] << 4) + (p->regs[by[1]][2] << 4) + (p->regs[by[1]][3]);
 	// ft_printf("current byte value \n%08b\n", test);
 	if (test == 0)
-	{
-		// ft_printf("frst prm nll\n");
 		p->carry = 1;
-	}
-	//set the new carry
 	ft_memdel((void **)&by);
 }
 
