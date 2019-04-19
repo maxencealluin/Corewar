@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:05:00 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/18 18:32:28 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:59:22 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void		initialize_vm(t_vm *vm)
 		vm->players[i++] = NULL;
 	ft_bzero(vm->arena, sizeof(vm->arena));
 	// ft_bzero(vm->play_order, MAX_PLAYERS);
+	vm->process = NULL;
 	vm->cycles = 0;
 	vm->players_alive = 0;
 	vm->nb_players =0;
@@ -37,6 +38,7 @@ void		initialize_vm(t_vm *vm)
 	vm->enc[1] = 1;
 	vm->enc[2] = 4;
 	vm->enc[3] = 2;
+	vm->current_checks = 0;
 }
 
 void	add_player(t_vm *vm, char *path, int next_nb, int i)
@@ -52,8 +54,7 @@ void	add_player(t_vm *vm, char *path, int next_nb, int i)
 		exit (-1);
 	vm->players[j]->file_path = ft_strdup(path);
 	vm->players[j]->player_number = next_nb;
-	vm->players[j]->process = NULL;
-	vm->players[j]->code_start = NULL;
+	vm->players[j]->code_start = 0;
 	vm->players[j]->order_arg = i;
 	vm->players[j]->nb_process = 0;
 	vm->players[j]->alive = 1;

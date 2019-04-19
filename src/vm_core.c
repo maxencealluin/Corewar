@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/18 18:59:42 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/18 19:03:18 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,43 +47,72 @@ void	event_handler(t_vm *vm, t_time *time, int *cycles)
 	}
 }
 
-void	process_forward(t_vm *vm, t_player *player, int idx)
+void	process_forward(t_vm *vm, t_process *proc)
 {
-	t_case	*place;
-
-	place = (t_case *)player->process[idx]->pc;
-	if (place == NULL)
-		return ;
-	place->proc_id = 0;
-	if (player->process[idx]->pc == &(vm->arena[4095]))
-		player->process[idx]->pc = vm->arena;
-	else
-		player->process[idx]->pc += sizeof(t_case);
-	place = (t_case *)player->process[idx]->pc;
-	place->proc_id = 1;
+	vm->arena[proc->pc].proc_id = 0;
+	proc->pc = (proc->pc + 1) % 4096;
+	vm->arena[proc->pc].proc_id = 1;
 }
 
-void	run_process(t_vm *vm, t_player *player)
+void	read_op_code(t_vm *vm, t_process *process)
 {
-	int		i;
-	t_case	*place;
+	;
+}
+
+void	run_process(t_vm *vm)
+{
+	int			i;
+	t_process	*proc;
 
 	i = 0;
-	while (i < player->nb_process)
+	proc = vm->process;
+	//inner loop
+	while (proc)
 	{
-		place = (t_case *)player->process[i]->pc;
-		if (place->proc_id == 0)
-			place->proc_id = 1;
-		// set the op code
-		if (player->process[i]->wait_cycles != 0)
-			player->process[i]->wait_cycles--;
-		if (player->process[i]->wait_cycles == 0)
+		// protection
+		if (proc == NULL)
+			continue;
+		//graphic
+		if (vm->arena[proc->pc].proc_id == 0)
+			vm->arena[proc->pc].proc_id = 1;
+
+		// read op code_start
+		if (proc->wait_cycles == 0)
 		{
-			process_forward(vm, player, i);
+			read_op_code(vm, proc);
+		}
+		// decrease wait cycle
+		if (proc->wait_cycles != 0)
+			proc->wait_cycles--;
+
+		//act if wait cycle over
+		if (proc->wait_cycles == 0)
+		{
+			process_forward(vm, proc);
 			//do action
 			//go forward
 		}
-		i++;
+		proc = proc->next;
+	}
+}
+
+void	remove_dead_process(t_vm *vm)
+{
+	t_process *proc;
+	t_process *tmp;
+
+	proc = vm->process;
+	while (proc)
+	{
+		if (proc->last_live <= vm->cycles - vm->cycle_to_die)
+		{
+			vm->arena[proc->pc].proc_id = 0;
+			tmp = proc;
+			proc = proc->next;
+			remove_process(vm, tmp);
+			continue;
+		}
+		proc = proc->next;
 	}
 }
 
@@ -92,13 +121,21 @@ void	ft_step(t_vm *vm)
 	int		i;
 
 	i = vm->nb_players - 1;
-	while (i >= 0)
+	//prelimiary check
+	if (vm->cycles % vm->cycle_to_die == 0)
 	{
-		if (vm->players[i]->alive == 1)
-			run_process(vm, vm->players[i]);
-		i--;
+		vm->current_checks++;
+		remove_dead_process(vm);
+		if (vm->current_checks >= MAX_CHECKS || vm->number_of_live > NBR_LIVE)
+		{
+			vm->cycle_to_die -= CYCLE_DELTA;
+			vm->current_checks = 0;
+		}
+		vm->number_of_live = 0;
 	}
+	run_process(vm);
 	increment_memory(vm);
+	vm->cycles++;
 }
 
 /*
@@ -135,7 +172,6 @@ void	main_loop(t_vm *vm)
 				continue;
 		}
 		ft_step(vm);
-		vm->cycles++;
 		cycles++;
 	}
 }

@@ -20,7 +20,7 @@ void	read_files(t_vm *vm)
 	int		i;
 
 	i = 0;
-	while (i < vm->players_alive)
+	while (i < vm->nb_players)
 	{
 		if (vm->players[i] != NULL)
 			vm_read_byte(vm->players[i], vm);

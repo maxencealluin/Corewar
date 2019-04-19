@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 11:42:41 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 19:34:42 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/18 19:00:57 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,73 @@
 #include "libft.h"
 #include "libftprintf.h"
 
-void	add_process(t_vm *vm, t_player *player)
+t_process	*new_process(int id_parent, int pc)
 {
-	if (!(player->process = (t_process **)malloc(sizeof(t_process*))))
+	t_process	*node;
+
+	if (!(node = (t_process *)malloc(sizeof(t_process))))
+		return (NULL);
+	node->pc = pc;
+	node->carry = 0;
+	node->wait_cycles = 0;
+	node->last_live = 0;
+	node->step_over = 0;
+	node->id_parent = id_parent;
+	node->next = NULL;
+	ft_bzero(node->regs, REG_NUMBER * REG_SIZE);
+	return (node);
+}
+
+void	add_first_process_front(t_vm *vm, t_player *player, t_process **blist)
+{
+	t_process	*tmp;
+
+	tmp = new_process(player->player_number, player->code_start);
+	vm->nb_process += 1;
+	if (tmp == NULL || blist == NULL)
 		return ;
-	if (!(player->process[0] = (t_process *)malloc(sizeof(t_process))))
-		return ;
+	tmp->next = *blist;
+	*blist = tmp;
 	player->nb_process = 1;
-	player->process[0]->pc = player->code_start;
-	player->process[0]->carry = 0;
-	player->process[0]->wait_cycles = 0;
-	ft_bzero(player->process[0]->regs, REG_NUMBER * REG_SIZE);
-	assign_reg(player->process[0], 0, player->player_number);
+	assign_reg(tmp, 0, player->player_number);
 }
 
-void	add_child_process(t_player *player, t_process *parent)
+void	remove_process(t_vm *vm, t_process *node)
 {
-	if (!(player->process = (t_process **)realloc(player->process,
-		sizeof(t_process *) * (player->nb_process + 1))))
-		return ;
-	if (!(player->process[player->nb_process] = (t_process *)realloc(player->process,
-		sizeof(t_process))))
-		return ;
-	player->nb_process++;
-	ft_memcpy((void *)player->process[player->nb_process - 1], (void *)parent,
-		sizeof(parent));
+	t_process	*parent;
 
+	parent = vm->process;
+	if (parent == node)
+	{
+		vm->process = parent->next;
+		ft_memdel((void **)&parent);
+		vm->nb_process--;
+	}
+	else
+	{
+		while (parent && parent->next != node)
+			parent = parent->next;
+		if (parent == NULL)
+			return ;
+		parent->next = node->next;
+		ft_memdel((void **)&node);
+		vm->nb_process--;
+	}
 }
+
+// void	add_child_process(t_player *player, t_process *parent)
+// {
+// 	if (!(player->process = (t_process **)realloc(player->process,
+// 		sizeof(t_process *) * (player->nb_process + 1))))
+// 		return ;
+// 	if (!(player->process[player->nb_process] = (t_process *)realloc(player->process,
+// 		sizeof(t_process))))
+// 		return ;
+// 	player->nb_process++;
+// 	ft_memcpy((void *)player->process[player->nb_process - 1], (void *)parent,
+// 		sizeof(parent));
+//
+// }
 
 void	create_processes(t_vm *vm)
 {
@@ -49,6 +89,6 @@ void	create_processes(t_vm *vm)
 	i = 0;
 	while (i < vm->nb_players)
 	{
-		add_process(vm, vm->players[i++]);
+		add_first_process_front(vm, vm->players[i++], &vm->process);
 	}
 }

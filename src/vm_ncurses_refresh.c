@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:40:21 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/18 13:32:13 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/18 19:00:35 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	menu(t_vm *vm)
 	move(5, COLS - COLS/6);
 	printw("Cycle to die: %d\n", vm->cycle_to_die);
 	move(6, COLS - COLS/6);
-	printw("Players alive: %d", vm->players_alive);
+	printw("Players: %d", vm->nb_players);
 	move(7, COLS - COLS/6);
 	printw("Process: %d", vm->nb_process);
 	move(8, COLS - COLS/6);
