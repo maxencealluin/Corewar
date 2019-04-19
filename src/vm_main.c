@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/19 09:37:24 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/19 10:05:14 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	p_run(t_vm *vm, t_process *p, int pc)
 	ft_printf("current byte value \n%02hhx\n", vm->arena[pc].by);
 	pc++;
 	op_load(vm, p, pc);
+	ft_print_process(vm->players[0]);
 }
 
 int		main(int ac, char **av)

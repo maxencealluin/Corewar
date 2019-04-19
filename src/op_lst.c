@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 09:41:33 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/19 09:43:29 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/19 10:11:59 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	op_load(t_vm *vm, t_process *p, int pos)
 	unsigned char c;
 	int *by;
 	int count;
+	char test;
 
 	ft_printf("load\n");
 	c  = vm->arena[pos].by;
@@ -28,6 +29,7 @@ void	op_load(t_vm *vm, t_process *p, int pos)
 		exit(-1);
 	ft_printf("%d // %d // %d // %d -- %d\n", by[0], by[1], by[2], by[3], pos);
 	//second parameter must be a register
+	//change carry to one if first parameter is 0
 	if (by[1] != 1 && (vm->arena[pos + by[0] + 1].by > 16
 		|| vm->arena[pos + by[0] + 1].by <= 0))
 	{
@@ -40,6 +42,13 @@ void	op_load(t_vm *vm, t_process *p, int pos)
 		// ft_printf("current byte[%d] value \n%02hhx\n", i, vm->arena[pos + count].by);
 		p->regs[by[1]][count] = vm->arena[pos + count].by;
 		ft_printf("in reg %02b \n", p->regs[3][count]);
+	}
+	test = (p->regs[by[1]][0] << 6) + (p->regs[by[1]][1] << 4) + (p->regs[by[1]][2] << 4) + (p->regs[by[1]][3]);
+	// ft_printf("current byte value \n%08b\n", test);
+	if (test == 0)
+	{
+		// ft_printf("frst prm nll\n");
+		p->carry = 1;
 	}
 	//set the new carry
 	ft_memdel((void **)&by);
