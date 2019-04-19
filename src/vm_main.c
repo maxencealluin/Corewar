@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/19 08:11:44 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/19 08:28:39 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		*ft_decode_byte(unsigned char c, int *tab, t_vm *vm)
 	return (tab);
 }
 
-void	ft_load(t_vm *vm, int pos)
+void	ft_load(t_vm *vm, t_process *p, int pos)
 {
 	unsigned char c;
 	int *by;
@@ -54,6 +54,14 @@ void	ft_load(t_vm *vm, int pos)
 		exit(-1);;
 	ft_printf("%d // %d // %d // %d \n", by[0], by[1], by[2], by[3]);
 	ft_memdel((void **)&by);
+}
+
+void	p_run(t_vm *vm, t_process *p, int pc)
+{
+	//choose the function on the byte
+	ft_printf("current byte value \n%02hhx\n", vm->arena[pc].by);
+	pc++;
+	ft_load(vm, p, pc);
 }
 
 int		main(int ac, char **av)
@@ -71,7 +79,12 @@ int		main(int ac, char **av)
 	create_processes(vm);
 	ft_print_players(vm);
 	// ft_print_xarena(vm, 50);
-	ft_load(vm, 1);
+
+	t_process *p = *vm->players[0]->process;
+	ft_print_process(vm->players[0]);
+	//1 correspond q lendorit ou il faudra mettre pc, l avancement dans la memoire
+	int pc = 0;
+	p_run(vm, p, pc);
 	exit(0);
 	// vm->arena[MEM_SIZE - 1].by = 255;
 	if (vm->visualization == 1)
