@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/18 18:59:40 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/19 08:11:44 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,75 +29,31 @@ void	read_files(t_vm *vm)
 	// printf("%d %d %d %d\n\n", vm->play_order[0], vm->play_order[1], vm->play_order[2], vm->play_order[3]);
 }
 
-int		*ft_decode_byte(unsigned char c, t_vm *vm, int tab[4])
+int		*ft_decode_byte(unsigned char c, int *tab, t_vm *vm)
 {
-	int res;
-
-	res = 0;
-	ft_printf("res>>%d\n", vm->enc[c >> 6]);
+	tab[0] = vm->enc[(c >> 6)];
 	c = (c << 2);
-	ft_printf("enc byte >>%08b<<\n", c);
-		exit(0);
-	ft_printf("res>>%d\n", vm->enc[ c >> 6]);
-
-	tab[0] = vm->enc[c >> 6];
-	tab[1] = 0;
-	tab[2] = 0;
-	tab[3] = 0;
-
-
-
-
-
-
-	// ft_printf("res>>%d\n", vm->enc[c >> 6]);
-	// ft_printf("res>>%d\n", vm->enc[c >> 6]);
-	// char tab[4];
-	// int d[4]= (int)c;
-	// ft_printf("/dec byte >>%08b<<\n", tab[0]);
-	// ft_printf("dec byte >>%08b<<\n", c >> 1);
-	// ft_printf("dec byte >>%08b<<\n", &d[0]);
-	// write(1,&d[0],1)
-	// write(1,"\n",1)
-	// write(1,&d[1],1)
-	// write(1,"\n",1)
-	// write(1,&d[2],1)
-	// write(1,"\n",1)
-	// write(1,&d[3],1)
-	// write(1,"\n",1)
-
-
-
+	tab[1] = vm->enc[(c >> 6)];
+	c = (c << 4);
+	tab[2] = vm->enc[(c >> 6)];
+	c = (c << 6);
+	tab[3] = vm->enc[(c >> 6)];
 	return (tab);
 }
 
-void	ft_load(t_vm *vm)
+void	ft_load(t_vm *vm, int pos)
 {
-	int read;
-	int arg[4];
 	unsigned char c;
+	int *by;
 
 	ft_printf("load\n");
-	// ft_printf("proc >>%d<<\n", vm->arena[0].by);
-	// ft_printf("enc byte >>%08b<<\n", vm->arena[1].by);
-	// arg = ft_decode_byte(vm->arena[1].by, vm, arg);
-	c  = vm->arena[1].by;
-	ft_printf("enc byte >>%08b<<\n", c);
-	ft_printf("enc byte >>%08b<<\n", c >> 6);
-	ft_printf("enc byte >>%d<<\n", vm->enc[(c >> 6)]);
-
-	arg[0] = vm->enc[(c >> 6)];
-	c = (c << 2);
-	// ft_printf("enc byte >>%08b<<\n", c);
-	// 	exit(0);
-	arg[1] = vm->enc[(c >> 6)];
-	c = (c << 4);
-	arg[2] = vm->enc[(c >> 6)];
-	c = (c << 6);
-	arg[3] = vm->enc[(c >> 6)];
-
-	ft_printf("%d // %d // %d // %d \n", arg[0], arg[1], arg[2], arg[3]);
-
+	c  = vm->arena[pos].by;
+	if (!(by = (int *)malloc(sizeof(int) * 4)))
+		exit(-1);
+	if (!(by = ft_decode_byte(c, by, vm)))
+		exit(-1);;
+	ft_printf("%d // %d // %d // %d \n", by[0], by[1], by[2], by[3]);
+	ft_memdel((void **)&by);
 }
 
 int		main(int ac, char **av)
@@ -114,8 +70,8 @@ int		main(int ac, char **av)
 	read_files(vm);
 	create_processes(vm);
 	ft_print_players(vm);
-	ft_print_xarena(vm, 50);
-	ft_load(vm);
+	// ft_print_xarena(vm, 50);
+	ft_load(vm, 1);
 	exit(0);
 	// vm->arena[MEM_SIZE - 1].by = 255;
 	if (vm->visualization == 1)
