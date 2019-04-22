@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 11:42:41 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/19 13:14:30 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/22 14:17:52 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	add_first_process_front(t_vm *vm, t_player *player, t_process **blist)
 	tmp->next = *blist;
 	*blist = tmp;
 	player->nb_process = 1;
-	assign_reg(tmp, 0, player->player_number);
+	assign_reg(tmp, 1, player->player_number);
 }
 
 void	remove_process(t_vm *vm, t_process *node)

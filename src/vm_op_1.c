@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 13:40:06 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/22 15:28:52 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,84 @@ int		op_add(t_vm *vm, t_process *proc)
 	r2 = read_reg(proc->regs[r2 - 1]);
 	r2 += r1;
 	assign_reg(proc, r3, r2);
+	proc->step_over = 5;
+	proc->carry = r2 == 0 ? 1 : 0;
+	ft_print_players(vm);
+	return (1);
+}
+
+int		op_sub(t_vm *vm, t_process *proc)
+{
+	int		r1;
+	int		r2;
+	int		r3;
+
+	r1 = read_arena(vm, proc->pc + 2, T_REG);
+	r2 = read_arena(vm, proc->pc + 3, T_REG);
+	r3 = read_arena(vm, proc->pc + 4, T_REG);
+	r1 = read_reg(proc->regs[r1 - 1]);
+	r2 = read_reg(proc->regs[r2 - 1]);
+	r2 = r1 - r2;
+	assign_reg(proc, r3, r2);
+	proc->step_over = 5;
+	proc->carry = r2 == 0 ? 1 : 0;
+	ft_print_players(vm);
+	return (1);
+}
+
+int		op_and(t_vm *vm, t_process *proc)
+{
+	int		r1;
+	int		r2;
+	int		r3;
+
+	r1 = read_arena(vm, proc->pc + 2, T_REG);
+	r2 = read_arena(vm, proc->pc + 3, T_REG);
+	r3 = read_arena(vm, proc->pc + 4, T_REG);
+	r1 = read_reg(proc->regs[r1 - 1]);
+	r2 = read_reg(proc->regs[r2 - 1]);
+	r2 = r2 & r1;
+	assign_reg(proc, r3, r2);
+	proc->step_over = 5;
+	proc->carry = r2 == 0 ? 1 : 0;
+	ft_print_players(vm);
+	return (1);
+}
+
+int		op_or(t_vm *vm, t_process *proc)
+{
+	int		r1;
+	int		r2;
+	int		r3;
+
+	r1 = read_arena(vm, proc->pc + 2, T_REG);
+	r2 = read_arena(vm, proc->pc + 3, T_REG);
+	r3 = read_arena(vm, proc->pc + 4, T_REG);
+	r1 = read_reg(proc->regs[r1 - 1]);
+	r2 = read_reg(proc->regs[r2 - 1]);
+	r2 = r2 | r1;
+	assign_reg(proc, r3, r2);
+	proc->step_over = 5;
+	proc->carry = r2 == 0 ? 1 : 0;
+	ft_print_players(vm);
+	return (1);
+}
+
+int		op_xor(t_vm *vm, t_process *proc)
+{
+	int		r1;
+	int		r2;
+	int		r3;
+
+	r1 = read_arena(vm, proc->pc + 2, T_REG);
+	r2 = read_arena(vm, proc->pc + 3, T_REG);
+	r3 = read_arena(vm, proc->pc + 4, T_REG);
+	r1 = read_reg(proc->regs[r1 - 1]);
+	r2 = read_reg(proc->regs[r2 - 1]);
+	r2 = r2 ^ r1;
+	assign_reg(proc, r3, r2);
+	proc->step_over = 5;
+	proc->carry = r2 == 0 ? 1 : 0;
 	ft_print_players(vm);
 	return (1);
 }
