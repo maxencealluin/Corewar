@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 16:22:44 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/22 16:31:59 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,5 +163,6 @@ int		op_fork(t_vm *vm, t_process *proc)
 	arg = read_arena(vm, proc->pc + 1, IND_SIZE);
 	proc->step_over = 3;
 	add_child_process(vm, proc, arg % IDX_MOD);
+	// ft_print_process(vm);
 	return (1);
 }
