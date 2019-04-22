@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/22 15:35:08 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 17:07:35 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,6 @@
 **change carry to one if first parameter is 0
 **set the new carry
 */
-
-void				mem_to_reg(int reg, int pos, t_vm *vm, t_process *p)
-{
-	int				count;
-
-	count = 0;
-	while (count < REG_SIZE)
-	{
-		// ft_printf("%d\n", by[1]);
-		// vm->arena[pos + count].by = p->regs[reg][count];
-		vm->arena[pos + count].by = 7;
-		count++;
-	}
-	// exit(0);
-
-
-}
 
 int		op_load(t_vm *vm, t_process *p)
 {
@@ -88,39 +71,6 @@ int		op_load(t_vm *vm, t_process *p)
 **where this operation writes it depends on the type of the second argument
 ** if the second parameter is an indirect (address) then it must be calculated with `% IND_MOD`
 */
-
-void				reg_to_mem(int reg, int pos, t_vm *vm, t_process *p)
-{
-	int				count;
-
-	count = 0;
-	// ft_print_xarena(vm, 60);
-	while (count < REG_SIZE)
-	{
-		// ft_printf("%d\n", by[1]);
-		vm->arena[pos + count].by = p->regs[reg][count];
-		// vm->arena[pos + count].by = 7;
-		count++;
-	}
-	// ft_print_xarena(vm, 60);
-	// exit(0);
-
-
-}
-
-void				reg_to_reg(int src_reg, int dst_reg, t_process *p)
-{
-	int				count;
-
-	count = 0;
-	while (count < REG_SIZE)
-	{
-		p->regs[dst_reg][count] = p->regs[src_reg][count];
-		// ft_printf("reg[%d][%d] = %d\n", dst_reg, count, p->regs[src_reg][count]);
-		count++;
-	}
-}
-
 int		op_store(t_vm *vm, t_process *p)
 {
 	unsigned char	c;
@@ -132,42 +82,55 @@ int		op_store(t_vm *vm, t_process *p)
 
 	i = p->pc + 1;
 	c = vm->arena[i].by;
-	// ft_printf("check the pc: %02hhx\n", c);
+	ft_printf("check the pc: %02hhx\n", c);
 	if (!(by = (int *)malloc(sizeof(int) * 4)))
 		exit(-1);
 	if (!(by = ft_decode_byte(c, by, vm)))
 		exit(-1);
-	// ft_printf("check the by: %d\n", by[0]);
-	// ft_printf("check the by: %d\n", by[1]);
-	// ft_printf("check the by: %d\n", by[2]);
-	// ft_printf("check the by: %d\n", by[3]);
-	if (is_register(by[0], vm->arena[i + 1].by) == 0)
+	ft_printf("check the by: %d\n", by[0]);
+	ft_printf("check the by: %d\n", by[1]);
+	ft_printf("check the by: %d\n", by[2]);
+	ft_printf("check the by: %d\n", by[3]);
+	if (is_register(by[0], vm->arena[i + 1].by) == 0 && ft_printf("\ntest"))
 		error_param();
 	if (is_register(by[1], vm->arena[i + by[0] + 1].by))
-	{
-		// ft_printf("the register\n");
 		reg_to_reg(vm->arena[i + 1].by, vm->arena[i + 2].by, p);
-	}
 	else
 	{
 		position = read_arena(vm, p->pc + 1 + by[0], IND_SIZE);
-		// ft_printf("position : %d\n", position);
 		position = -5;
 		reg_to_mem(vm->arena[i + 1].by, (i + position + MEM_SIZE) % MEM_SIZE, vm, p);
 		count = 0;
-
 	}
-	// ft_printf("here\n");
 	p->step_over = 4;
 	return (1);
 }
-//
-// void	op_add(t_vm *vm, t_process *p, int pos)
-// {
-// 	;
-// }
-//
-// void	op_sub(t_vm *vm, t_process *p, int pos)
-// {
-// 	;
-// }
+
+/*
+**does not change carry (checked with vm)
+**parameter must not be a register --> asm to do it
+*/
+int		op_zjmp(t_vm *vm, t_process *p)
+{
+	int		jump;
+
+	jump = 0;
+	if (p->carry == 0)
+	{
+
+		p->step_over = 3;
+		return (1);
+	}
+	// ft_printf("jump : %02hhb\n", vm->arena[p->pc + 1].by);
+	// ft_printf("jump : %02hhb\n", vm->arena[p->pc + 2].by);
+	jump = vm->arena[p->pc + 1].by << 2;
+	jump = jump | (vm->arena[p->pc + 2].by);
+	// ft_printf("jump : %d\n", jump);
+	// ft_printf("jump : %08b\n", jump);
+	p->step_over = jump;
+	// exit(0);
+	// p->step_over
+
+
+	return (1);
+}

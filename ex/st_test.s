@@ -1,6 +1,10 @@
 .name		"Celebration Funebre v0.99pl42"
 .comment	"Jour J"
 
+#		ld   %0,r3		
+		zjmp %3			# 3
+		zjmp %200			# 3
+		#zjmp %-200			# 3
 		st r5,-4			# 6
 		st r5,r10			# 6
 		ld   %0,r3		
