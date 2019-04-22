@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/22 14:42:37 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 14:44:50 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ int		op_load(t_vm *vm, t_process *p)
 	int				reg_nb;
 
 	i = p->pc + 1;
-	ft_printf("load\n");
+	// ft_printf("load\n");
 	c  = vm->arena[i].by;
 	if (!(by = (int *)malloc(sizeof(int) * 4)))
 		exit(-1);
 	if (!(by = ft_decode_byte(c, by, vm)))
 		exit(-1);
 
-	ft_printf("%d // %d // %d // %d -- %d\n", by[0], by[1], by[2], by[3], c);
+	// ft_printf("%d // %d // %d // %d -- %d\n", by[0], by[1], by[2], by[3], c);
 	reg_nb = vm->arena[i + by[0] + 1].by;
-	ft_printf("reg_nb: %d\n", reg_nb);
+	// ft_printf("reg_nb: %d\n", reg_nb);
 	if (is_register(by[1], reg_nb) == 0)
 		error_param();
 
@@ -67,7 +67,7 @@ int		op_load(t_vm *vm, t_process *p)
 		//valeur du by[1], one step after encoding byte
 		p->regs[reg_nb][count] = vm->arena[i + 1 + count].by;
 		// p->regs[reg_nb][count] = (count = 3) ? 1 : 0;
-		ft_printf("in reg %02b / arena %02hhx\n", p->regs[3][count], vm->arena[i + 1 + count].by);
+		// ft_printf("in reg %02b / arena %02hhx\n", p->regs[3][count], vm->arena[i + 1 + count].by);
 		count++;
 
 	}
@@ -76,8 +76,8 @@ int		op_load(t_vm *vm, t_process *p)
 	if (test == 0)
 		p->carry = 1;
 	ft_memdel((void **)&by);
-	ft_print_process(vm);
-	exit(0);
+	// ft_print_process(vm);
+	// exit(0);
 
 	return (1);
 }
