@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 10:40:14 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/22 13:37:44 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void			remove_dead_process(t_vm *vm);
 // MAIN LOOP
 
 void			main_loop(t_vm *vm);
+int				check_args(t_vm *vm, t_process *proc);
 
 
 // PRINT
@@ -145,7 +146,8 @@ void			print_op();
 
 // OPERATIONS
 void			op_load(t_vm *vm, t_process *proc);
-void			op_live(t_vm *vm, t_process *proc);
+int				op_live(t_vm *vm, t_process *proc);
+int				op_add(t_vm *vm, t_process *proc);
 
 
 // DEBUG
