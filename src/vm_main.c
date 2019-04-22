@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/19 13:05:07 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/22 09:48:31 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	p_run(t_vm *vm, t_process *p, int pc)
 	pc = p->pc;
 	ft_printf("current byte value \n%02hhx\n", vm->arena[pc].by);
 	pc++;
-	op_load(vm, p, pc);
+	// op_load(vm, p, pc);
+	op_store(vm, p, pc);
 	ft_print_process(vm);
 }
 
@@ -58,11 +59,11 @@ int		main(int ac, char **av)
 
 
 	// ft_print_xarena(vm, 50);
-	// t_process *p = vm->process;
-	// // ft_print_process(vm);
+	t_process *p = vm->process;
+	ft_print_process(vm);
 	// //1 correspond q lendorit ou il faudra mettre pc, l avancement dans la memoire
-	// p_run(vm, p, 0);
-	// exit(0);
+	p_run(vm, p, 0);
+	exit(0);
 
 	if (vm->visualization == 1)
 	{
