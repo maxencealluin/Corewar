@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 10:28:59 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 13:51:14 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ void	event_handler(t_vm *vm, t_time *time, int *cycles)
 void	pc_forward_sequence(t_vm *vm, t_process *proc) // a ecrire
 {
 	vm->arena[proc->pc].proc_id = 0;
-	proc->pc = (proc->pc + 1) % 4096;
+	proc->pc = (proc->pc + proc->step_over) % 4096;
 	vm->arena[proc->pc].proc_id = 1;
+	proc->step_over = 0;
 } // temp
 
 void	pc_forward_one(t_vm *vm, t_process *proc)
@@ -73,36 +74,33 @@ void	read_op_code(t_vm *vm, t_process *proc)
 		proc->wait_cycles = op_tab[proc->next_op - 1].cycles;
 }
 
-void	op_live(t_vm *vm, t_process *proc)
+void	perform_op(t_vm *vm, t_process *proc)
 {
-	int		i;
+	int		res;
 
-	i = 0;
-	proc->last_live = vm->cycles;
-	vm->number_of_live += 1;
-	// LIRE NOMBRE
-	// while (i < MAX_PLAYERS)
-	// {
-	// 	if (0 == vm->players[i++]->player_number)
-	// 		vm->last_player_live = 0;
-	// }
-}
+	res = 0;
+	if (proc->next_op >= 1 && proc->next_op <= 16 && op_func[proc->next_op - 1] != NULL)
+	{
+		if (check_args(vm, proc) == 1)
+		{
+			res = op_func[proc->next_op - 1](vm, proc);
+			if (res == 1)
+				pc_forward_sequence(vm, proc); //go forward to next instruction
+			else
+				pc_forward_one(vm, proc); //go forward one byte
+		}
+		else
+			pc_forward_sequence(vm, proc); //go forward one byte
 
-int		perform_op(t_vm *vm, t_process *proc)
-{
-	if (op_func[proc->next_op - 1] != NULL)
-		op_func[proc->next_op - 1](vm, proc);
+	}
 	else
-		return (0);
-	return (1);
+		pc_forward_one(vm, proc); //go forward one byte
 }
 
 void	run_process(t_vm *vm)
 {
-	int			res;
 	t_process	*proc;
 
-	res = 0;
 	proc = vm->process;
 	//inner loop
 	while (proc)
@@ -127,13 +125,7 @@ void	run_process(t_vm *vm)
 		if (proc->wait_cycles == 0)
 		{
 			//do action
-			if (proc->next_op >= 1 && proc->next_op <= 16)
-				res = perform_op(vm, proc);
-
-			if (res == 1)
-				pc_forward_sequence(vm, proc); //go forward to next instruction
-			else
-				pc_forward_one(vm, proc); //go forward one byte
+			perform_op(vm, proc);
 		}
 		proc = proc->next;
 	}
@@ -149,7 +141,7 @@ void	ft_step(t_vm *vm)
 	if (vm->cycles % vm->cycle_to_die == 0)
 	{
 		vm->current_checks++;
-		// remove_dead_process(vm);
+		remove_dead_process(vm);
 		if (vm->current_checks >= MAX_CHECKS || vm->number_of_live > NBR_LIVE)
 		{
 			vm->cycle_to_die -= CYCLE_DELTA;
@@ -158,7 +150,7 @@ void	ft_step(t_vm *vm)
 		vm->number_of_live = 0;
 	}
 	run_process(vm);
-	increment_memory(vm);
+	// increment_memory(vm);
 	vm->cycles++;
 }
 
@@ -170,7 +162,7 @@ void	main_loop(t_vm *vm)
 	if (!(time = (t_time *)malloc(sizeof(t_time))))
 		exit(-1);
 	reset_time(time, &cycles);
-	while (1)
+	while (1 && vm->nb_process > 0)
 	{
 		if (vm->cycles == vm->dump_cycle)
 		{
@@ -189,6 +181,8 @@ void	main_loop(t_vm *vm)
 				continue;
 		}
 		ft_step(vm);
+		// ft_printf("Cycles %d cycles_to_die %d \n", vm->cycles, vm->cycle_to_die);
 		cycles++;
 	}
+	ft_printf("end");
 }

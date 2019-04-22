@@ -1,4 +1,5 @@
 .name		"test live"
 .comment	"Jour J"
 
-live %2			# 5
+live %42			# 5
+ld %12,r3
