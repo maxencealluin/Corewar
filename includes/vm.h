@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/19 15:49:14 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/22 10:40:14 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void			print_op();
 
 
 // OPERATIONS
-void			op_load(t_vm *vm, t_process *proc, int pos);
+void			op_load(t_vm *vm, t_process *proc);
 void			op_live(t_vm *vm, t_process *proc);
 
 

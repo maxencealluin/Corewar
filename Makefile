@@ -6,7 +6,7 @@
 #    By: malluin <malluin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/22 14:56:26 by malluin           #+#    #+#              #
-#    Updated: 2019/04/19 09:41:05 by fnussbau         ###   ########.fr        #
+#    Updated: 2019/04/22 10:41:01 by malluin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRC_VM_NAME =		op.c \
 					vm_utils.c \
 					vm_print.c \
 					op_utils.c \
-					op_lst.c
+					op_lst.c \
+					vm_op_1.c
 
 SRC_ASM_NAME = 	op.c \
 					asm_main.c

@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/19 13:05:07 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/22 10:25:42 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ void	read_files(t_vm *vm)
 	// printf("%d %d %d %d\n\n", vm->play_order[0], vm->play_order[1], vm->play_order[2], vm->play_order[3]);
 }
 
-void	p_run(t_vm *vm, t_process *p, int pc)
-{
-	//choose the function on the byte
-	//wait function
-	pc = p->pc;
-	ft_printf("current byte value \n%02hhx\n", vm->arena[pc].by);
-	pc++;
-	op_load(vm, p, pc);
-	ft_print_process(vm);
-}
+// void	p_run(t_vm *vm, t_process *p, int pc)
+// {
+// 	//choose the function on the byte
+// 	//wait function
+// 	pc = p->pc;
+// 	ft_printf("current byte value \n%02hhx\n", vm->arena[pc].by);
+// 	pc++;
+// 	op_load(vm, p, pc);
+// 	ft_print_process(vm);
+// }
 
 int		main(int ac, char **av)
 {
