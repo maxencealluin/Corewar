@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 11:42:41 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 14:17:52 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/22 16:27:55 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,22 @@ void	remove_dead_process(t_vm *vm)
 	}
 }
 
-// void	add_child_process(t_player *player, t_process *parent)
-// {
-// 	if (!(player->process = (t_process **)realloc(player->process,
-// 		sizeof(t_process *) * (player->nb_process + 1))))
-// 		return ;
-// 	if (!(player->process[player->nb_process] = (t_process *)realloc(player->process,
-// 		sizeof(t_process))))
-// 		return ;
-// 	player->nb_process++;
-// 	ft_memcpy((void *)player->process[player->nb_process - 1], (void *)parent,
-// 		sizeof(parent));
-//
-// }
+void	add_child_process(t_vm *vm, t_process *parent, int step_pc)
+{
+	t_process	*tmp;
+
+	tmp = new_process(parent->id_parent, parent->pc + step_pc);
+	vm->nb_process += 1;
+	if (tmp == NULL || vm->process == NULL)
+		return ;
+	tmp->next = vm->process;
+	vm->process = tmp;
+	tmp->carry = parent->carry;
+	tmp->last_live = parent->last_live;
+	tmp->id_parent = parent->id_parent;
+	ft_memcpy((void *)tmp->regs, (void *)parent->regs, sizeof(parent->regs));
+	ft_print_process(vm);
+}
 
 void	create_processes(t_vm *vm)
 {

@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 15:36:35 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 16:22:44 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int		read_arena(t_vm *vm, int pos, int size)
 
 int		check_args(t_vm *vm, t_process *proc)
 {
-	(void)(vm);
-	(void)(proc);
-		return (1);
+	// (void)(vm);
+	// (void)(proc);
+	return (1);
 }
 
 int		op_live(t_vm *vm, t_process *proc)
@@ -153,5 +153,15 @@ int		op_xor(t_vm *vm, t_process *proc)
 	proc->step_over = 5;
 	proc->carry = r2 == 0 ? 1 : 0;
 	ft_print_players(vm);
+	return (1);
+}
+
+int		op_fork(t_vm *vm, t_process *proc)
+{
+	int		arg;
+
+	arg = read_arena(vm, proc->pc + 1, IND_SIZE);
+	proc->step_over = 3;
+	add_child_process(vm, proc, arg % IDX_MOD);
 	return (1);
 }

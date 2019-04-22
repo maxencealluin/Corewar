@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 14:38:55 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/22 16:23:47 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void			create_processes(t_vm *vm);
 int				read_reg(unsigned char *str);
 void			assign_reg(t_process *process, short reg, int value);
 
+void			add_child_process(t_vm *vm, t_process *parent, int step_pc);
 void			remove_process(t_vm *vm, t_process *node);
 void			remove_dead_process(t_vm *vm);
 
@@ -148,12 +149,16 @@ void			print_op();
 int				op_load(t_vm *vm, t_process *proc);
 int				op_live(t_vm *vm, t_process *proc);
 int				op_store(t_vm *vm, t_process *p);
+int				op_fork(t_vm *vm, t_process *proc);
+
 
 int				op_add(t_vm *vm, t_process *proc);
 int				op_sub(t_vm *vm, t_process *proc);
 int				op_and(t_vm *vm, t_process *proc);
 int				op_or(t_vm *vm, t_process *proc);
 int				op_xor(t_vm *vm, t_process *proc);
+
+int				read_arena(t_vm *vm, int pos, int size);
 
 
 // DEBUG
