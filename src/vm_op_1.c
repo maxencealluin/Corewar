@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 15:28:52 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/22 15:36:35 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int		op_live(t_vm *vm, t_process *proc)
 	proc->last_live = vm->cycles;
 	vm->number_of_live += 1;
 	nb = read_arena(vm, proc->pc + 1, DIR_SIZE);
+	proc->step_over = 5;
 	while (i < vm->nb_players)
 	{
 		if (vm->players[i] != NULL && nb == vm->players[i]->player_number)
 		{
 			vm->last_player_live = nb;
-			proc->step_over = 5;
 			break;
 		}
 		i++;
