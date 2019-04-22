@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/22 12:04:13 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 13:35:35 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	op_store(t_vm *vm, t_process *p, int pos)
 	if (!(by = ft_decode_byte(c, by, vm)))
 		exit(-1);
 	ft_printf("check the by: %d\n", by[0]);
-	ft_printf("check the by: %d\n", by[1] = 1);
+	ft_printf("check the by: %d\n", by[1]);
 	ft_printf("check the by: %d\n", by[2]);
 	ft_printf("check the by: %d\n", by[3]);
 	if (is_register(by[0], vm->arena[pos + 1].by) == 0)
@@ -127,7 +127,6 @@ void	op_store(t_vm *vm, t_process *p, int pos)
 
 	}
 	ft_printf("here\n");
-
 }
 //
 // void	op_add(t_vm *vm, t_process *p, int pos)
