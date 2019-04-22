@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 13:51:26 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 13:57:10 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	p_run(t_vm *vm, t_process *p, int pc)
 	// 	p->regs[5][count] = 5;
 	// 	count++;
 	// }
-	op_store(vm, p, pc);
+	op_store(vm, p);
 	ft_print_process(vm);
 }
 
@@ -70,8 +70,8 @@ int		main(int ac, char **av)
 	t_process *p = vm->process;
 	ft_print_process(vm);
 	// //1 correspond q lendorit ou il faudra mettre pc, l avancement dans la memoire
-	p_run(vm, p, 0);
-	exit(0);
+	// p_run(vm, p, 0);
+	// exit(0);
 
 	if (vm->visualization == 1)
 	{
