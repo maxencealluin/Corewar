@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 13:51:14 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 14:25:19 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <ncurses.h>
 #include <time.h>
 #include "libftprintf.h"
-
 #include "op_func.h"
 
 void	reset_time(t_time *time, int *cycles)
@@ -167,6 +166,7 @@ void	main_loop(t_vm *vm)
 		if (vm->cycles == vm->dump_cycle)
 		{
 			dump_memory(vm);
+			ft_print_process(vm);
 			break;
 		}
 		if (vm->visualization == 1)

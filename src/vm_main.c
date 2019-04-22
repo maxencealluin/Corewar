@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 13:57:10 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 14:07:36 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		main(int ac, char **av)
 
 
 	// ft_print_xarena(vm, 50);
-	t_process *p = vm->process;
+	// t_process *p = vm->process;
 	ft_print_process(vm);
 	// //1 correspond q lendorit ou il faudra mettre pc, l avancement dans la memoire
 	// p_run(vm, p, 0);

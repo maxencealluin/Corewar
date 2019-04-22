@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/22 14:05:58 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 14:08:06 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int		op_store(t_vm *vm, t_process *p)
 	unsigned char	c;
 	int				*by;
 	int				count;
-	char			test;
 	int				position;
 	int				i;
 
