@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 10:29:40 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 12:03:16 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,18 @@ void	p_run(t_vm *vm, t_process *p, int pc)
 {
 	//choose the function on the byte
 	//wait function
+	int				count;
+
+	count = 0;
 	pc = p->pc;
 	ft_printf("current byte value \n%02hhx\n", vm->arena[pc].by);
 	pc++;
 	// op_load(vm, p, pc);
+	while (count < REG_SIZE)
+	{
+		p->regs[5][count] = 5;
+		count++;
+	}
 	op_store(vm, p, pc);
 	ft_print_process(vm);
 }

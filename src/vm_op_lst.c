@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/22 11:39:24 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 12:04:13 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,36 @@ void	op_load(t_vm *vm, t_process *p, int pos)
 ** if the second parameter is an indirect (address) then it must be calculated with `% IND_MOD`
 */
 
-void				write_from_reg(int reg, int pos, t_vm *vm, t_process *p)
+void				reg_to_mem(int reg, int pos, t_vm *vm, t_process *p)
 {
 	int				count;
 
 	count = 0;
-	ft_printf("%04b\n", reg);
-	ft_printf("%d\n", reg);
 	ft_print_xarena(vm, 60);
 	while (count < REG_SIZE)
 	{
 		// ft_printf("%d\n", by[1]);
 		vm->arena[pos + count].by = p->regs[reg][count];
-		vm->arena[pos + count].by = 7;
+		// vm->arena[pos + count].by = 7;
 		count++;
 	}
 	ft_print_xarena(vm, 60);
 	exit(0);
 
 
+}
+
+void				reg_to_reg(int src_reg, int dst_reg, t_process *p)
+{
+	int				count;
+
+	count = 0;
+	while (count < REG_SIZE)
+	{
+		p->regs[dst_reg][count] = p->regs[src_reg][count];
+		ft_printf("reg[%d][%d] = %d\n", dst_reg, count, p->regs[src_reg][count]);
+		count++;
+	}
 }
 
 void	op_store(t_vm *vm, t_process *p, int pos)
@@ -94,20 +105,24 @@ void	op_store(t_vm *vm, t_process *p, int pos)
 	if (!(by = ft_decode_byte(c, by, vm)))
 		exit(-1);
 	ft_printf("check the by: %d\n", by[0]);
-	ft_printf("check the by: %d\n", by[1]);
+	ft_printf("check the by: %d\n", by[1] = 1);
 	ft_printf("check the by: %d\n", by[2]);
 	ft_printf("check the by: %d\n", by[3]);
 	if (is_register(by[0], vm->arena[pos + 1].by) == 0)
 		error_param();
+	// ft_printf("the byte: %d \n", by[1]);
 	if (is_register(by[1], vm->arena[pos + by[0] + 1].by))
+	{
 		ft_printf("the register\n");
+		reg_to_reg(vm->arena[pos + 1].by, vm->arena[pos + 2].by, p);
+	}
 	else
 	{
 		ft_printf("is TIND\n");
 		//ecrire par dessus
 		// position = read_ind();
-		position = - 4;
-		write_from_reg(vm->arena[pos + 1].by, (pos + position - 1 + MEM_SIZE) % MEM_SIZE, vm, p);
+		position = -5;
+		reg_to_mem(vm->arena[pos + 1].by, (pos + position - 1 + MEM_SIZE) % MEM_SIZE, vm, p);
 		count = 0;
 
 	}
