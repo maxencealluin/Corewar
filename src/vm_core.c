@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/19 16:06:53 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/22 10:28:59 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ void	op_live(t_vm *vm, t_process *proc)
 	i = 0;
 	proc->last_live = vm->cycles;
 	vm->number_of_live += 1;
-	// LIRE NOMBRE 
-	while (i < MAX_PLAYERS)
-	{
-		if (0 == vm->players[i++]->player_number)
-			vm->last_player_live = 0;
-	}
+	// LIRE NOMBRE
+	// while (i < MAX_PLAYERS)
+	// {
+	// 	if (0 == vm->players[i++]->player_number)
+	// 		vm->last_player_live = 0;
+	// }
 }
 
 int		perform_op(t_vm *vm, t_process *proc)

@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/22 10:20:15 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 10:43:41 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ int		*ft_decode_byte(unsigned char c, int *tab, t_vm *vm)
 	return (tab);
 }
 
-int		is_register(unsigned char decoded_by, unsigned char arena_by)
+int		is_register(int decoded_by, unsigned char arena_by)
 {
 	if (decoded_by != 1 || arena_by > 16 || arena_by <= 0)
 		return (0);
-	ft_printf("test");
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/22 10:20:16 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 11:34:05 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,30 @@ void	op_load(t_vm *vm, t_process *p, int pos)
 
 /*
 **first parameter must be a register
-**change carry to one if first parameter is 0
-**set the new carry
+**where this operation writes it depends on the type of the second argument
+** if the second parameter is an indirect (address) then it must be calculated with `% IND_MOD`
 */
+
+void				write_from_reg(int reg, int pos, t_vm *vm, t_process *p)
+{
+	int				count;
+
+	count = 0;
+	ft_printf("%04b\n", reg);
+	ft_printf("%d\n", reg);
+	ft_print_xarena(vm, 60);
+	while (count < REG_SIZE)
+	{
+		// ft_printf("%d\n", by[1]);
+		vm->arena[pos + count].by = p->regs[reg][count];
+		vm->arena[pos + count].by = 7;
+		count++;
+	}
+	ft_print_xarena(vm, 60);
+	exit(0);
+
+
+}
 
 void	op_store(t_vm *vm, t_process *p, int pos)
 {
@@ -63,6 +84,7 @@ void	op_store(t_vm *vm, t_process *p, int pos)
 	int				*by;
 	int				count;
 	char			test;
+	int				position;
 
 	c = vm->arena[pos].by;
 	ft_printf("check the pc: %02hhx\n", c);
@@ -75,12 +97,20 @@ void	op_store(t_vm *vm, t_process *p, int pos)
 	ft_printf("check the by: %d\n", by[1]);
 	ft_printf("check the by: %d\n", by[2]);
 	ft_printf("check the by: %d\n", by[3]);
-	// ft_printf("check the vm->enc: %d\n", vm->enc[0]);
-	// ft_printf("check the vm->enc: %d\n", vm->enc[1]);
-	// ft_printf("check the vm->enc: %d\n", vm->enc[2]);
-	// ft_printf("check the vm->enc: %d\n", vm->enc[3]);
 	if (is_register(by[0], vm->arena[pos + 1].by) == 0)
 		error_param();
+	if (is_register(by[1], vm->arena[pos + by[0] + 1].by))
+		ft_printf("the register\n");
+	else
+	{
+		ft_printf("is TIND\n");
+		//ecrire par dessus
+		// position = read_ind();
+		position = pos + 4 - 1;
+		write_from_reg(vm->arena[pos + 1].by, position, vm, p);
+		count = 0;
+
+	}
 	ft_printf("here\n");
 
 }
