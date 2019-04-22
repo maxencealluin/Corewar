@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/22 11:34:05 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 11:39:24 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ void	op_store(t_vm *vm, t_process *p, int pos)
 		ft_printf("is TIND\n");
 		//ecrire par dessus
 		// position = read_ind();
-		position = pos + 4 - 1;
-		write_from_reg(vm->arena[pos + 1].by, position, vm, p);
+		position = - 4;
+		write_from_reg(vm->arena[pos + 1].by, (pos + position - 1 + MEM_SIZE) % MEM_SIZE, vm, p);
 		count = 0;
 
 	}
