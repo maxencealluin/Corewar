@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/22 11:58:10 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 15:33:00 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int		is_register(int decoded_by, unsigned char arena_by)
 
 	if (decoded_by != 1 || arena_by > 16 || arena_by <= 0)
 	{
-		ft_printf("into the byte: %d \n", decoded_by);
-		ft_printf("arena byte: %d \n", arena_by);
+		// ft_printf("into the byte: %d \n", decoded_by);
+		// ft_printf("arena byte: %d \n", arena_by);
 		return (0);
 	}
 	return (1);
