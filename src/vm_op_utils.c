@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/22 15:35:09 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/22 16:10:36 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,47 @@ int		is_register(int decoded_by, unsigned char arena_by)
 		return (0);
 	}
 	return (1);
+}
+
+void				reg_to_reg(int src_reg, int dst_reg, t_process *p)
+{
+	int				count;
+
+	count = 0;
+	while (count < REG_SIZE)
+	{
+		p->regs[dst_reg][count] = p->regs[src_reg][count];
+		// ft_printf("reg[%d][%d] = %d\n", dst_reg, count, p->regs[src_reg][count]);
+		count++;
+	}
+}
+
+void				reg_to_mem(int reg, int pos, t_vm *vm, t_process *p)
+{
+	int				count;
+
+	count = 0;
+	// ft_print_xarena(vm, 60);
+	while (count < REG_SIZE)
+	{
+		// ft_printf("%d\n", by[1]);
+		vm->arena[pos + count].by = p->regs[reg][count];
+		// vm->arena[pos + count].by = 7;
+		count++;
+	}
+	// ft_print_xarena(vm, 60);
+}
+
+void				mem_to_reg(int reg, int pos, t_vm *vm, t_process *p)
+{
+	int				count;
+
+	count = 0;
+	while (count < REG_SIZE)
+	{
+		// ft_printf("%d\n", by[1]);
+		// vm->arena[pos + count].by = p->regs[reg][count];
+		vm->arena[pos + count].by = 7;
+		count++;
+	}
 }

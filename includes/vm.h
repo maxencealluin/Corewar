@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 16:23:47 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/23 13:27:45 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,13 @@ int				op_sub(t_vm *vm, t_process *proc);
 int				op_and(t_vm *vm, t_process *proc);
 int				op_or(t_vm *vm, t_process *proc);
 int				op_xor(t_vm *vm, t_process *proc);
+int				op_zjmp(t_vm *vm, t_process *p);
+
+
+void			reg_to_reg(int src_reg, int dst_reg, t_process *p);
+void			reg_to_mem(int reg, int pos, t_vm *vm, t_process *p);
+void			mem_to_reg(int reg, int pos, t_vm *vm, t_process *p);
+
 
 int				read_arena(t_vm *vm, int pos, int size);
 
