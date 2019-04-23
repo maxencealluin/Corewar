@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:45:13 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/19 10:50:05 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/23 13:32:36 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ void	error_read()
 void	error_param()
 {
 	ft_printf("Error: wrong parameters in exec code\n");
-	exit(0);
+	// exit(0);
 }

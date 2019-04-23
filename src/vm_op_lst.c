@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/23 13:27:33 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/23 13:58:47 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 **change carry to one if first parameter is 0
 **set the new carry
 */
+
+// int * by ? tu peux directement utiliser vm->enc pour contenir le decodage
 
 int		op_load(t_vm *vm, t_process *p)
 {
@@ -34,7 +36,7 @@ int		op_load(t_vm *vm, t_process *p)
 	c  = vm->arena[i].by;
 	if (!(by = (int *)malloc(sizeof(int) * 4)))
 		exit(-1);
-	if (!(by = ft_decode_byte(c, by, vm)))
+	if (!(by = ft_decode_byte(vm, c, by)))
 		exit(-1);
 
 	// ft_printf("%d // %d // %d // %d -- %d\n", by[0], by[1], by[2], by[3], c);
@@ -76,7 +78,7 @@ int		op_store(t_vm *vm, t_process *p)
 	unsigned char	c;
 	int				*by;
 	int				count;
-	char			test;
+	// char			test;
 	int				position;
 	int				i;
 
@@ -85,14 +87,14 @@ int		op_store(t_vm *vm, t_process *p)
 	ft_printf("check the pc: %02hhx\n", c);
 	if (!(by = (int *)malloc(sizeof(int) * 4)))
 		exit(-1);
-	if (!(by = ft_decode_byte(c, by, vm)))
+	if (!(by = ft_decode_byte(vm, c, by)))
 		exit(-1);
 	ft_printf("check the by: %d\n", by[0]);
 	ft_printf("check the by: %d\n", by[1]);
 	ft_printf("check the by: %d\n", by[2]);
 	ft_printf("check the by: %d\n", by[3]);
-	if (is_register(by[0], vm->arena[i + 1].by) == 0 && ft_printf("\ntest"))
-		error_param();
+	// if (is_register(by[0], vm->arena[i + 1].by) == 0 && ft_printf("\ntest"))
+		// error_param();
 	if (is_register(by[1], vm->arena[i + by[0] + 1].by))
 		reg_to_reg(vm->arena[i + 1].by, vm->arena[i + 2].by, p);
 	else
@@ -117,7 +119,6 @@ int		op_zjmp(t_vm *vm, t_process *p)
 	jump = 0;
 	if (p->carry == 0)
 	{
-
 		p->step_over = 3;
 		return (1);
 	}

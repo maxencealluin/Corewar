@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 15:48:41 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/23 17:03:26 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	event_handler(t_vm *vm, t_time *time, int *cycles)
 		else if (ch == KEY_RIGHT || ch == KEY_LEFT)
 		{
 			if (ch == KEY_RIGHT)
-				vm->cycle_sec = vm->cycle_sec >= 590 ? 600 : vm->cycle_sec + 10;
+				vm->cycle_sec = vm->cycle_sec >= 595 ? 600 : vm->cycle_sec + 5;
 			else if (ch == KEY_LEFT)
-				vm->cycle_sec = vm->cycle_sec <= 10 ? 1 : vm->cycle_sec - 10;
+				vm->cycle_sec = vm->cycle_sec <= 5 ? 1 : vm->cycle_sec - 5;
 			reset_time(time, cycles);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 14:07:36 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/23 17:25:04 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,16 @@ void	p_run(t_vm *vm, t_process *p, int pc)
 int		main(int ac, char **av)
 {
 	t_vm	*vm;
+
+
+	//
+	// int c;
+	//
+	// c = 65524;
+	//
+	// ft_printf("%b\n", c | 4294901760);
+	// ft_printf("%d\n", c | 4294901760);
+	// ft_printf("%b\n", -12);
 
 	if (ac <= 1)
 		ft_usage();

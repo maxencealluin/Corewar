@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:12:29 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/18 17:39:45 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/23 17:00:40 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	ft_print_process(t_vm *vm)
 
 	i = 0;
 	process = vm->process;
+	if (vm->debug == 0)
+		return ;
 	while (process != NULL)
 	{
 		j = 0;
@@ -73,6 +75,8 @@ void	ft_print_players(t_vm *vm)
 	int		i;
 
 	i = 0;
+	if (vm->debug == 0)
+		return ;
 	while (i < vm->players_alive)
 	{
 		ft_printf("Player: %d\n", vm->players[i]->player_number);
@@ -81,11 +85,11 @@ void	ft_print_players(t_vm *vm)
 		ft_printf("Magic: %07x\n", vm->players[i]->header->magic);
 		ft_printf("prog_name: %s\n", vm->players[i]->header->prog_name);
 		ft_printf("comment: %s\n", vm->players[i]->header->comment);
-		ft_printf("\n\n");
+		ft_printf("\n");
 		i++;
 	}
 	ft_print_process(vm);
-	ft_printf("---------- ARENA ----------\n");
+	ft_printf("\n---------- ARENA ----------\n");
 	ft_printf("%p\n", vm->arena);
 	ft_printf("%s\n", vm->arena);
 }

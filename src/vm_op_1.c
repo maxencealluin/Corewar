@@ -6,31 +6,13 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 16:31:59 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/23 18:58:17 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include "libftprintf.h"
 #include <ncurses.h>
-
-int		read_arena(t_vm *vm, int pos, int size)
-{
-	int		i;
-	int		res;
-
-	res = 0;
-	i = 0;
-	if (size > 4)
-		size = 4;
-	else if (size <= 0)
-		return (0);
-	while (i < size)
-	{
-		res += vm->arena[(pos + i) % 4096].by << (size - i - 1) * 8;
-		i++;
-	}
-	return (res);
-}
 
 int		check_args(t_vm *vm, t_process *proc)
 {
@@ -61,108 +43,42 @@ int		op_live(t_vm *vm, t_process *proc)
 	return (1);
 }
 
-int		op_add(t_vm *vm, t_process *proc)
-{
-	int		r1;
-	int		r2;
-	int		r3;
-
-	r1 = read_arena(vm, proc->pc + 2, T_REG);
-	r2 = read_arena(vm, proc->pc + 3, T_REG);
-	r3 = read_arena(vm, proc->pc + 4, T_REG);
-	r1 = read_reg(proc->regs[r1 - 1]);
-	r2 = read_reg(proc->regs[r2 - 1]);
-	r2 += r1;
-	assign_reg(proc, r3, r2);
-	proc->step_over = 5;
-	proc->carry = r2 == 0 ? 1 : 0;
-	ft_print_players(vm);
-	return (1);
-}
-
-int		op_sub(t_vm *vm, t_process *proc)
-{
-	int		r1;
-	int		r2;
-	int		r3;
-
-	r1 = read_arena(vm, proc->pc + 2, T_REG);
-	r2 = read_arena(vm, proc->pc + 3, T_REG);
-	r3 = read_arena(vm, proc->pc + 4, T_REG);
-	r1 = read_reg(proc->regs[r1 - 1]);
-	r2 = read_reg(proc->regs[r2 - 1]);
-	r2 = r1 - r2;
-	assign_reg(proc, r3, r2);
-	proc->step_over = 5;
-	proc->carry = r2 == 0 ? 1 : 0;
-	ft_print_players(vm);
-	return (1);
-}
-
-int		op_and(t_vm *vm, t_process *proc)
-{
-	int		r1;
-	int		r2;
-	int		r3;
-
-	r1 = read_arena(vm, proc->pc + 2, T_REG);
-	r2 = read_arena(vm, proc->pc + 3, T_REG);
-	r3 = read_arena(vm, proc->pc + 4, T_REG);
-	r1 = read_reg(proc->regs[r1 - 1]);
-	r2 = read_reg(proc->regs[r2 - 1]);
-	r2 = r2 & r1;
-	assign_reg(proc, r3, r2);
-	proc->step_over = 5;
-	proc->carry = r2 == 0 ? 1 : 0;
-	ft_print_players(vm);
-	return (1);
-}
-
-int		op_or(t_vm *vm, t_process *proc)
-{
-	int		r1;
-	int		r2;
-	int		r3;
-
-	r1 = read_arena(vm, proc->pc + 2, T_REG);
-	r2 = read_arena(vm, proc->pc + 3, T_REG);
-	r3 = read_arena(vm, proc->pc + 4, T_REG);
-	r1 = read_reg(proc->regs[r1 - 1]);
-	r2 = read_reg(proc->regs[r2 - 1]);
-	r2 = r2 | r1;
-	assign_reg(proc, r3, r2);
-	proc->step_over = 5;
-	proc->carry = r2 == 0 ? 1 : 0;
-	ft_print_players(vm);
-	return (1);
-}
-
-int		op_xor(t_vm *vm, t_process *proc)
-{
-	int		r1;
-	int		r2;
-	int		r3;
-
-	r1 = read_arena(vm, proc->pc + 2, T_REG);
-	r2 = read_arena(vm, proc->pc + 3, T_REG);
-	r3 = read_arena(vm, proc->pc + 4, T_REG);
-	r1 = read_reg(proc->regs[r1 - 1]);
-	r2 = read_reg(proc->regs[r2 - 1]);
-	r2 = r2 ^ r1;
-	assign_reg(proc, r3, r2);
-	proc->step_over = 5;
-	proc->carry = r2 == 0 ? 1 : 0;
-	ft_print_players(vm);
-	return (1);
-}
-
 int		op_fork(t_vm *vm, t_process *proc)
 {
 	int		arg;
 
 	arg = read_arena(vm, proc->pc + 1, IND_SIZE);
 	proc->step_over = 3;
-	add_child_process(vm, proc, arg % IDX_MOD);
-	// ft_print_process(vm);
+	// printf("%d\n", (((proc->pc + arg % IDX_MOD) % 4096 + 4096) % 4096));
+	add_child_process(vm, proc, ((proc->pc + arg % IDX_MOD) % 4096 + 4096)
+		% 4096);
+	ft_print_process(vm);
+	return (1);
+}
+
+int		op_lfork(t_vm *vm, t_process *proc)
+{
+	int		arg;
+
+	arg = read_arena(vm, proc->pc + 1, IND_SIZE);
+	proc->step_over = 3;
+	// printf("%d\n", (((proc->pc + arg) % 4096 + 4096) % 4096));
+	add_child_process(vm, proc, ((proc->pc + arg) % 4096 + 4096) % 4096);
+	ft_print_process(vm);
+	return (1);
+}
+
+int		op_aff(t_vm *vm, t_process *proc)
+{
+	int		nb;
+
+	// ft_decode_byte2(vm, vm->arena[proc->pc + 1].by);
+	nb = read_arena(vm, proc->pc + 2, T_REG);
+	if (nb >= 1 && nb <= 16)
+	{
+		nb = read_reg(proc->regs[nb - 1]);
+		ft_printf("%d\n", nb);
+	}
+	proc->step_over = 3;
 	return (1);
 }

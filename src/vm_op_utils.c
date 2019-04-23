@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/22 16:10:36 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/23 17:15:31 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,37 @@
 #include "vm.h"
 #include "libftprintf.h"
 
-int		*ft_decode_byte(unsigned char c, int *tab, t_vm *vm)
+int		*ft_decode_byte(t_vm *vm, unsigned char c, int *tab)
 {
-	tab[0] = vm->enc[(c >> 6)];
-	c = (c << 2);
-	tab[1] = vm->enc[(c >> 6)];
-	c = (c << 4);
-	tab[2] = vm->enc[(c >> 6)];
-	c = (c << 6);
-	tab[3] = vm->enc[(c >> 6)];
+	tab[0] = vm->enc[(c >> 6) & 3];
+	tab[1] = vm->enc[(c >> 4) & 3];
+	tab[2] = vm->enc[(c >> 2) & 3];
+	tab[3] = vm->enc[c & 4];
+	// printf("||%d %d %d %d ||", tab[0], tab[1], tab[2], tab[3]);
 	return (tab);
 }
+
+void	ft_decode_byte2(t_vm *vm, unsigned char c)
+{
+	vm->enc_byte[0] = vm->enc[(c >> 6) & 3];
+	vm->enc_byte[1] = vm->enc[(c >> 4) & 3];
+	vm->enc_byte[2] = vm->enc[(c >> 2) & 3];
+	vm->enc_byte[3] = vm->enc[c & 3];
+	if (vm->debug == 1)
+		ft_printf("\n Encoding byte: ||%2b %2b %2b %2b ||\n", vm->enc_byte[0], vm->enc_byte[1], vm->enc_byte[2], vm->enc_byte[3]);
+}
+
+// int		*ft_decode_byte(t_vm *vm, unsigned char c, int *tab)
+// {
+// 	tab[0] = vm->enc[(c >> 6)];
+// 	c = (c << 2);
+// 	tab[1] = vm->enc[(c >> 6)];
+// 	c = (c << 4);
+// 	tab[2] = vm->enc[(c >> 6)];
+// 	c = (c << 6);
+// 	tab[3] = vm->enc[(c >> 6)];
+// 	return (tab);
+// }
 
 int		is_register(int decoded_by, unsigned char arena_by)
 {

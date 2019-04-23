@@ -6,11 +6,32 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 13:07:52 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 13:36:40 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/23 18:51:49 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+int		read_arena(t_vm *vm, int pos, int size)
+{
+	int		i;
+	int		res;
+
+	res = 0;
+	i = 0;
+	if (size > 4)
+		size = 4;
+	else if (size <= 0)
+		return (0);
+	while (i < size)
+	{
+		res += vm->arena[(pos + i + 4096) % 4096].by << (size - i - 1) * 8;
+		i++;
+	}
+	if (size == 2 && ((res >> 15) & 1) == 1)
+		res |= 4294901760;
+	return (res);
+}
 
 int		read_reg(unsigned char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 12:16:01 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 19:20:55 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/23 16:59:29 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,11 @@ int		ft_parse_args(t_vm *vm, int ac, char **av)
 		else if (ft_strcmp(av[i], "-v") == 0)
 		{
 			vm->visualization = 1;
+			i++;
+		}
+		else if (ft_strcmp(av[i], "-d") == 0)
+		{
+			vm->debug = 1;
 			i++;
 		}
 		else

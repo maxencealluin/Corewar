@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 11:42:41 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/22 16:35:07 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/23 17:24:03 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ void	remove_dead_process(t_vm *vm)
 	}
 }
 
-void	add_child_process(t_vm *vm, t_process *parent, int step_pc)
+void	add_child_process(t_vm *vm, t_process *parent, int child_pc)
 {
 	t_process	*tmp;
 
-	tmp = new_process(parent->id_parent, parent->pc + step_pc);
+	tmp = new_process(parent->id_parent, child_pc);
 	vm->nb_process += 1;
 	if (tmp == NULL || vm->process == NULL)
 		return ;

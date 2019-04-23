@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/23 13:27:45 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/23 18:05:51 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,10 @@ typedef struct	s_vm {
 	char		visualization;
 	int			*order;
 	int			enc[4];
+	int			enc_byte[4];
 	char		current_checks;
 	int			number_of_live;
+	char		debug;
 }				t_vm;
 
 typedef struct		s_op {
@@ -121,7 +123,7 @@ void			create_processes(t_vm *vm);
 int				read_reg(unsigned char *str);
 void			assign_reg(t_process *process, short reg, int value);
 
-void			add_child_process(t_vm *vm, t_process *parent, int step_pc);
+void			add_child_process(t_vm *vm, t_process *parent, int child_pc);
 void			remove_process(t_vm *vm, t_process *node);
 void			remove_dead_process(t_vm *vm);
 
@@ -137,7 +139,9 @@ void			print_intro(t_vm *vm);
 void			dump_memory(t_vm *vm);
 
 // ?? franck
-int				*ft_decode_byte(unsigned char c, int *tab, t_vm *vm);
+int				*ft_decode_byte(t_vm *vm, unsigned char c, int *tab);
+void			ft_decode_byte2(t_vm *vm, unsigned char c);
+
 int				is_register(int decoded_by, unsigned char arena_by);
 
 
@@ -146,18 +150,22 @@ void			print_op();
 
 
 // OPERATIONS
-int				op_load(t_vm *vm, t_process *proc);
 int				op_live(t_vm *vm, t_process *proc);
+int				op_load(t_vm *vm, t_process *proc);
 int				op_store(t_vm *vm, t_process *p);
-int				op_fork(t_vm *vm, t_process *proc);
-
-
 int				op_add(t_vm *vm, t_process *proc);
 int				op_sub(t_vm *vm, t_process *proc);
 int				op_and(t_vm *vm, t_process *proc);
 int				op_or(t_vm *vm, t_process *proc);
 int				op_xor(t_vm *vm, t_process *proc);
 int				op_zjmp(t_vm *vm, t_process *p);
+//ldi
+//sti
+int				op_fork(t_vm *vm, t_process *proc);
+//lld
+//lldi
+int				op_lfork(t_vm *vm, t_process *proc);
+int				op_aff(t_vm *vm, t_process *proc);
 
 
 void			reg_to_reg(int src_reg, int dst_reg, t_process *p);
