@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/24 15:34:42 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:15:40 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ int				op_fork(t_vm *vm, t_process *proc);
 int				op_lfork(t_vm *vm, t_process *proc);
 int				op_aff(t_vm *vm, t_process *proc);
 int				op_ldi(t_vm *vm, t_process *p);
+int				op_lld(t_vm *vm, t_process *p);
 int				op_lldi(t_vm *vm, t_process *p);
 
 
