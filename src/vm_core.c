@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/23 17:03:26 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/24 12:07:07 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	perform_op(t_vm *vm, t_process *proc)
 	res = 0;
 	if (proc->next_op >= 1 && proc->next_op <= 16 && op_func[proc->next_op - 1] != NULL)
 	{
-		if (check_args(vm, proc) == 1)
+		if (check_args(vm, proc, proc->next_op - 1) == 1)
 		{
 			res = op_func[proc->next_op - 1](vm, proc);
 			if (res == 1)

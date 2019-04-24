@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/24 11:27:35 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/24 13:20:18 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@ int		op_store(t_vm *vm, t_process *p)
 	// ft_printf("check the by: %d\n", by[3]);
 	if (is_register(by[0], vm->arena[i + 1].by) == 0)
 		error_param();
-	ft_printf("check the by: %d\n", by[0]);
-	ft_printf("check the by: %d\n", by[1]);
-	ft_printf("check the by: %d\n", by[2]);
-	ft_printf("check the by: %d\n", by[3]);
+	// ft_printf("check the by: %d\n", by[0]);
+	// ft_printf("check the by: %d\n", by[1]);
+	// ft_printf("check the by: %d\n", by[2]);
+	// ft_printf("check the by: %d\n", by[3]);
 	// if (is_register(by[0], vm->arena[i + 1].by) == 0 && ft_printf("\ntest"))
 		// error_param();
 	if (is_register(by[1], vm->arena[i + by[0] + 1].by))
@@ -152,9 +152,9 @@ int		op_ldi(t_vm *vm, t_process *p)
 {
 	unsigned char	c;
 	int				*by;
-	int				count;
-	char			test;
-	int				position;
+	// int				count;
+	// char			test;
+	// int				position;
 	int				i;
 
 	i = p->pc + 1;
@@ -163,13 +163,13 @@ int		op_ldi(t_vm *vm, t_process *p)
 	// ft_printf("check the pc: %08hhb\n", c);
 	if (!(by = (int *)malloc(sizeof(int) * 4)))
 		exit(-1);
-	if (!(by = ft_decode_byte(c, by, vm)))
+	if (!(by = ft_decode_byte(vm, c, by)))
 		exit(-1);
 	by[0] = (by[0] == 4) ? 2 : by[0];
 	by[1] = (by[1] == 4) ? 2 : by[1];
 	if (is_register(by[2], vm->arena[i + by[0] + by[1] + 1].by) == 0)
 		error_param();
-	ft_printf("check the pc: %08hhb\n", by[]);
+	// ft_printf("check the pc: %08hhb\n", by[]);
 	// p->regs[by[2]] =
 	// ft_printf("check the by: %d\n", by[0]);
 	// ft_printf("check the by: %d\n", by[1]);

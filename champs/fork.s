@@ -2,6 +2,5 @@
 .name "Tching tching(Intercepteur), Bouh!Bouh!(bruits d'anti-jeu)"
 .comment ""
 
-	 fork  %640          		# 3,0,281
-	 lfork  %-640          		# 3,0,281
-	 aff r1
+	 or  %12, %12, r5         	# 3,0,281
+	 lfork  %-12          		# 3,0,281

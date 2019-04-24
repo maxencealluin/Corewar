@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/24 11:27:35 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/24 15:35:13 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,26 @@ void	ft_decode_byte2(t_vm *vm, unsigned char c)
 	vm->enc_byte[2] = vm->enc[(c >> 2) & 3];
 	vm->enc_byte[3] = vm->enc[c & 3];
 	if (vm->debug == 1)
-		ft_printf("\n Encoding byte: ||%2b %2b %2b %2b ||\n", vm->enc_byte[0], vm->enc_byte[1], vm->enc_byte[2], vm->enc_byte[3]);
+		ft_printf("\n Encoding byte: ||%b %b %b %b ||\n", vm->enc_byte[0], vm->enc_byte[1], vm->enc_byte[2], vm->enc_byte[3]);
+}
+
+void	ft_decode_byte_codes(t_vm *vm)
+{
+	int		i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (vm->enc_byte[i] == IND_SIZE)
+			vm->enc_byte_codes[i] = T_IND;
+		else if (vm->enc_byte[i] == DIR_SIZE)
+			vm->enc_byte_codes[i] = T_DIR;
+		else if (vm->enc_byte[i] == REG_SIZE)
+			vm->enc_byte_codes[i] = T_REG;
+		i++;
+	}
+	if (vm->debug == 1)
+		ft_printf("\n Encoding byte codes: ||%b %b %b %b ||\n", vm->enc_byte_codes[0], vm->enc_byte_codes[1], vm->enc_byte_codes[2], vm->enc_byte_codes[3]);
 }
 
 // int		*ft_decode_byte(t_vm *vm, unsigned char c, int *tab)

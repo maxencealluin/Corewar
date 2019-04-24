@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/24 11:27:10 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/24 15:49:30 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 # define BOT_SIZE	4
 # define COMMENT_SIZE	2048
 
-typedef struct	s_process
-{
+typedef struct			s_process {
 	unsigned char		regs[REG_NUMBER][REG_SIZE];
 	int					pc;
 	char				carry;
@@ -33,66 +32,65 @@ typedef struct	s_process
 	int					id_parent;
 	unsigned char		next_op;
 	struct s_process	*next;
-}				t_process;
+}						t_process;
 
-typedef struct	s_time
-{
-	clock_t		begin;
-	clock_t		current;
-	clock_t		pause;
-}				t_time;
+typedef struct			s_time {
+	clock_t				begin;
+	clock_t				current;
+	clock_t				pause;
+}						t_time;
 
-typedef struct	s_player
-{
-	char		*code;
-	t_header	*header;
-	int			code_start;
-	char		*file_path;
-	int			player_number;
-	int			order_arg;
-	int			nb_process;
-	char		alive;
-}				t_player;
+typedef struct			s_player {
+	char				*code;
+	t_header			*header;
+	int					code_start;
+	char				*file_path;
+	int					player_number;
+	int					order_arg;
+	int					nb_process;
+	char				alive;
+}						t_player;
 
-typedef	struct	s_case {
-	int				id;
-	int				proc_id;
-	unsigned char	by;
-}				t_case;
+typedef	struct			s_case {
+	int					id;
+	int					proc_id;
+	unsigned char		by;
+}						t_case;
 
-typedef struct	s_vm {
-	t_player	*players[MAX_PLAYERS];
-	t_process	*process;
-	t_case		arena[MEM_SIZE];
-	// char		play_order[MAX_PLAYERS];
-	int			cycles;
-	int			players_alive;
-	int			cycle_to_die;
-	int			nb_process;
-	int			stop;
-	int			cycle_sec;
-	int			last_player_live;
-	int			dump_cycle;
-	int			nb_players;
-	char		visualization;
-	int			*order;
-	int			enc[4];
-	int			enc_byte[4];
-	char		current_checks;
-	int			number_of_live;
-	char		debug;
-}				t_vm;
+typedef struct			s_vm {
+	t_player			*players[MAX_PLAYERS];
+	t_process			*process;
+	t_case				arena[MEM_SIZE];
+	// char				play_order[MAX_PLAYERS];
+	int					cycles;
+	int					players_alive;
+	int					cycle_to_die;
+	int					nb_process;
+	int					stop;
+	int					cycle_sec;
+	int					last_player_live;
+	int					dump_cycle;
+	int					nb_players;
+	char				visualization;
+	int					*order;
+	int					enc[4];
+	int					enc_byte[4];
+	int					enc_byte_codes[4];
+	char				current_checks;
+	int					number_of_live;
+	char				debug;
+}						t_vm;
 
-typedef struct		s_op {
-	char	*op_name;
-	int		nb_args;
-	int		args_size[3];
-	int		op_num;
-	int		cycles;
-	char	*op_desc;
-	int		encoding;
-	int		size_direct;
-}					t_op;
+typedef struct			s_op {
+	char				*op_name;
+	int					nb_args;
+	int					args_size[3];
+	int					op_num;
+	int					cycles;
+	char				*op_desc;
+	int					encoding;
+	int					size_direct;
+}						t_op;
 
 
 
@@ -131,7 +129,7 @@ void			remove_dead_process(t_vm *vm);
 // MAIN LOOP
 
 void			main_loop(t_vm *vm);
-int				check_args(t_vm *vm, t_process *proc);
+int				check_args(t_vm *vm, t_process *proc, int op_code);
 
 
 // PRINT
@@ -141,6 +139,7 @@ void			dump_memory(t_vm *vm);
 // ?? franck
 int				*ft_decode_byte(t_vm *vm, unsigned char c, int *tab);
 void			ft_decode_byte2(t_vm *vm, unsigned char c);
+void			ft_decode_byte_codes(t_vm *vm);
 
 int				is_register(int decoded_by, unsigned char arena_by);
 
@@ -160,12 +159,12 @@ int				op_or(t_vm *vm, t_process *proc);
 int				op_xor(t_vm *vm, t_process *proc);
 int				op_zjmp(t_vm *vm, t_process *p);
 //sti
+int				op_ldi(t_vm *vm, t_process *p);
 int				op_fork(t_vm *vm, t_process *proc);
 //lld
 //lldi
 int				op_lfork(t_vm *vm, t_process *proc);
 int				op_aff(t_vm *vm, t_process *proc);
-int				op_ldi(t_vm *vm, t_process *p);
 
 
 
