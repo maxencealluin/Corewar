@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/24 16:27:13 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/24 18:04:24 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		check_args(t_vm *vm, t_process *proc, int op)
 		i++;
 	}
 	proc->step_over = size;
-	return (!quit);
+	return (quit);
 }
 
 // while (i < 3)

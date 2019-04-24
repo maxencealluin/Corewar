@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/24 16:39:50 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:48:25 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,8 @@ int				op_aff(t_vm *vm, t_process *proc);
 int				op_ldi(t_vm *vm, t_process *p);
 int				op_lld(t_vm *vm, t_process *p);
 int				op_lldi(t_vm *vm, t_process *p);
+int				op_sti(t_vm *vm, t_process *p);
+
 
 
 

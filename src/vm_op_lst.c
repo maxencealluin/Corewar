@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/24 17:38:35 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:59:02 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,12 @@ int		op_store(t_vm *vm, t_process *p)
 	// ft_printf("check the by: %d\n", by[0]);
 	// ft_printf("check the by: %d\n", by[1]);
 	// ft_printf("check the by: %d\n", by[2]);
-	// ft_printf("check the by: %d\n", by[3]);
+	ft_printf("check the by: %d\n", by[3]);
 	if (is_register(by[0], vm->arena[i + 1].by) == 0)
-		error_param();
+	{
+		p->step_over = 4;
+		return (1);
+	}
 	// ft_printf("check the by: %d\n", by[0]);
 	// ft_printf("check the by: %d\n", by[1]);
 	// ft_printf("check the by: %d\n", by[2]);
@@ -235,11 +238,11 @@ int		op_lld(t_vm *vm, t_process *p)
 	if (test == 0)
 		p->carry = 1;
 	p->step_over = 7;
-	ft_printf("reg %d: %08b\n", r, p->regs[r - 1][0]);
+	ft_printf("lldreg %d: %08b\n", r, p->regs[r - 1][0]);
 	ft_printf("reg %d: %08b\n", r, p->regs[r - 1][1]);
 	ft_printf("reg %d: %08b\n", r, p->regs[r - 1][2]);
 	ft_printf("reg %d: %08b\n", r, p->regs[r - 1][3]);
-	exit(0);
+	// exit(0);
 
 	ft_memdel((void **)&by);
 	return (1);
@@ -297,5 +300,36 @@ int		op_lldi(t_vm *vm, t_process *p)
 	p->step_over = by[0] + by[1] + by[2] + 2;
 	p->carry = 1;
 	ft_memdel((void **)&by);
+	return (1);
+}
+
+int		op_sti(t_vm *vm, t_process *p)
+{
+	unsigned char	c;
+	int				*by;
+	int				count;
+	char			test;
+	int				i;
+	int				reg_nb;
+	int				res;
+	int				r;
+	i = p->pc + 1;
+	c = vm->arena[i].by;
+	// ft_printf("check the pc: %02hhx\n", c);
+	// ft_printf("check the pc: %08hhb\n", c);
+	if (!(by = (int *)malloc(sizeof(int) * 4)))
+		exit(-1);
+	if (!(by = ft_decode_byte(vm, c, by)))
+		exit(-1);
+
+	ft_printf("check the by: %d\n", by[0]);
+	ft_printf("check the by: %d\n", by[1]);
+	ft_printf("check the by: %d\n", by[2]);
+	ft_printf("check the by: %d\n", by[3]);
+	// ft_printf("reg %d: %08b\n", r, p->regs[r - 1][0]);
+	// ft_printf("reg %d: %08b\n", r, p->regs[r - 1][1]);
+	// ft_printf("reg %d: %08b\n", r, p->regs[r - 1][2]);
+	// ft_printf("reg %d: %08b\n", r, p->regs[r - 1][3]);
+	exit(0);
 	return (1);
 }
