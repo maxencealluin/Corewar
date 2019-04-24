@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/24 16:40:19 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:38:35 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,26 +207,40 @@ int		op_lld(t_vm *vm, t_process *p)
 	int				*by;
 	int				count;
 	char			test;
-	int				position;
 	int				i;
+	int				reg_nb;
 	int				res;
-	short			r;
+	int				r;
 
-	// ft_printf("res : %d / %d\n", res, r);
-	// ft_printf("res : %032b\n", res);
-	//
-	// ft_printf("check the by: %d\n", by[0]);
-	// ft_printf("check the by: %d\n", by[1]);
-	// ft_printf("check the by: %d\n", by[2]);
-	// ft_printf("check the by: %d\n", by[3]);
-	// ft_printf("reg %d: %08b\n", r, p->regs[r - 1][0]);
-	// ft_printf("reg %d: %08b\n", r, p->regs[r - 1][1]);
-	// ft_printf("reg %d: %08b\n", r, p->regs[r - 1][2]);
-	// ft_printf("reg %d: %08b\n", r, p->regs[r - 1][3]);
-	// exit(0);
+	i = p->pc + 1;
+	// ft_printf("load\n");
+	c  = vm->arena[i].by;
+	if (!(by = (int *)malloc(sizeof(int) * 4)))
+		exit(-1);
+	if (!(by = ft_decode_byte(vm, c, by)))
+		exit(-1);
+	// reg_nb = vm->arena[i + by[0] + 1].by;
+	r = read_arena(vm, i + by[0] + 1, by[1]);
+	// ft_printf("reg: %d\n", r);
+	if (is_register(by[1], r) == 0)
+	{
+		// ft_printf("%test\n");
+		p->step_over = 7;
+		return (1);
+	}
+	res = read_arena(vm, i + 1, 2);
+	assign_reg(p, r, res);
+	ft_printf("%d\n", res);
+	test = (p->regs[r][0] << 6) + (p->regs[r][1] << 4) + (p->regs[r][2] << 4) + (p->regs[r][3]);
+	if (test == 0)
+		p->carry = 1;
+	p->step_over = 7;
+	ft_printf("reg %d: %08b\n", r, p->regs[r - 1][0]);
+	ft_printf("reg %d: %08b\n", r, p->regs[r - 1][1]);
+	ft_printf("reg %d: %08b\n", r, p->regs[r - 1][2]);
+	ft_printf("reg %d: %08b\n", r, p->regs[r - 1][3]);
+	exit(0);
 
-	p->step_over = by[0] + by[1] + by[2] + 2;
-	p->carry = 1;
 	ft_memdel((void **)&by);
 	return (1);
 }
