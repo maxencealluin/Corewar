@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/24 09:42:27 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/24 10:27:21 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		op_store(t_vm *vm, t_process *p)
 	// ft_printf("check the by: %d\n", by[1]);
 	// ft_printf("check the by: %d\n", by[2]);
 	// ft_printf("check the by: %d\n", by[3]);
-	if (is_register(by[0], vm->arena[i + 1].by) == 0 && ft_printf("\ntest"))
+	if (is_register(by[0], vm->arena[i + 1].by) == 0)
 		error_param();
 	if (is_register(by[1], vm->arena[i + by[0] + 1].by))
 		reg_to_reg(vm->arena[i + 1].by, vm->arena[i + 2].by, p);
@@ -103,6 +103,7 @@ int		op_store(t_vm *vm, t_process *p)
 		count = 0;
 	}
 	p->step_over = 4;
+	ft_memdel((void **)&by);
 	return (1);
 }
 
@@ -157,12 +158,24 @@ int		op_ldi(t_vm *vm, t_process *p)
 		exit(-1);
 	if (!(by = ft_decode_byte(c, by, vm)))
 		exit(-1);
+	by[0] = (by[0] == 4) ? 2 : by[0];
+	by[1] = (by[1] == 4) ? 2 : by[1];
+	if (is_register(by[2], vm->arena[i + by[0] + by[1] + 1].by) == 0)
+		error_param();
+	ft_printf("check the pc: %08hhb\n", by[]);
+	// p->regs[by[2]] =
 	// ft_printf("check the by: %d\n", by[0]);
 	// ft_printf("check the by: %d\n", by[1]);
 	// ft_printf("check the by: %d\n", by[2]);
 	// ft_printf("check the by: %d\n", by[3]);
+	// ft_printf("reg15: %02hhb\n", p->regs[15][0]);
+	// ft_printf("reg15: %02hhb\n", p->regs[15][1]);
+	// ft_printf("reg15: %02hhb\n", p->regs[15][2]);
+	// ft_printf("reg15: %02hhb\n", p->regs[15][3]);
+	// ft_printf("reg15: %02hhb\n", p->regs[15][4]);
 	// exit(0);
 
-	p->step_over = 7;
+	p->step_over = by[0] + by[1] + by[2] + 2;
+	ft_memdel((void **)&by);
 	return (1);
 }

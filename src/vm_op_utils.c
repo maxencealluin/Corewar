@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/24 09:40:11 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/24 10:25:07 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void				mem_to_reg(int reg, int pos, t_vm *vm, t_process *p)
 	{
 		// ft_printf("%d\n", by[1]);
 		// vm->arena[pos + count].by = p->regs[reg][count];
-		vm->arena[pos + count].by = 7;
+		// vm->arena[pos + count].by = 7;
 		count++;
 	}
 }
