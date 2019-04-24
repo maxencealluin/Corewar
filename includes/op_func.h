@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/04/24 11:26:53 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:15:45 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@ int		(*op_func[16])(t_vm *vm, t_process *proc) = {
 		op_live, op_load, op_store, op_add,
 		op_sub, op_and, op_or, op_xor,
 		op_zjmp, op_ldi, NULL, op_fork,
-		NULL, NULL, op_lfork, op_aff};
+		op_lld, op_lldi, op_lfork, op_aff};
 
 #endif
