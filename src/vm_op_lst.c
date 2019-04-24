@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/24 15:45:06 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/24 15:54:52 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,25 +232,25 @@ int		op_lldi(t_vm *vm, t_process *p)
 	// ft_printf("res : %d / %d\n", by[0], by[1]);
 
 	res = read_arena(vm, i + 1, by[0]) + read_arena(vm, i + by[0] + 1, by[1]);
-	ft_printf("1res : %d / %d\n", res, r);
+	// ft_printf("1res : %d / %d\n", res, r);
 
 	res = read_arena(vm, p->pc + res, 1);
-	ft_printf("2res : %d / %d\n", res, r);
+	// ft_printf("2res : %d / %d\n", res, r);
 	r = read_arena(vm, i + by[0] + 1 + by[1], by[2]);
 
 	assign_reg(p, r, res);
-	ft_printf("res : %d / %d\n", res, r);
-	ft_printf("res : %032b\n", res);
-
-	ft_printf("check the by: %d\n", by[0]);
-	ft_printf("check the by: %d\n", by[1]);
-	ft_printf("check the by: %d\n", by[2]);
-	ft_printf("check the by: %d\n", by[3]);
-	ft_printf("reg %d: %08b\n", r, p->regs[r - 1][0]);
-	ft_printf("reg %d: %08b\n", r, p->regs[r - 1][1]);
-	ft_printf("reg %d: %08b\n", r, p->regs[r - 1][2]);
-	ft_printf("reg %d: %08b\n", r, p->regs[r - 1][3]);
-	exit(0);
+	// ft_printf("res : %d / %d\n", res, r);
+	// ft_printf("res : %032b\n", res);
+	//
+	// ft_printf("check the by: %d\n", by[0]);
+	// ft_printf("check the by: %d\n", by[1]);
+	// ft_printf("check the by: %d\n", by[2]);
+	// ft_printf("check the by: %d\n", by[3]);
+	// ft_printf("reg %d: %08b\n", r, p->regs[r - 1][0]);
+	// ft_printf("reg %d: %08b\n", r, p->regs[r - 1][1]);
+	// ft_printf("reg %d: %08b\n", r, p->regs[r - 1][2]);
+	// ft_printf("reg %d: %08b\n", r, p->regs[r - 1][3]);
+	// exit(0);
 
 	p->step_over = by[0] + by[1] + by[2] + 2;
 	p->carry = 1;
