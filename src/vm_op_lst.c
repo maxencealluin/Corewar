@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/24 17:59:02 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:08:38 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,6 +321,10 @@ int		op_sti(t_vm *vm, t_process *p)
 		exit(-1);
 	if (!(by = ft_decode_byte(vm, c, by)))
 		exit(-1);
+
+
+	res = read_reg(p->regs[read_arena(vm, i + 1, 1)]);
+	printf("%d\n", res);
 
 	ft_printf("check the by: %d\n", by[0]);
 	ft_printf("check the by: %d\n", by[1]);
