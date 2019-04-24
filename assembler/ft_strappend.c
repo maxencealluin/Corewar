@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assembler.c                                        :+:      :+:    :+:   */
+/*   ft_strappend.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccepre <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/23 18:40:32 by ccepre            #+#    #+#             */
-/*   Updated: 2019/04/23 18:56:02 by ccepre           ###   ########.fr       */
+/*   Created: 2019/04/24 12:05:44 by ccepre            #+#    #+#             */
+/*   Updated: 2019/04/24 12:09:52 by ccepre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "libft.h"
 
-void	print_error_asm(int	error_id)
+int	ft_strappend(char *str, char *ext)
 {
-	if (error_id == 1)
-		write(1, "usage\n", 6);
-	return (1);
+	int	i;
+	int	j;
+
+	i = ft_strlen(str);
+	if (!(str = (char*)realloc(sizeof(char) * (i + ft_strlen(ext) + 1))))
+		return (1);
+	j = -1;
+	while (ext[++j])
+		str[++i - 1] = ext[j];
+	str[i] = 0;
+	return (0);
 }
-
-int		main(int ac, char **av)
-{
-	int		fd;
-	int		i;
-
-	if (ac < 2)
-		return (print_error_asm(1));
-	if ((fd = open(av[ac - 1], O_RDONLY) == -1))
-		return (print_error_asm(1));
-	if (!(scanner_asm(fd)))
-		return (print_error_asm(1));
-	//parser
-	//encodeur
-	return(0);
-}	
