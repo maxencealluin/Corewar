@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/23 17:15:31 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/24 11:27:35 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 
 int		*ft_decode_byte(t_vm *vm, unsigned char c, int *tab)
 {
-	tab[0] = vm->enc[(c >> 6) & 3];
-	tab[1] = vm->enc[(c >> 4) & 3];
-	tab[2] = vm->enc[(c >> 2) & 3];
-	tab[3] = vm->enc[c & 4];
-	// printf("||%d %d %d %d ||", tab[0], tab[1], tab[2], tab[3]);
+	tab[0] = vm->enc[(c >> 6)];
+	c = (c << 2);
+	tab[1] = vm->enc[(c >> 6)];
+	c = (c << 2);
+	tab[2] = vm->enc[(c >> 6)];
+	c = (c << 2);
+	tab[3] = vm->enc[(c >> 6)];
 	return (tab);
 }
 
@@ -96,7 +98,7 @@ void				mem_to_reg(int reg, int pos, t_vm *vm, t_process *p)
 	{
 		// ft_printf("%d\n", by[1]);
 		// vm->arena[pos + count].by = p->regs[reg][count];
-		vm->arena[pos + count].by = 7;
+		// vm->arena[pos + count].by = 7;
 		count++;
 	}
 }

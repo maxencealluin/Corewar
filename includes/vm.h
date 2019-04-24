@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/23 18:05:51 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/24 11:27:10 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,13 +159,14 @@ int				op_and(t_vm *vm, t_process *proc);
 int				op_or(t_vm *vm, t_process *proc);
 int				op_xor(t_vm *vm, t_process *proc);
 int				op_zjmp(t_vm *vm, t_process *p);
-//ldi
 //sti
 int				op_fork(t_vm *vm, t_process *proc);
 //lld
 //lldi
 int				op_lfork(t_vm *vm, t_process *proc);
 int				op_aff(t_vm *vm, t_process *proc);
+int				op_ldi(t_vm *vm, t_process *p);
+
 
 
 void			reg_to_reg(int src_reg, int dst_reg, t_process *p);

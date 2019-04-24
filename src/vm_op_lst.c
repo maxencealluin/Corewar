@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/23 13:58:47 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/24 11:27:35 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,17 @@ int		op_store(t_vm *vm, t_process *p)
 
 	i = p->pc + 1;
 	c = vm->arena[i].by;
-	ft_printf("check the pc: %02hhx\n", c);
+	// ft_printf("check the pc: %02hhx\n", c);
 	if (!(by = (int *)malloc(sizeof(int) * 4)))
 		exit(-1);
 	if (!(by = ft_decode_byte(vm, c, by)))
 		exit(-1);
+	// ft_printf("check the by: %d\n", by[0]);
+	// ft_printf("check the by: %d\n", by[1]);
+	// ft_printf("check the by: %d\n", by[2]);
+	// ft_printf("check the by: %d\n", by[3]);
+	if (is_register(by[0], vm->arena[i + 1].by) == 0)
+		error_param();
 	ft_printf("check the by: %d\n", by[0]);
 	ft_printf("check the by: %d\n", by[1]);
 	ft_printf("check the by: %d\n", by[2]);
@@ -105,6 +111,7 @@ int		op_store(t_vm *vm, t_process *p)
 		count = 0;
 	}
 	p->step_over = 4;
+	ft_memdel((void **)&by);
 	return (1);
 }
 
@@ -132,6 +139,50 @@ int		op_zjmp(t_vm *vm, t_process *p)
 	// exit(0);
 	// p->step_over
 
+	return (1);
+}
 
+/*
+** ldi %44, %1, r2´ then the manipulation will be 44 + 1 = 45
+** we will go get the value from address 45 and load it to our register r2.
+** The last argument must be a register.
+*/
+
+int		op_ldi(t_vm *vm, t_process *p)
+{
+	unsigned char	c;
+	int				*by;
+	int				count;
+	char			test;
+	int				position;
+	int				i;
+
+	i = p->pc + 1;
+	c = vm->arena[i].by;
+	// ft_printf("check the pc: %02hhx\n", c);
+	// ft_printf("check the pc: %08hhb\n", c);
+	if (!(by = (int *)malloc(sizeof(int) * 4)))
+		exit(-1);
+	if (!(by = ft_decode_byte(c, by, vm)))
+		exit(-1);
+	by[0] = (by[0] == 4) ? 2 : by[0];
+	by[1] = (by[1] == 4) ? 2 : by[1];
+	if (is_register(by[2], vm->arena[i + by[0] + by[1] + 1].by) == 0)
+		error_param();
+	ft_printf("check the pc: %08hhb\n", by[]);
+	// p->regs[by[2]] =
+	// ft_printf("check the by: %d\n", by[0]);
+	// ft_printf("check the by: %d\n", by[1]);
+	// ft_printf("check the by: %d\n", by[2]);
+	// ft_printf("check the by: %d\n", by[3]);
+	// ft_printf("reg15: %02hhb\n", p->regs[15][0]);
+	// ft_printf("reg15: %02hhb\n", p->regs[15][1]);
+	// ft_printf("reg15: %02hhb\n", p->regs[15][2]);
+	// ft_printf("reg15: %02hhb\n", p->regs[15][3]);
+	// ft_printf("reg15: %02hhb\n", p->regs[15][4]);
+	// exit(0);
+
+	p->step_over = by[0] + by[1] + by[2] + 2;
+	ft_memdel((void **)&by);
 	return (1);
 }
