@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/26 13:12:12 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:49:21 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,46 @@ void				reg_to_mem(t_vm *vm, t_process *p, int reg, int pos)
 	count = 0;
 	while (count < REG_SIZE)
 	{
-		vm->arena[(pos + count) % MEM_SIZE].by = p->regs[reg][count];
+		vm->arena[(pos + count) % MEM_SIZE].by = p->regs[reg - 1][count];
 		vm->arena[(pos + count) % MEM_SIZE].id = p->id_parent;
 		count++;
 	}
+}
+
+int		find_pos(t_vm *vm, t_process *p, int t[4])
+{
+	int				k;
+	int				reg;
+	int				size;
+	int				pos;
+
+	reg = 0;
+	size = 3;
+	k = 1;
+	pos = 0;
+	while (k < 4)
+	{
+		if (t[k] == 1)
+		{
+			reg = read_arena(vm, p->pc + size , T_REG);
+			if (reg >= 1 && reg <= 16)
+				pos = read_reg(p->regs[reg - 1]);
+			size = size + 1;
+		}
+		else if (t[k] == 2)
+		{
+			pos = pos + read_arena(vm, p->pc + size, 2);
+			size = size + 2;
+		}
+		else if (t[k] == 3)
+		{
+			reg = read_arena(vm, p->pc + size , 2);
+			pos = pos + read_arena(vm, p->pc + reg, 4);
+			size = size + 2;
+		}
+		k++;
+	}
+	return (pos);
 }
 
 // void				mem_to_reg(int reg, int pos, t_vm *vm, t_process *p)

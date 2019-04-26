@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/26 15:25:23 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:49:07 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,19 +207,19 @@ int		op_lldi(t_vm *vm, t_process *p)
 	return (1);
 }
 
+
+
+
 int		op_sti(t_vm *vm, t_process *p)
 {
+	// assign_reg(p, 2, 9);
 	unsigned char	c;
 	int				i;
-	int				pos;
-	int				reg;
-	int				t[4];
 	int				k;
-	int				size;
+	int				pos;
+	int				t[4];
 	i = p->pc + 1;
 	c = vm->arena[i].by;
-	pos = 0;
-	size = 2;
 	i++;
 	k = 3;
 	while (k >= 0)
@@ -228,79 +228,9 @@ int		op_sti(t_vm *vm, t_process *p)
 		k--;
 		c = c >> 2;
 	}
-
-
-
-
-
-	// ft_printf("%d\n", t[0]);
-	// ft_printf("%d\n", t[1]);
-	// ft_printf("%d\n", t[2]);
-	// ft_printf("%d\n", t[3]);
-	// ft_printf("---------------\n");
-	reg = 0;
-	k = 1;
-	size = 3;
-	while (k < 4)
-	{
-
-		if (t[k] == 1)
-		{
-
-			reg = read_arena(vm, p->pc + size , T_REG);
-			if (reg >= 1 && reg <= 16)
-				pos = read_reg(p->regs[reg - 1]);
-			// pos = pos + read_reg(p->regs[read_arena(vm, i, T_REG)]);
-			size = size + 1;
-			// ft_printf("1 === %d\n", pos);
-			// ft_printf("1\n");
-		}
-		else if (t[k] == 2)
-		{
-			pos = pos + read_arena(vm, p->pc + size, 2);
-			// ft_printf("2 === %d\n", pos);
-			size = size + 2;
-		}
-		else if (t[k] == 3)
-		{
-			reg = read_arena(vm, p->pc + size , 2);
-			pos = pos + read_arena(vm, p->pc + reg, 4);
-			// ft_printf("3 === %d\n", pos);
-			// ft_printf("---\n");
-			size = size + 2;
-		}
-		// else
-		// 	t[k] = 0;
-		k++;
-		// ft_printf("3 === %d\n", pos %IDX_MOD);
-
-	}
-
-
-
-
-	reg_to_mem(vm, p, vm->arena[p->pc + 1 + t[0]].by, (p->pc + pos + MEM_SIZE) % IDX_MOD);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	pos = find_pos(vm, p, t);
+	// ft_printf("---- %d\n",vm->arena[p->pc + 1 + t[0]].by);
 	// exit(0);
+	reg_to_mem(vm, p, vm->arena[p->pc + 1 + t[0]].by, (p->pc + pos + MEM_SIZE) % IDX_MOD);
 	return (1);
 }
