@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/24 15:35:13 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/26 11:58:50 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,32 +92,28 @@ void				reg_to_reg(int src_reg, int dst_reg, t_process *p)
 	}
 }
 
-void				reg_to_mem(int reg, int pos, t_vm *vm, t_process *p)
+void				reg_to_mem(t_vm *vm, t_process *p, int reg, int pos)
 {
 	int				count;
 
 	count = 0;
-	// ft_print_xarena(vm, 60);
 	while (count < REG_SIZE)
 	{
-		// ft_printf("%d\n", by[1]);
 		vm->arena[pos + count].by = p->regs[reg][count];
-		// vm->arena[pos + count].by = 7;
-		count++;
-	}
-	// ft_print_xarena(vm, 60);
-}
-
-void				mem_to_reg(int reg, int pos, t_vm *vm, t_process *p)
-{
-	int				count;
-
-	count = 0;
-	while (count < REG_SIZE)
-	{
-		// ft_printf("%d\n", by[1]);
-		// vm->arena[pos + count].by = p->regs[reg][count];
-		// vm->arena[pos + count].by = 7;
 		count++;
 	}
 }
+
+// void				mem_to_reg(int reg, int pos, t_vm *vm, t_process *p)
+// {
+// 	int				count;
+//
+// 	count = 0;
+// 	while (count < REG_SIZE)
+// 	{
+// 		// ft_printf("%d\n", by[1]);
+// 		// vm->arena[pos + count].by = p->regs[reg][count];
+// 		// vm->arena[pos + count].by = 7;
+// 		count++;
+// 	}
+// }

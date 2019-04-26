@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/24 17:48:25 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/26 10:51:01 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ int				op_sti(t_vm *vm, t_process *p);
 
 
 void			reg_to_reg(int src_reg, int dst_reg, t_process *p);
-void			reg_to_mem(int reg, int pos, t_vm *vm, t_process *p);
+void			reg_to_mem(t_vm *vm, t_process *p, int reg, int pos);
 void			mem_to_reg(int reg, int pos, t_vm *vm, t_process *p);
 
 
