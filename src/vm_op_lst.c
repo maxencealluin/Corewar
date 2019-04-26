@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/26 12:20:04 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:25:23 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,33 +210,97 @@ int		op_lldi(t_vm *vm, t_process *p)
 int		op_sti(t_vm *vm, t_process *p)
 {
 	unsigned char	c;
-	int				*by;
 	int				i;
 	int				pos;
-	int				r;
+	int				reg;
+	int				t[4];
+	int				k;
+	int				size;
 	i = p->pc + 1;
 	c = vm->arena[i].by;
 	pos = 0;
-	if (!(by = (int *)malloc(sizeof(int) * 4)))
-		exit(-1);
-	if (!(by = ft_decode_byte(vm, c, by)))
-		exit(-1);
-	r = read_reg(p->regs[read_arena(vm, ++i, T_REG)]);
-	if (by[1] == 1)
+	size = 2;
+	i++;
+	k = 3;
+	while (k >= 0)
 	{
-		pos = read_reg(p->regs[read_arena(vm, ++i, T_REG)]);
+		t[k] = c & 3;
+		k--;
+		c = c >> 2;
 	}
-	else
-		pos = read_arena(vm, ++i, IND_SIZE);
-	if (by[2] == 1)
+
+
+
+
+
+	// ft_printf("%d\n", t[0]);
+	// ft_printf("%d\n", t[1]);
+	// ft_printf("%d\n", t[2]);
+	// ft_printf("%d\n", t[3]);
+	// ft_printf("---------------\n");
+	reg = 0;
+	k = 1;
+	size = 3;
+	while (k < 4)
 	{
-		pos = pos + read_reg(p->regs[read_arena(vm, i + by[1], T_REG)]);
+
+		if (t[k] == 1)
+		{
+
+			reg = read_arena(vm, p->pc + size , T_REG);
+			if (reg >= 1 && reg <= 16)
+				pos = read_reg(p->regs[reg - 1]);
+			// pos = pos + read_reg(p->regs[read_arena(vm, i, T_REG)]);
+			size = size + 1;
+			// ft_printf("1 === %d\n", pos);
+			// ft_printf("1\n");
+		}
+		else if (t[k] == 2)
+		{
+			pos = pos + read_arena(vm, p->pc + size, 2);
+			// ft_printf("2 === %d\n", pos);
+			size = size + 2;
+		}
+		else if (t[k] == 3)
+		{
+			reg = read_arena(vm, p->pc + size , 2);
+			pos = pos + read_arena(vm, p->pc + reg, 4);
+			// ft_printf("3 === %d\n", pos);
+			// ft_printf("---\n");
+			size = size + 2;
+		}
+		// else
+		// 	t[k] = 0;
+		k++;
+		// ft_printf("3 === %d\n", pos %IDX_MOD);
+
 	}
-	else
-		pos = pos + read_arena(vm, i + by[1], IND_SIZE);
-		// ft_printf("%08b\n", vm->arena[p->pc + 2].by);
-		// exit(0);
-	reg_to_mem(vm, p, vm->arena[p->pc + 2].by, p->pc + pos);
-	// reg_to_mem(vm, p, r, p->pc + pos);
+
+
+
+
+	reg_to_mem(vm, p, vm->arena[p->pc + 1 + t[0]].by, (p->pc + pos + MEM_SIZE) % IDX_MOD);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// exit(0);
 	return (1);
 }

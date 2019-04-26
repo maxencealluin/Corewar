@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/26 12:19:01 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/26 13:12:12 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_decode_byte2(t_vm *vm, unsigned char c)
 	vm->enc_byte[2] = vm->enc[(c >> 2) & 3];
 	vm->enc_byte[3] = vm->enc[c & 3];
 	if (vm->debug == 1)
-		ft_printf("\n Encoding byte: ||%b %b %b %b ||\n", vm->enc_byte[0], vm->enc_byte[1], vm->enc_byte[2], vm->enc_byte[3]);
+		ft_printf("\n Encoding byte: || %02b %02b %02b %02b ||\n", vm->enc_byte[0], vm->enc_byte[1], vm->enc_byte[2], vm->enc_byte[3]);
 }
 
 void	ft_decode_byte_codes(t_vm *vm)
