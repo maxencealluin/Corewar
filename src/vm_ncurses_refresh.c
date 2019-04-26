@@ -6,26 +6,20 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:40:21 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/24 12:10:37 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/26 15:41:06 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ncurses.h>
 #include "vm.h"
-#include "libft.h"
+#include "libftprintf.h"
 
-void	arena_display(t_vm *vm)
+void	initialize_color(void)
 {
-	int i = 0;
-	// int col = 0;
-	// char by = 0;
-
-	// attron(A_BOLD);
-	move(2,0);
 	if (has_colors() == FALSE)
 	{
 		endwin();
-		printf("Your terminal does not support color\n");
+		ft_printf("Your terminal does not support color\n");
 		exit(1);
 	}
 	start_color();
@@ -39,19 +33,26 @@ void	arena_display(t_vm *vm)
 	init_pair(13, COLOR_BLACK, COLOR_BLUE);
 	init_pair(4, COLOR_RED, COLOR_BLACK);
 	init_pair(14, COLOR_BLACK, COLOR_RED);
+}
+
+void	arena_display(t_vm *vm)
+{
+	int i = 0;
+
+	move(2,0);
+	initialize_color();
 	while (i < MEM_SIZE)
 	{
 		if (i % 64 == 0)
 			printw("	");
-		attron(COLOR_PAIR(vm->arena[i].id + 10 * (vm->arena[i].proc_id != 0)));
+		attron(COLOR_PAIR(ft_iabs(vm->arena[i].id) + 10 * (vm->arena[i].proc_id != 0)));
 		printw("%02hhx", vm->arena[i].by);
-		attroff(COLOR_PAIR(vm->arena[i].id + 10 * (vm->arena[i].proc_id != 0)));
+		attroff(COLOR_PAIR(ft_iabs(vm->arena[i].id) + 10 * (vm->arena[i].proc_id != 0)));
 		printw(" ");
 		i++;
 		if (i % 64 == 0)
 			printw("\n");
 	}
-	// attroff(A_DIM);
 }
 
 void	menu(t_vm *vm)
@@ -81,15 +82,12 @@ void 	borders()
 {
 	WINDOW *boite;
 
-
 	// attron(COLOR_PAIR(1));
 	attron(A_BOLD);
 	attron(COLOR_PAIR(0));
 	border('|', '|', '-', '-', '+', '+', '+', '+');
-	// box(boite, ACS_VLINE, ACS_HLINE);
 	boite = subwin(stdscr, LINES, COLS * 1 / 4, 0, COLS - COLS / 4);
 	wborder(boite, '|', '|', '-', '-', '+', '+', '+', '+');
-	// box(boite, ACS_VLINE, ACS_HLINE);
 	ft_memdel((void **)&boite);
 	attroff(A_BOLD);
 	// attroff(COLOR_PAIR(1));

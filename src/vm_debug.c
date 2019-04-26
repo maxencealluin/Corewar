@@ -99,6 +99,6 @@ void	increment_memory(t_vm *vm)
 	static int i = 0;
 
 	vm->arena[i++].by++;
-	if (i == 4096)
+	if (i == MEM_SIZE)
 		i = 0;
 }

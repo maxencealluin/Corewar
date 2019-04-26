@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:22:40 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/17 19:26:13 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/26 15:32:37 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	print_intro(t_vm *vm)
 		ft_printf("Introducing contestants...\n");
 		while (i < vm->nb_players && vm->players[i] != NULL)
 		{
-			ft_printf("* Player %d, weighing %3d bytes, \"%s\", (\"%s\")\n",
+			ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
 			vm->players[i]->player_number, vm->players[i]->header->prog_size,
 			vm->players[i]->header->prog_name, vm->players[i]->header->comment);
 			i++;
@@ -33,8 +33,9 @@ void	print_intro(t_vm *vm)
 
 void	dump_memory(t_vm *vm)
 {
-	int i = 0;
+	int i;
 
+	i = 0;
 	while (i < MEM_SIZE)
 	{
 		if (i % 64 == 0)

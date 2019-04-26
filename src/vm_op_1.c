@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/24 16:27:13 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/26 15:12:05 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,14 @@ int		op_live(t_vm *vm, t_process *proc)
 		if (vm->players[i] != NULL && nb == vm->players[i]->player_number)
 		{
 			vm->last_player_live = nb;
+			if (vm->visualization == 0)
+				ft_printf("Le joueur %d est en vie.\n", vm->players[i]->player_number);
 			break;
 		}
 		i++;
 	}
+	if (vm->detail == 1)
+		ft_printf("%d\n", nb);
 	return (1);
 }
 
@@ -97,10 +101,12 @@ int		op_fork(t_vm *vm, t_process *proc)
 
 	arg = read_arena(vm, proc->pc + 1, IND_SIZE);
 	proc->step_over = 3;
-	// printf("%d\n", (((proc->pc + arg % IDX_MOD) % 4096 + 4096) % 4096));
-	add_child_process(vm, proc, ((proc->pc + arg % IDX_MOD) % 4096 + 4096)
-		% 4096);
+	// printf("%d\n", (((proc->pc + arg % IDX_MOD) % MEM_SIZE + MEM_SIZE) % MEM_SIZE));
+	add_child_process(vm, proc, ((proc->pc + arg % IDX_MOD) % MEM_SIZE + MEM_SIZE)
+		% MEM_SIZE);
 	ft_print_process(vm);
+	if (vm->detail == 1)
+		ft_printf("%d (%d)\n", arg, proc->pc + arg % IDX_MOD);
 	return (1);
 }
 
@@ -110,9 +116,11 @@ int		op_lfork(t_vm *vm, t_process *proc)
 
 	arg = read_arena(vm, proc->pc + 1, IND_SIZE);
 	proc->step_over = 3;
-	// printf("%d\n", (((proc->pc + arg) % 4096 + 4096) % 4096));
-	add_child_process(vm, proc, ((proc->pc + arg) % 4096 + 4096) % 4096);
+	// printf("%d\n", (((proc->pc + arg) % MEM_SIZE + MEM_SIZE) % MEM_SIZE));
+	add_child_process(vm, proc, ((proc->pc + arg) % MEM_SIZE + MEM_SIZE) % MEM_SIZE);
 	ft_print_process(vm);
+	if (vm->detail == 1)
+		ft_printf("%d (%d)\n", arg, proc->pc + arg % IDX_MOD);
 	return (1);
 }
 
@@ -125,7 +133,7 @@ int		op_aff(t_vm *vm, t_process *proc)
 	if (nb >= 1 && nb <= 16)
 	{
 		nb = read_reg(proc->regs[nb - 1]);
-		ft_printf("%c\n", nb % 256);
+		ft_printf("Aff: %c\n", nb % 256);
 	}
 	proc->step_over = 3;
 	return (1);

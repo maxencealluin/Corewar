@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/24 16:30:27 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:25:56 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,38 +54,16 @@ int		main(int ac, char **av)
 {
 	t_vm	*vm;
 
-
-	//
-	// int c;
-	//
-	// c = 65524;
-	//
-	// ft_printf("%b\n", c | 4294901760);
-	// ft_printf("%d\n", c | 4294901760);
-	// ft_printf("%b\n", -12);
-
 	if (ac <= 1)
 		ft_usage();
 	if (!(vm = (t_vm *)malloc(sizeof(t_vm))))
 		return (0);
 	initialize_vm(vm);
-	// vm->arena[MEM_SIZE - 4].by = 99;
-	// vm->arena[MEM_SIZE - 5].by = 99;
-	// vm->arena[MEM_SIZE - 6].by = 99;
 	if (ft_parse_args(vm, ac, av) == -1)
 		return (0);
 	read_files(vm);
 	create_processes(vm);
-	ft_print_players(vm);
-
-
-	// ft_print_xarena(vm, 50);
-	// t_process *p = vm->process;
-	ft_print_process(vm);
-	// //1 correspond q lendorit ou il faudra mettre pc, l avancement dans la memoire
-	// p_run(vm, p, 0);
-	// exit(0);
-
+	// ft_print_players(vm);
 	if (vm->visualization == 1)
 	{
 		initialize_window(vm);

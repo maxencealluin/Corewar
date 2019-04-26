@@ -6,26 +6,21 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:05:00 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/24 15:18:01 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/26 15:55:18 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
 
-void		initialize_vm(t_vm *vm)
+void	initialize_vm(t_vm *vm)
 {
-	int		i;
-
-	i = 0;
-	while (i < MAX_PLAYERS)
-		vm->players[i++] = NULL;
+	ft_bzero(vm->players, sizeof(vm->players));
 	ft_bzero(vm->arena, sizeof(vm->arena));
-	// ft_bzero(vm->play_order, MAX_PLAYERS);
 	vm->process = NULL;
 	vm->cycles = 0;
 	vm->players_alive = 0;
-	vm->nb_players =0;
+	vm->nb_players = 0;
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	vm->cycle_sec = 50;
 	vm->nb_process = 0;
@@ -41,8 +36,8 @@ void		initialize_vm(t_vm *vm)
 	ft_bzero(vm->enc_byte, sizeof(vm->enc_byte));
 	ft_bzero(vm->enc_byte_codes, sizeof(vm->enc_byte_codes));
 	vm->current_checks = 0;
-
 	vm->debug = 0;
+	vm->detail = 0;
 }
 
 void	add_player(t_vm *vm, char *path, int next_nb, int i)
@@ -53,9 +48,9 @@ void	add_player(t_vm *vm, char *path, int next_nb, int i)
 	while (vm->players[j] != NULL && j < MAX_PLAYERS)
 		j++;
 	if (j == MAX_PLAYERS)
-		ft_error_too_many();
+		ft_error_too_many(vm);
 	if (!(vm->players[j] = (t_player *)malloc(sizeof(t_player))))
-		exit (-1);
+		exit(-1);
 	vm->players[j]->file_path = ft_strdup(path);
 	vm->players[j]->player_number = next_nb;
 	vm->players[j]->code_start = 0;
@@ -65,8 +60,5 @@ void	add_player(t_vm *vm, char *path, int next_nb, int i)
 	vm->players_alive += 1;
 	if (!(vm->players[j]->header = (t_header *)malloc(sizeof(t_header))))
 		exit(-1);
-	vm->players[j]->header->magic = 0;
-	vm->players[j]->header->prog_size = 0;
-	ft_bzero(vm->players[j]->header->prog_name, PROG_NAME_LENGTH);
-	ft_bzero(vm->players[j]->header->comment, COMMENT_LENGTH);
+	ft_bzero(vm->players[j]->header, sizeof(vm->players[j]->header));
 }

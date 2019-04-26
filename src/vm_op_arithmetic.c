@@ -6,11 +6,12 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/23 17:23:29 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/26 13:34:36 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include "libftprintf.h"
 #include <ncurses.h>
 
 int		op_add(t_vm *vm, t_process *proc)
@@ -22,6 +23,8 @@ int		op_add(t_vm *vm, t_process *proc)
 	r1 = read_arena(vm, proc->pc + 2, T_REG);
 	r2 = read_arena(vm, proc->pc + 3, T_REG);
 	r3 = read_arena(vm, proc->pc + 4, T_REG);
+	if (vm->detail == 1)
+		ft_printf("r%d r%d r%d\n", r1, r2, r3);
 	proc->step_over = 5;
 	if ((r1 < 1 || r1 > 16) || (r2 < 1 || r2 > 16))
 		return (1);
@@ -43,6 +46,8 @@ int		op_sub(t_vm *vm, t_process *proc)
 	r1 = read_arena(vm, proc->pc + 2, T_REG);
 	r2 = read_arena(vm, proc->pc + 3, T_REG);
 	r3 = read_arena(vm, proc->pc + 4, T_REG);
+	if (vm->detail == 1)
+		ft_printf("r%d r%d r%d\n", r1, r2, r3);
 	proc->step_over = 5;
 	if ((r1 < 1 || r1 > 16) || (r2 < 1 || r2 > 16))
 		return (1);
@@ -88,6 +93,8 @@ int		op_or(t_vm *vm, t_process *proc)
 		size += vm->enc_byte[i++];
 		// printf("size : %d\n\n", size);
 	}
+	if (vm->detail == 1)
+		ft_printf("%d %d r%d\n", r[0], r[1], r[2]);
 	proc->step_over = size;
 	r[1] = r[0] | r[1];
 	if (r[2] >= 1 && r[2] <= 16)
@@ -123,6 +130,8 @@ int		op_xor(t_vm *vm, t_process *proc)
 		}
 		size += vm->enc_byte[i++];
 	}
+	if (vm->detail == 1)
+		ft_printf("%d %d r%d\n", r[0], r[1], r[2]);
 	proc->step_over = size;
 	r[1] = r[0] ^ r[1];
 	if (r[2] >= 1 && r[2] <= 16)
@@ -158,6 +167,8 @@ int		op_and(t_vm *vm, t_process *proc)
 		}
 		size += vm->enc_byte[i++];
 	}
+	if (vm->detail == 1)
+		ft_printf("%d %d r%d\n", r[0], r[1], r[2]);
 	proc->step_over = size;
 	r[1] = r[0] & r[1];
 	if (r[2] >= 1 && r[2] <= 16)

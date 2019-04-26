@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 12:16:01 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/23 16:59:29 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/26 15:56:03 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 int		file_exists(char *path)
 {
 	int		fd;
+
 	if ((fd = open(path, O_RDONLY)) == -1)
 		return (0);
 	if (read(fd, NULL, 0) == -1)
@@ -34,7 +35,7 @@ void	reorder_players(t_vm *vm)
 	int		c;
 	int		to_assign;
 
-	to_assign = 1;
+	to_assign = -1;
 	c = 0;
 	while (c < vm->players_alive)
 	{
@@ -43,7 +44,7 @@ void	reorder_players(t_vm *vm)
 		{
 			if (vm->players[j++]->player_number == to_assign)
 			{
-				to_assign++;
+				to_assign--;
 				j = 0;
 				continue;
 			}
@@ -53,15 +54,16 @@ void	reorder_players(t_vm *vm)
 		c++;
 	}
 	vm->nb_players = vm->players_alive;
+	vm->last_player_live = vm->players[vm->nb_players - 1]->player_number;
 }
 
-int		read_player_number(char *str)
+int		read_player_number(t_vm *vm, char *str)
 {
 	long long nb;
 
 	nb = ft_atol(str);
 	if (nb < 0 || nb > 2147483647 || ft_strlen(str) > 11)
-		ft_incorrect_number();
+		ft_incorrect_number(vm);
 	return ((int)nb);
 }
 
@@ -77,22 +79,27 @@ int		ft_parse_args(t_vm *vm, int ac, char **av)
 		if (ft_strcmp(av[i], "-dump") == 0)
 		{
 			if (i++ == ac - 1)
-				ft_error_read("-dump");
+				ft_error_read(vm, "-dump");
 			else
 				vm->dump_cycle = ft_atoi(av[i++]);
 		}
 		else if (ft_strcmp(av[i], "-n") == 0)
 		{
 			if (i++ >= ac - 2)
-				ft_error_read("-n");
+				ft_error_read(vm, "-n");
 			else
-				next_nb = read_player_number(av[i++]);
+				next_nb = read_player_number(vm, av[i++]);
 			if (file_exists(av[i]) == 0)
-				ft_error_read(av[i]);
+				ft_error_read(vm, av[i]);
 		}
 		else if (ft_strcmp(av[i], "-v") == 0)
 		{
 			vm->visualization = 1;
+			i++;
+		}
+		else if (ft_strcmp(av[i], "-f") == 0)
+		{
+			vm->detail = 1;
 			i++;
 		}
 		else if (ft_strcmp(av[i], "-d") == 0)
@@ -103,7 +110,7 @@ int		ft_parse_args(t_vm *vm, int ac, char **av)
 		else
 		{
 			if (file_exists(av[i]) == 0)
-				ft_error_read(av[i]);
+				ft_error_read(vm, av[i]);
 			add_player(vm, av[i], next_nb, i);
 			next_nb = 0;
 			i++;

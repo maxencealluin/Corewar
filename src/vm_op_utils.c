@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/24 15:35:13 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/26 15:29:35 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,13 @@ void	ft_decode_byte_codes(t_vm *vm)
 			vm->enc_byte_codes[i] = T_IND;
 		else if (vm->enc_byte[i] == DIR_SIZE)
 			vm->enc_byte_codes[i] = T_DIR;
-		else if (vm->enc_byte[i] == REG_SIZE)
+		else if (vm->enc_byte[i] == T_REG)
 			vm->enc_byte_codes[i] = T_REG;
 		i++;
 	}
 	if (vm->debug == 1)
 		ft_printf("\n Encoding byte codes: ||%b %b %b %b ||\n", vm->enc_byte_codes[0], vm->enc_byte_codes[1], vm->enc_byte_codes[2], vm->enc_byte_codes[3]);
 }
-
-// int		*ft_decode_byte(t_vm *vm, unsigned char c, int *tab)
-// {
-// 	tab[0] = vm->enc[(c >> 6)];
-// 	c = (c << 2);
-// 	tab[1] = vm->enc[(c >> 6)];
-// 	c = (c << 4);
-// 	tab[2] = vm->enc[(c >> 6)];
-// 	c = (c << 6);
-// 	tab[3] = vm->enc[(c >> 6)];
-// 	return (tab);
-// }
 
 int		is_register(int decoded_by, unsigned char arena_by)
 {

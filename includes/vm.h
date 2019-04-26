@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/24 16:39:50 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:54:07 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct			s_time {
 }						t_time;
 
 typedef struct			s_player {
-	char				*code;
 	t_header			*header;
 	int					code_start;
 	char				*file_path;
@@ -72,13 +71,14 @@ typedef struct			s_vm {
 	int					dump_cycle;
 	int					nb_players;
 	char				visualization;
-	int					*order;
+	// int					*order;
 	int					enc[4];
 	int					enc_byte[4];
 	int					enc_byte_codes[4];
 	char				current_checks;
 	int					number_of_live;
 	char				debug;
+	char				detail;
 }						t_vm;
 
 typedef struct			s_op {
@@ -130,6 +130,8 @@ void			remove_dead_process(t_vm *vm);
 
 void			main_loop(t_vm *vm);
 int				check_args(t_vm *vm, t_process *proc, int op_code);
+void			perform_op(t_vm *vm, t_process *proc);
+void			read_op_code(t_vm *vm, t_process *proc);
 
 
 // PRINT
@@ -160,13 +162,12 @@ int				op_xor(t_vm *vm, t_process *proc);
 int				op_zjmp(t_vm *vm, t_process *p);
 //sti
 int				op_fork(t_vm *vm, t_process *proc);
-//lld
-//lldi
+int				op_lld(t_vm *vm, t_process *p);
+int				op_lldi(t_vm *vm, t_process *p);
 int				op_lfork(t_vm *vm, t_process *proc);
 int				op_aff(t_vm *vm, t_process *proc);
 int				op_ldi(t_vm *vm, t_process *p);
-int				op_lld(t_vm *vm, t_process *p);
-int				op_lldi(t_vm *vm, t_process *p);
+
 
 
 
@@ -178,6 +179,8 @@ void			mem_to_reg(int reg, int pos, t_vm *vm, t_process *p);
 
 int				read_arena(t_vm *vm, int pos, int size);
 
+void			end_game(t_vm *vm);
+void			free_structs(t_vm *vm);
 
 // DEBUG
 
@@ -188,12 +191,12 @@ void			increment_memory(t_vm *vm);
 void			ft_print_process(t_vm *vm);
 
 // ERRORS
-void			ft_error_read(char *str);
-void			error_read();
+void			ft_usage(void);
+void			ft_error_read(t_vm *vm, char *str);
+void			ft_error_too_many(t_vm *vm);
+void			ft_incorrect_number(t_vm *vm);
 void			error_champ_to_big();
-void			ft_error_too_many();
-void			ft_usage();
-void			ft_incorrect_number();
+void			error_read();
 void			error_param();
 
 #endif
