@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/26 15:54:07 by malluin          ###   ########.fr       */
+/*   Updated: 2019/04/26 16:49:59 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,11 +170,11 @@ int				op_ldi(t_vm *vm, t_process *p);
 
 
 
-
-
 void			reg_to_reg(int src_reg, int dst_reg, t_process *p);
-void			reg_to_mem(int reg, int pos, t_vm *vm, t_process *p);
+void			reg_to_mem(t_vm *vm, t_process *p, int reg, int pos);
 void			mem_to_reg(int reg, int pos, t_vm *vm, t_process *p);
+int				find_pos(t_vm *vm, t_process *p, int t[4]);
+
 
 
 int				read_arena(t_vm *vm, int pos, int size);
