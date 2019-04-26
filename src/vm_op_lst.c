@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/26 15:49:07 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:55:03 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,12 +212,12 @@ int		op_lldi(t_vm *vm, t_process *p)
 
 int		op_sti(t_vm *vm, t_process *p)
 {
-	// assign_reg(p, 2, 9);
 	unsigned char	c;
 	int				i;
 	int				k;
 	int				pos;
 	int				t[4];
+
 	i = p->pc + 1;
 	c = vm->arena[i].by;
 	i++;
@@ -229,8 +229,6 @@ int		op_sti(t_vm *vm, t_process *p)
 		c = c >> 2;
 	}
 	pos = find_pos(vm, p, t);
-	// ft_printf("---- %d\n",vm->arena[p->pc + 1 + t[0]].by);
-	// exit(0);
 	reg_to_mem(vm, p, vm->arena[p->pc + 1 + t[0]].by, (p->pc + pos + MEM_SIZE) % IDX_MOD);
 	return (1);
 }
