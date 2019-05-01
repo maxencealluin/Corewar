@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/01 14:43:53 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/01 15:57:19 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,8 @@ int		op_aff(t_vm *vm, t_process *proc)
 	if (nb >= 1 && nb <= REG_NUMBER)
 	{
 		nb = read_reg(proc->regs[nb - 1]);
-		ft_printf("Aff: value: %d ascii: %c\n", nb, nb % 256);
+		if (vm->ncurses == 0)
+			ft_printf("Aff: value: %d ascii: %c\n", nb, nb % 256);
 	}
 	proc->step_over = 3;
 	return (1);

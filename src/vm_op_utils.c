@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/01 14:05:38 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/01 16:18:09 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void				reg_to_reg(int src_reg, int dst_reg, t_process *p)
 	int				count;
 
 	count = 0;
+	if (dst_reg > REG_NUMBER || dst_reg < 1 || p == NULL)
+		return ;
 	while (count < REG_SIZE)
 	{
 		p->regs[dst_reg - 1][count] = p->regs[src_reg - 1][count];
