@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/01 14:56:34 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/01 14:58:53 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ int		op_ldi(t_vm *vm, t_process *p)
 		else if (vm->enc_byte[k] == 2)
 		{
 			r = read_arena(vm, p->pc + size, IND_SIZE);
-			res = res + read_arena(vm, p->pc + r, REG_SIZE);
+			res = res + read_arena(vm, p->pc + r % IDX_MOD, REG_SIZE);
 		}
 		else if (vm->enc_byte[k] == 4)
 		{
@@ -196,7 +196,7 @@ int		op_ldi(t_vm *vm, t_process *p)
 		k++;
 	}
 	reg = read_arena(vm, p->pc + 2 + vm->enc_byte[0] + vm->enc_byte[1], T_REG);
-	assign_reg(p, reg, read_arena(vm, p->pc + (res % IDX_MOD) + MEM_SIZE, REG_SIZE));
+	assign_reg(p, reg, read_arena(vm, p->pc + (res % IDX_MOD), REG_SIZE));
 	p->step_over = by[0] + by[1] + by[2] + 2;
 	ft_memdel((void **)&by);
 	return (1);
