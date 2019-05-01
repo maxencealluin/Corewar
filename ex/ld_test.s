@@ -9,8 +9,9 @@
 		st r3, 568
 		st r5, 600
 		#ldi 12, %24, r7
-		ldi r3, %24, r7
-		ldi r3, r5, r6
-		ldi r3, %24, r7
+	#	ldi r3, %24, r7
+	#	ldi r3, r5, r6
+	#	ldi r3, %24, r7
 		st r7, 800
 		sti r7, %20, %20
+		sti r7, 1, %20
