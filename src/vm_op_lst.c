@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/01 14:53:33 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/01 14:54:44 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ int		op_ldi(t_vm *vm, t_process *p)
 		k++;
 	}
 	reg = read_arena(vm, p->pc + 2 + vm->enc_byte[0] + vm->enc_byte[1], T_REG);
-	assign_reg(p, reg, read_arena(vm, p->pc + res % IDX_MOD, REG_SIZE));
+	assign_reg(p, reg, read_arena(vm, p->pc + (res % IDX_MOD) + MEM_SIZE, REG_SIZE));
 	p->step_over = by[0] + by[1] + by[2] + 2;
 	ft_memdel((void **)&by);
 	return (1);
