@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/04/26 16:49:11 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/01 09:56:51 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int		op_load(t_vm *vm, t_process *p)
 	int				i;
 	int				res;
 	int				r;
+	int				pos;
+	int				t[4];
 
 	i = p->pc + 1;
 	c  = vm->arena[i].by;
@@ -37,18 +39,34 @@ int		op_load(t_vm *vm, t_process *p)
 		exit(-1);
 	if (!(by = ft_decode_byte(vm, c, by)))
 		exit(-1);
-	r = read_arena(vm, i + by[0] + 1, by[1]);
-	if (is_register(by[1], r) == 0)
+
+	ft_decode_byte2(vm,c );
+	// ft_printf("by : %d\n", vm->enc_byte[0]);
+	// ft_printf("by : %d\n", vm->enc_byte[1]);
+	// ft_printf("by : %d\n", vm->enc_byte[2]);
+	// ft_printf("by : %d\n", vm->enc_byte[3]);
+	// exit(0);
+	// ft_printf("by : %02b - %d | %d\n", by[0], by[0]);
+	// ft_printf("by : %02b - %d | %d\n", by[1], by[1]);
+	// ft_printf("by : %02b - %d | %d\n", by[2], by[2]);
+	// ft_printf("by : %02b - %d | %d\n", by[3], by[3]);
+	// exit(0);
+
+
+	r = read_arena(vm, i + vm->enc_byte[0] + 1, vm->enc_byte[1]);
+	if (is_register(vm->enc_byte[1], r) == 0)
 	{
 		p->step_over = 7;
 		return (1);
 	}
+
+
 	res = read_arena(vm, (i + 1) % IDX_MOD + MEM_SIZE, 2);
 	assign_reg(p, r, res);
 	test = (p->regs[r][0] << 6) + (p->regs[r][1] << 4) + (p->regs[r][2] << 4) + (p->regs[r][3]);
 	if (test == 0)
 		p->carry = 1;
-	p->step_over = 7;
+	p->step_over = 2 + vm->enc_byte[0] + vm->enc_byte[1];
 	ft_memdel((void **)&by);
 	return (1);
 }
