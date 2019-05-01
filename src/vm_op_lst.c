@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/01 09:56:51 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/01 10:10:03 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int		op_load(t_vm *vm, t_process *p)
 	test = (p->regs[r][0] << 6) + (p->regs[r][1] << 4) + (p->regs[r][2] << 4) + (p->regs[r][3]);
 	if (test == 0)
 		p->carry = 1;
+	else
+		p->carry = 0;
 	p->step_over = 2 + vm->enc_byte[0] + vm->enc_byte[1];
 	ft_memdel((void **)&by);
 	return (1);
