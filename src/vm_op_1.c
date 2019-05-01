@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/01 12:58:02 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/01 14:43:53 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,9 @@ int		op_lfork(t_vm *vm, t_process *proc)
 	return (1);
 }
 
+
+ // AAA CHANGER EN VALEUR ASCII
+
 int		op_aff(t_vm *vm, t_process *proc)
 {
 	int		nb;
@@ -131,7 +134,7 @@ int		op_aff(t_vm *vm, t_process *proc)
 	if (nb >= 1 && nb <= REG_NUMBER)
 	{
 		nb = read_reg(proc->regs[nb - 1]);
-		ft_printf("Aff: %c\n", nb % 256);
+		ft_printf("Aff: value: %d ascii: %c\n", nb, nb % 256);
 	}
 	proc->step_over = 3;
 	return (1);

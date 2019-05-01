@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:05:00 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/01 12:30:48 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/01 14:18:42 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	initialize_vm(t_vm *vm, int ac)
 	vm->dump_cycle = -1;
 	vm->ncurses = 0;
 	vm->enc[0] = 0;
-	vm->enc[1] = T_REG;
+	vm->enc[1] = 1;
 	vm->enc[2] = DIR_SIZE;
 	vm->enc[3] = IND_SIZE;
 	ft_bzero(vm->enc_byte, sizeof(vm->enc_byte));

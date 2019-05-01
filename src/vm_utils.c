@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 13:07:52 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/01 13:00:55 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/01 14:51:56 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		read_arena(t_vm *vm, int pos, int size)
 		return (0);
 	while (i < size)
 	{
+		pos %= MEM_SIZE;
 		res += vm->arena[(pos + i + MEM_SIZE) % MEM_SIZE].by << (size - i - 1)
 			* 8;
 		i++;
