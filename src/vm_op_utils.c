@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/01 11:23:14 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/01 12:41:13 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int		find_pos(t_vm *vm, t_process *p, int t[4])
 		{
 			reg = read_arena(vm, p->pc + size , T_REG);
 			if (reg >= 1 && reg <= 16)
-				pos = read_reg(p->regs[reg - 1]);
+				pos = pos + read_reg(p->regs[reg - 1]);
 			size = size + 1;
 		}
 		else if (t[k] == 2)

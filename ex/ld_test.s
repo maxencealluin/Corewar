@@ -7,3 +7,7 @@
 		st r3, r5
 		st r3, 568
 		st r5, 600
+		ldi r3, %24, r7
+		ldi r3, r5, r6
+		ldi r3, %24, r7
+		st r7, 800
