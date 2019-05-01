@@ -6,14 +6,14 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:05:00 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/26 15:55:18 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/01 12:30:48 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
 
-void	initialize_vm(t_vm *vm)
+void	initialize_vm(t_vm *vm, int ac)
 {
 	ft_bzero(vm->players, sizeof(vm->players));
 	ft_bzero(vm->arena, sizeof(vm->arena));
@@ -28,7 +28,7 @@ void	initialize_vm(t_vm *vm)
 	vm->number_of_live = 0;
 	vm->last_player_live = 0;
 	vm->dump_cycle = -1;
-	vm->visualization = 0;
+	vm->ncurses = 0;
 	vm->enc[0] = 0;
 	vm->enc[1] = T_REG;
 	vm->enc[2] = DIR_SIZE;
@@ -38,6 +38,7 @@ void	initialize_vm(t_vm *vm)
 	vm->current_checks = 0;
 	vm->debug = 0;
 	vm->detail = 0;
+	vm->ac = ac;
 }
 
 void	add_player(t_vm *vm, char *path, int next_nb, int i)
@@ -46,7 +47,11 @@ void	add_player(t_vm *vm, char *path, int next_nb, int i)
 
 	j = 0;
 	while (vm->players[j] != NULL && j < MAX_PLAYERS)
+	{
+		if (vm->players[j]->player_number == next_nb && next_nb != 0)
+			ft_error_already_assigned(vm);
 		j++;
+	}
 	if (j == MAX_PLAYERS)
 		ft_error_too_many(vm);
 	if (!(vm->players[j] = (t_player *)malloc(sizeof(t_player))))

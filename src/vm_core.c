@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/26 16:49:15 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/01 13:41:51 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,13 @@ void	ft_step(t_vm *vm)
 		if (vm->current_checks >= MAX_CHECKS || vm->number_of_live > NBR_LIVE)
 		{
 			vm->cycle_to_die -= CYCLE_DELTA;
+			if ((vm->detail & 32) != 0)
+				ft_printf("Cycles_to_die is now %d\n", vm->cycle_to_die);
 			vm->current_checks = 0;
 		}
 		vm->number_of_live = 0;
 	}
 	run_process(vm);
-	// increment_memory(vm);
 	vm->cycles++;
 }
 
@@ -112,19 +113,19 @@ void	main_loop(t_vm *vm)
 			ft_print_process(vm);
 			break ;
 		}
-		if (vm->visualization == 1)
+		if (vm->ncurses == 1)
 		{
 			event_handler(vm, time, &cycles);
 			refresh_window(vm);
 			time->current = clock();
 			move(10, COLS - COLS / 6);
-			// printw("  %d %d ", time->current, time->begin);
 			if (((time->current - time->begin) / 1000 < (unsigned long)
 			(cycles * 1000 / vm->cycle_sec)) || vm->stop == 1)
 				continue;
 		}
 		ft_step(vm);
-		// ft_printf("Cycles %d cycles_to_die %d \n", vm->cycles, vm->cycle_to_die);
+		if ((vm->detail & 2) != 0)
+			ft_printf("It is now cycle %d\n", vm->cycles);
 		cycles++;
 	}
 	ft_memdel((void**)&time);

@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 13:07:52 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/26 15:33:38 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/01 13:00:55 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	assign_reg(t_process *process, short reg, int value)
 	int		i;
 
 	i = 0;
-	if (reg <= 0 || reg > 16)
+	if (reg < 1 || reg > REG_NUMBER)
 		return ;
 	while (i < REG_SIZE)
 	{

@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/26 16:49:36 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/01 12:58:02 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int		check_args(t_vm *vm, t_process *proc, int op)
 		else if (vm->enc_byte[i] == T_REG)
 		{
 			res = read_arena(vm, proc->pc + size, T_REG);
-			if (res < 1 || res > REG_NUMBER)
-				quit = 1;
+			quit = (res < 1 || res > REG_NUMBER) ? 1 : quit;
 		}
 		if (vm->enc_byte[i] == DIR_SIZE)
 			size += (vm->enc_byte[i] - 2 * op_tab[op].size_direct);
@@ -79,19 +78,21 @@ int		op_live(t_vm *vm, t_process *proc)
 	vm->number_of_live += 1;
 	nb = read_arena(vm, proc->pc + 1, DIR_SIZE);
 	proc->step_over = 5;
+	if ((vm->detail & 4) != 0)
+		ft_printf("%d\n", nb);
 	while (i < vm->nb_players)
 	{
 		if (vm->players[i] != NULL && nb == vm->players[i]->player_number)
 		{
 			vm->last_player_live = nb;
-			if (vm->visualization == 0)
-				ft_printf("Le joueur %d est en vie.\n", vm->players[i]->player_number);
+			if (vm->ncurses == 0 && (vm->detail & 1) != 0)
+				ft_printf("Player %d (%s) is said to be alive.\n",
+				vm->players[i]->player_number,
+				vm->players[i]->header->prog_name);
 			break;
 		}
 		i++;
 	}
-	if (vm->detail == 1)
-		ft_printf("%d\n", nb);
 	return (1);
 }
 
@@ -101,11 +102,10 @@ int		op_fork(t_vm *vm, t_process *proc)
 
 	arg = read_arena(vm, proc->pc + 1, IND_SIZE);
 	proc->step_over = 3;
-	// printf("%d\n", (((proc->pc + arg % IDX_MOD) % MEM_SIZE + MEM_SIZE) % MEM_SIZE));
 	add_child_process(vm, proc, ((proc->pc + arg % IDX_MOD) % MEM_SIZE + MEM_SIZE)
 		% MEM_SIZE);
 	ft_print_process(vm);
-	if (vm->detail == 1)
+	if ((vm->detail & 4) != 0)
 		ft_printf("%d (%d)\n", arg, proc->pc + arg % IDX_MOD);
 	return (1);
 }
@@ -116,10 +116,9 @@ int		op_lfork(t_vm *vm, t_process *proc)
 
 	arg = read_arena(vm, proc->pc + 1, IND_SIZE);
 	proc->step_over = 3;
-	// printf("%d\n", (((proc->pc + arg) % MEM_SIZE + MEM_SIZE) % MEM_SIZE));
 	add_child_process(vm, proc, ((proc->pc + arg) % MEM_SIZE + MEM_SIZE) % MEM_SIZE);
 	ft_print_process(vm);
-	if (vm->detail == 1)
+	if ((vm->detail & 4) != 0)
 		ft_printf("%d (%d)\n", arg, proc->pc + arg % IDX_MOD);
 	return (1);
 }
@@ -128,9 +127,8 @@ int		op_aff(t_vm *vm, t_process *proc)
 {
 	int		nb;
 
-	// ft_decode_byte2(vm, vm->arena[proc->pc + 1].by);
 	nb = read_arena(vm, proc->pc + 2, T_REG);
-	if (nb >= 1 && nb <= 16)
+	if (nb >= 1 && nb <= REG_NUMBER)
 	{
 		nb = read_reg(proc->regs[nb - 1]);
 		ft_printf("Aff: %c\n", nb % 256);

@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/01 14:03:48 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/01 14:05:38 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,10 @@ int		op_zjmp(t_vm *vm, t_process *p)
 		p->step_over = 3;
 		return (1);
 	}
-	jump = vm->arena[p->pc + 1].by << 2;
-	jump = jump | (vm->arena[p->pc + 2].by);
-	p->step_over = jump;
+	jump = read_arena(vm, p->pc + 1, IND_SIZE);
+	p->step_over = jump % IDX_MOD;
+	if ((vm->detail & 4) != 0)
+		ft_printf("%d (OK)\n", p->step_over);
 	return (1);
 }
 
@@ -273,6 +274,8 @@ int		op_sti(t_vm *vm, t_process *p)
 		k--;
 		c = c >> 2;
 	}
+	if ((vm->detail & 4) != 0)
+		ft_printf("r%d", vm->arena[p->pc + 1 + t[0]].by);
 	pos = find_pos(vm, p, t);
 	reg_to_mem(vm, p, vm->arena[p->pc + 1 + t[0]].by, (p->pc + pos + MEM_SIZE) % IDX_MOD);
 	p->step_over = p->pc + 2 + t[0] + t[1] + t[2];

@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:37:03 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/26 15:40:45 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/01 13:58:33 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,23 @@ void	read_op_code(t_vm *vm, t_process *proc)
 
 void	pc_forward_sequence(t_vm *vm, t_process *proc)
 {
+	int		i;
+
 	vm->arena[proc->pc].proc_id = 0;
-	proc->pc = (proc->pc + proc->step_over) % MEM_SIZE;
+	if (proc->step_over < 0)
+		proc->step_over = 1;
+	if ((vm->detail & 16) != 0)
+	{
+		ft_printf("ADV %d (%06p -> %06p) ", proc->step_over, proc->pc,
+			((proc->pc + proc->step_over) % MEM_SIZE + MEM_SIZE) % MEM_SIZE);
+		i = 0;
+		while (i < proc->step_over)
+			ft_printf("%02x ", vm->arena[((i++) % MEM_SIZE + MEM_SIZE)
+				% MEM_SIZE].by);
+		ft_printf("\n");
+
+	}
+	proc->pc = ((proc->pc + proc->step_over) % MEM_SIZE + MEM_SIZE) % MEM_SIZE;
 	vm->arena[proc->pc].proc_id = 1;
 	proc->step_over = 0;
 }
@@ -48,8 +63,8 @@ void	perform_op(t_vm *vm, t_process *proc)
 	{
 		if (check_args(vm, proc, proc->next_op - 1) == 1)
 		{
-			if (vm->detail == 1 && proc->next_op != 16)
-				ft_printf("P %4d | %s ", ft_iabs(proc->id_parent)
+			if ((vm->detail & 4) != 0 && proc->next_op != 16)
+				ft_printf("P %4d | %s ", ft_iabs(proc->id_proc)
 					, op_tab[proc->next_op - 1].op_name);
 			res = op_func[proc->next_op - 1](vm, proc);
 			if (res == 1)
@@ -58,8 +73,8 @@ void	perform_op(t_vm *vm, t_process *proc)
 				pc_forward_one(vm, proc); //go forward one byte
 		}
 		else
-			pc_forward_sequence(vm, proc); //go forward one byte
+			pc_forward_sequence(vm, proc);
 	}
 	else
-		pc_forward_one(vm, proc); //go forward one byte
+		pc_forward_one(vm, proc);
 }

@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/01 09:18:28 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/01 14:05:13 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct			s_process {
 	int					last_live;
 	int					step_over;
 	int					id_parent;
+	long				id_proc;
 	unsigned char		next_op;
 	struct s_process	*next;
 }						t_process;
@@ -70,7 +71,7 @@ typedef struct			s_vm {
 	int					last_player_live;
 	int					dump_cycle;
 	int					nb_players;
-	char				visualization;
+	char				ncurses;
 	// int					*order;
 	int					enc[4];
 	int					enc_byte[4];
@@ -79,6 +80,7 @@ typedef struct			s_vm {
 	int					number_of_live;
 	char				debug;
 	char				detail;
+	int					ac;
 }						t_vm;
 
 typedef struct			s_op {
@@ -105,14 +107,14 @@ int				count_players(t_vm *vm);
 
 // INTIALIZATION
 
-void			initialize_vm(t_vm *vm);
+void			initialize_vm(t_vm *vm, int ac);
 void			add_player(t_vm *vm, char *path, int next_nb, int i);
 
 
 
 // PARSING
 
-int				ft_parse_args(t_vm *vm, int ac, char **av);
+void			ft_parse_args(t_vm *vm, int ac, char **av, int i);
 void			vm_read_byte(t_player *player, t_vm *vm);
 
 // INIT + UTILS
@@ -145,10 +147,8 @@ void			ft_decode_byte_codes(t_vm *vm);
 
 int				is_register(int decoded_by, unsigned char arena_by);
 
-
 // void			pick_order(t_vm *vm, int *tab);
 void			print_op();
-
 
 // OPERATIONS
 int				op_live(t_vm *vm, t_process *proc);
@@ -197,6 +197,7 @@ void			ft_usage(void);
 void			ft_error_read(t_vm *vm, char *str);
 void			ft_error_too_many(t_vm *vm);
 void			ft_incorrect_number(t_vm *vm);
+void			ft_error_already_assigned(t_vm *vm);
 void			error_champ_to_big();
 void			error_read();
 void			error_param();

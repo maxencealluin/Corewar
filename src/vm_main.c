@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/26 15:25:56 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/01 13:02:51 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,11 @@ int		main(int ac, char **av)
 		ft_usage();
 	if (!(vm = (t_vm *)malloc(sizeof(t_vm))))
 		return (0);
-	initialize_vm(vm);
-	if (ft_parse_args(vm, ac, av) == -1)
-		return (0);
+	initialize_vm(vm, ac);
+	ft_parse_args(vm, ac, av, 1);
 	read_files(vm);
 	create_processes(vm);
-	// ft_print_players(vm);
-	if (vm->visualization == 1)
+	if (vm->ncurses == 1)
 	{
 		initialize_window(vm);
 		main_loop(vm);

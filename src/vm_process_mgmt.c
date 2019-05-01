@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 11:42:41 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/23 17:24:03 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/01 12:55:45 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 t_process	*new_process(int id_parent, int pc)
 {
 	t_process	*node;
+	static long	id = 1;
 
 	if (!(node = (t_process *)malloc(sizeof(t_process))))
 		return (NULL);
@@ -28,6 +29,7 @@ t_process	*new_process(int id_parent, int pc)
 	node->next_op = 0;
 	node->id_parent = id_parent;
 	node->next = NULL;
+	node->id_proc = id++;
 	ft_bzero(node->regs, REG_NUMBER * REG_SIZE);
 	return (node);
 }
@@ -81,6 +83,9 @@ void	remove_dead_process(t_vm *vm)
 		{
 			vm->arena[proc->pc].proc_id = 0;
 			tmp = proc;
+			if ((vm->detail & 8) != 0)
+				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
+					vm->cycles - proc->last_live, vm->cycle_to_die);
 			proc = proc->next;
 			remove_process(vm, tmp);
 			continue;
