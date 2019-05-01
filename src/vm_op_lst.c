@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/01 10:10:03 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/01 11:23:21 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,51 +25,37 @@
 int		op_load(t_vm *vm, t_process *p)
 {
 	unsigned char	c;
-	int				*by;
 	char			test;
 	int				i;
 	int				res;
 	int				r;
-	int				pos;
-	int				t[4];
 
 	i = p->pc + 1;
 	c  = vm->arena[i].by;
-	if (!(by = (int *)malloc(sizeof(int) * 4)))
-		exit(-1);
-	if (!(by = ft_decode_byte(vm, c, by)))
-		exit(-1);
-
-	ft_decode_byte2(vm,c );
-	// ft_printf("by : %d\n", vm->enc_byte[0]);
-	// ft_printf("by : %d\n", vm->enc_byte[1]);
-	// ft_printf("by : %d\n", vm->enc_byte[2]);
-	// ft_printf("by : %d\n", vm->enc_byte[3]);
-	// exit(0);
-	// ft_printf("by : %02b - %d | %d\n", by[0], by[0]);
-	// ft_printf("by : %02b - %d | %d\n", by[1], by[1]);
-	// ft_printf("by : %02b - %d | %d\n", by[2], by[2]);
-	// ft_printf("by : %02b - %d | %d\n", by[3], by[3]);
-	// exit(0);
-
-
+	ft_decode_byte2(vm, c);
 	r = read_arena(vm, i + vm->enc_byte[0] + 1, vm->enc_byte[1]);
 	if (is_register(vm->enc_byte[1], r) == 0)
 	{
 		p->step_over = 7;
 		return (1);
 	}
-
-
-	res = read_arena(vm, (i + 1) % IDX_MOD + MEM_SIZE, 2);
-	assign_reg(p, r, res);
+	if (vm->enc_byte[0] == DIR_SIZE)
+	{
+		res = read_arena(vm, (i + 1) % IDX_MOD + MEM_SIZE, DIR_SIZE);
+		assign_reg(p, r, res);
+	}
+	else if (vm->enc_byte[0] == IND_SIZE)
+	{
+		res = read_arena(vm, (i + 1) % IDX_MOD + MEM_SIZE, IND_SIZE);
+		res = read_arena(vm, p->pc + res, REG_SIZE);
+		assign_reg(p, r, res);
+	}
 	test = (p->regs[r][0] << 6) + (p->regs[r][1] << 4) + (p->regs[r][2] << 4) + (p->regs[r][3]);
 	if (test == 0)
 		p->carry = 1;
 	else
 		p->carry = 0;
 	p->step_over = 2 + vm->enc_byte[0] + vm->enc_byte[1];
-	ft_memdel((void **)&by);
 	return (1);
 }
 
@@ -84,6 +70,7 @@ int		op_store(t_vm *vm, t_process *p)
 	int				*by;
 	int				position;
 	int				i;
+	int				reg;
 
 	i = p->pc + 1;
 	c = vm->arena[i].by;
@@ -97,13 +84,18 @@ int		op_store(t_vm *vm, t_process *p)
 		return (1);
 	}
 	if (is_register(by[1], vm->arena[i + by[0] + 1].by))
+	{
 		reg_to_reg(vm->arena[i + 1].by, vm->arena[i + 2].by, p);
+		// reg = read_arena(vm, p->pc + 2 )
+		// assign_reg(p, )
+		p->step_over = 4;
+	}
 	else
 	{
 		position = read_arena(vm, p->pc + 1 + by[0] + 1, IND_SIZE);
 		reg_to_mem(vm, p, vm->arena[i + 1].by, (i + position + MEM_SIZE) % MEM_SIZE);
+		p->step_over = 5;
 	}
-	p->step_over = 5;
 	ft_memdel((void **)&by);
 	return (1);
 }
