@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:40:21 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/26 15:41:06 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/01 13:02:10 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void 	borders()
 {
 	WINDOW *boite;
 
-	// attron(COLOR_PAIR(1));
 	attron(A_BOLD);
 	attron(COLOR_PAIR(0));
 	border('|', '|', '-', '-', '+', '+', '+', '+');
@@ -90,7 +89,6 @@ void 	borders()
 	wborder(boite, '|', '|', '-', '-', '+', '+', '+', '+');
 	ft_memdel((void **)&boite);
 	attroff(A_BOLD);
-	// attroff(COLOR_PAIR(1));
 	attroff(COLOR_PAIR(0));
 }
 

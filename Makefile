@@ -6,7 +6,7 @@
 #    By: malluin <malluin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/22 14:56:26 by malluin           #+#    #+#              #
-#    Updated: 2019/04/26 15:40:08 by malluin          ###   ########.fr        #
+#    Updated: 2019/04/26 17:04:57 by malluin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ SRC_PATH = src
 OBJ_PATH = obj
 HEADER_PATH = includes/
 
-CC = gcc #-fsanitize=address -g
+CC = gcc -fsanitize=address -g
 CCFLAGS =   -Wall -Wextra  #-Werror
 
 CPPFLAGS = -I ./libftprintf/includes -I ./libftprintf/libft/includes -I $(HEADER_PATH) -MMD
