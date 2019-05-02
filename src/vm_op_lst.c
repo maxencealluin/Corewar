@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/02 08:54:22 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/02 09:29:32 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,8 @@ int		op_sti(t_vm *vm, t_process *p)
 		k++;
 	}
 	reg_to_mem(vm, p, vm->arena[p->pc + 2 + vm->enc_byte[0] + vm->enc_byte[1] ].by, p->pc + res % IDX_MOD);
-	ft_printf("\n");
+	if ((vm->detail & 4) != 0)
+		ft_printf("\n");
 	p->step_over = vm->enc_byte[0] + vm->enc_byte[1] + vm->enc_byte[2] + 2;
 	return (1);
 }

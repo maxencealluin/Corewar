@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:37:03 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/01 13:58:33 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/02 10:15:04 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	perform_op(t_vm *vm, t_process *proc)
 		if (check_args(vm, proc, proc->next_op - 1) == 1)
 		{
 			if ((vm->detail & 4) != 0 && proc->next_op != 16)
-				ft_printf("P %4d | %s ", ft_iabs(proc->id_proc)
+				ft_printf("P %4d | %s \n", ft_iabs(proc->id_proc)
 					, op_tab[proc->next_op - 1].op_name);
 			res = op_func[proc->next_op - 1](vm, proc);
 			if (res == 1)
