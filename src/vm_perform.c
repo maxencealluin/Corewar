@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:37:03 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/02 11:28:11 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/02 13:35:14 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	pc_forward_sequence(t_vm *vm, t_process *proc)
 			((proc->pc + proc->step_over) % MEM_SIZE + MEM_SIZE) % MEM_SIZE);
 		i = 0;
 		while (i < proc->step_over)
-			ft_printf("%02x ", vm->arena[((i++) % MEM_SIZE + MEM_SIZE)
+			ft_printf("%02x ", vm->arena[((i++) + proc->pc % MEM_SIZE + MEM_SIZE)
 				% MEM_SIZE].by);
 		ft_printf("\n");
 	}

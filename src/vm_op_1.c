@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/01 15:57:19 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/02 13:47:03 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int		check_args(t_vm *vm, t_process *proc, int op)
 		i++;
 	}
 	proc->step_over = size;
+	// if (quit == 1)
+		// printf("FAIL %d\n", proc->next_op);
 	return (!quit);
 }
 
@@ -119,7 +121,7 @@ int		op_lfork(t_vm *vm, t_process *proc)
 	add_child_process(vm, proc, ((proc->pc + arg) % MEM_SIZE + MEM_SIZE) % MEM_SIZE);
 	ft_print_process(vm);
 	if ((vm->detail & 4) != 0)
-		ft_printf("%d (%d)\n", arg, proc->pc + arg % IDX_MOD);
+		ft_printf("%d (%d)\n", arg, proc->pc + arg);
 	return (1);
 }
 
