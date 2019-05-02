@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/01 13:41:51 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/02 11:48:26 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,12 @@ void	run_process(t_vm *vm)
 
 void	ft_step(t_vm *vm)
 {
-	int		i;
+	int				i;
+	static int		last_check = 0;
 
 	i = vm->nb_players - 1;
 	//prelimiary check
-	if (vm->cycles % vm->cycle_to_die == 0)
+	if (vm->cycles >= last_check + vm->cycle_to_die)
 	{
 		vm->current_checks++;
 		remove_dead_process(vm);
@@ -92,6 +93,7 @@ void	ft_step(t_vm *vm)
 			vm->current_checks = 0;
 		}
 		vm->number_of_live = 0;
+		last_check = vm->cycles;
 	}
 	run_process(vm);
 	vm->cycles++;
@@ -124,7 +126,7 @@ void	main_loop(t_vm *vm)
 				continue;
 		}
 		ft_step(vm);
-		if ((vm->detail & 2) != 0)
+		if ((vm->detail & 2) != 0 && vm->nb_process > 0)
 			ft_printf("It is now cycle %d\n", vm->cycles);
 		cycles++;
 	}

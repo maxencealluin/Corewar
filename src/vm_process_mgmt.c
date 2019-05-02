@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 11:42:41 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/01 12:55:45 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/02 11:41:57 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	remove_dead_process(t_vm *vm)
 			tmp = proc;
 			if ((vm->detail & 8) != 0)
 				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-					vm->cycles - proc->last_live, vm->cycle_to_die);
+				proc->id_proc, vm->cycles - proc->last_live, vm->cycle_to_die);
 			proc = proc->next;
 			remove_process(vm, tmp);
 			continue;

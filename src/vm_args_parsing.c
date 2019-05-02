@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 12:16:01 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/01 12:26:56 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/02 10:20:28 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	ft_parse_args_2(t_vm *vm, char **av, int *next_nb, int *i)
 	if (ft_strcmp(av[*i], "-g") == 0)
 	{
 		vm->ncurses = 1;
-		*i += 1;
 	}
 	else if (ft_strcmp(av[*i], "-v") == 0)
 	{
