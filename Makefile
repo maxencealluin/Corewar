@@ -6,7 +6,7 @@
 #    By: malluin <malluin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/22 14:56:26 by malluin           #+#    #+#              #
-#    Updated: 2019/04/26 17:04:57 by malluin          ###   ########.fr        #
+#    Updated: 2019/05/02 18:34:56 by malluin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC_VM_NAME =		op.c \
 					vm_ncurses_refresh.c \
 					vm_structs_initialize.c \
 					vm_errors_messages.c \
+					vm_errors_messages_2.c \
 					vm_args_parsing.c \
 					vm_debug.c \
 					vm_read_byte.c \
@@ -27,11 +28,11 @@ SRC_VM_NAME =		op.c \
 					vm_utils.c \
 					vm_print.c \
 					vm_op_utils.c \
-					vm_op_lst.c \
 					vm_op_utils.c \
-					vm_op_lst.c \
-					vm_op_1.c \
+					vm_op_others.c \
 					vm_op_arithmetic.c \
+					vm_op_load.c \
+					vm_op_st_jmp.c \
 					vm_end.c \
 					vm_perform.c
 
@@ -73,6 +74,9 @@ $(NAME_VM): $(OBJ_VM)
 $(NAME_ASM): $(OBJ_ASM)
 	@make -C libftprintf/
 	$(CC) $(CCFLAGS) $(LIBFLAGS) $^ -o $@
+
+libft:
+	@make -C libftprintf/
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
 	$(CC) $(CCFLAGS) $(CPPFLAGS) -o $@ -c $<

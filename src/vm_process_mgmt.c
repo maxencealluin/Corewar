@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 11:42:41 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/02 11:41:57 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/02 18:46:11 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ t_process	*new_process(int id_parent, int pc)
 	return (node);
 }
 
-void	add_first_process_front(t_vm *vm, t_player *player, t_process **blist)
+void		add_first_process_front(t_vm *vm, t_player *player,
+			t_process **blist)
 {
 	t_process	*tmp;
 
@@ -48,7 +49,7 @@ void	add_first_process_front(t_vm *vm, t_player *player, t_process **blist)
 	assign_reg(tmp, 1, player->player_number);
 }
 
-void	remove_process(t_vm *vm, t_process *node)
+void		remove_process(t_vm *vm, t_process *node)
 {
 	t_process	*parent;
 
@@ -71,7 +72,7 @@ void	remove_process(t_vm *vm, t_process *node)
 	}
 }
 
-void	remove_dead_process(t_vm *vm)
+void		remove_dead_process(t_vm *vm)
 {
 	t_process *proc;
 	t_process *tmp;
@@ -94,7 +95,7 @@ void	remove_dead_process(t_vm *vm)
 	}
 }
 
-void	add_child_process(t_vm *vm, t_process *parent, int child_pc)
+void		add_child_process(t_vm *vm, t_process *parent, int child_pc)
 {
 	t_process	*tmp;
 
@@ -111,7 +112,7 @@ void	add_child_process(t_vm *vm, t_process *parent, int child_pc)
 	vm->arena[tmp->pc].proc_id = 1;
 }
 
-void	create_processes(t_vm *vm)
+void		create_processes(t_vm *vm)
 {
 	int		i;
 

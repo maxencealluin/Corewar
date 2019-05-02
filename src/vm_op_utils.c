@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/01 16:18:09 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/02 18:49:20 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_decode_byte2(t_vm *vm, unsigned char c)
 	vm->enc_byte[2] = vm->enc[(c >> 2) & 3];
 	vm->enc_byte[3] = vm->enc[c & 3];
 	if (vm->debug == 1)
-		ft_printf("\n Encoding byte: || %02b %02b %02b %02b ||\n",
+		ft_printf("##Encoding byte: || %02b %02b %02b %02b ||\n",
 			vm->enc_byte[0], vm->enc_byte[1], vm->enc_byte[2], vm->enc_byte[3]);
 }
 
@@ -53,26 +53,21 @@ void	ft_decode_byte_codes(t_vm *vm)
 		i++;
 	}
 	if (vm->debug == 1)
-		ft_printf("\n Encoding byte codes: ||%b %b %b %b ||\n",
+		ft_printf("##Encoding byte codes: ||%b %b %b %b ||\n",
 			vm->enc_byte_codes[0], vm->enc_byte_codes[1],
-		 	vm->enc_byte_codes[2], vm->enc_byte_codes[3]);
+			vm->enc_byte_codes[2], vm->enc_byte_codes[3]);
 }
 
 int		is_register(int decoded_by, unsigned char arena_by)
 {
-
 	if (decoded_by != 1 || arena_by > REG_NUMBER || arena_by <= 0)
-	{
-		// ft_printf("into the byte: %d \n", decoded_by);
-		// ft_printf("arena byte: %d \n", arena_by);
 		return (0);
-	}
 	return (1);
 }
 
-void				reg_to_reg(int src_reg, int dst_reg, t_process *p)
+void	reg_to_reg(int src_reg, int dst_reg, t_process *p)
 {
-	int				count;
+	int		count;
 
 	count = 0;
 	if (dst_reg > REG_NUMBER || dst_reg < 1 || p == NULL)
@@ -80,32 +75,33 @@ void				reg_to_reg(int src_reg, int dst_reg, t_process *p)
 	while (count < REG_SIZE)
 	{
 		p->regs[dst_reg - 1][count] = p->regs[src_reg - 1][count];
-		// ft_printf("reg[%d][%d] = %d\n", dst_reg, count, p->regs[src_reg][count]);
 		count++;
 	}
 }
 
-void				reg_to_mem(t_vm *vm, t_process *p, int reg, int pos)
+void	reg_to_mem(t_vm *vm, t_process *p, int reg, int pos)
 {
-	int				count;
+	int		count;
+	int		i;
 
 	count = 0;
 	if (reg < 1 || reg > REG_NUMBER)
 		return ;
 	while (count < REG_SIZE)
 	{
-		vm->arena[((pos + count) % MEM_SIZE + MEM_SIZE) % MEM_SIZE].by = p->regs[reg - 1][count];
-		vm->arena[((pos + count) % MEM_SIZE + MEM_SIZE) % MEM_SIZE].id = p->id_parent;
+		i = ((pos + count) % MEM_SIZE + MEM_SIZE) % MEM_SIZE;
+		vm->arena[i].by = p->regs[reg - 1][count];
+		vm->arena[i].id = p->id_parent;
 		count++;
 	}
 }
 
 int		find_pos(t_vm *vm, t_process *p, int t[4])
 {
-	int				k;
-	int				reg;
-	int				size;
-	int				pos;
+	int		k;
+	int		reg;
+	int		size;
+	int		pos;
 
 	reg = 0;
 	size = 3;
@@ -115,7 +111,7 @@ int		find_pos(t_vm *vm, t_process *p, int t[4])
 	{
 		if (t[k] == 1)
 		{
-			reg = read_arena(vm, p->pc + size , T_REG);
+			reg = read_arena(vm, p->pc + size, T_REG);
 			if (reg >= 1 && reg <= REG_NUMBER)
 				pos = read_reg(p->regs[reg - 1]);
 			size = size + 1;
@@ -131,7 +127,7 @@ int		find_pos(t_vm *vm, t_process *p, int t[4])
 		}
 		else if (t[k] == 3)
 		{
-			reg = read_arena(vm, p->pc + size , 2);
+			reg = read_arena(vm, p->pc + size, 2);
 			pos = pos + read_arena(vm, p->pc + reg, 4);
 			size = size + 2;
 			if ((vm->detail & 4) != 0)
@@ -143,17 +139,3 @@ int		find_pos(t_vm *vm, t_process *p, int t[4])
 		ft_printf("\n");
 	return (pos);
 }
-
-// void				mem_to_reg(int reg, int pos, t_vm *vm, t_process *p)
-// {
-// 	int				count;
-//
-// 	count = 0;
-// 	while (count < REG_SIZE)
-// 	{
-// 		// ft_printf("%d\n", by[1]);
-// 		// vm->arena[pos + count].by = p->regs[reg][count];
-// 		// vm->arena[pos + count].by = 7;
-// 		count++;
-// 	}
-// }

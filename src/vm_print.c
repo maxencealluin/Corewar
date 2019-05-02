@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:22:40 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/26 15:32:37 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/02 16:02:04 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	dump_memory(t_vm *vm)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		if (i % 64 == 0)
+		if (i % 32 == 0)
 			ft_printf("0x%04x : ", i);
 		ft_printf("%02hhx ", vm->arena[i++].by);
-		if (i % 64 == 0)
+		if (i % 32 == 0)
 			ft_printf("\n");
 	}
 }

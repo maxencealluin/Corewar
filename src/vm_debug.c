@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:12:29 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/23 17:00:40 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/02 18:38:18 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	ft_print_xstr(int size, char *str, int wid)
 		if (i % wid == 0)
 			ft_printf("\n");
 		ft_printf("%02hhx ", str[i++]);
-
 	}
 	ft_printf("\n");
 }
@@ -45,9 +44,9 @@ void	ft_print_xarena(t_vm *vm, int wid)
 
 void	ft_print_process(t_vm *vm)
 {
-	int		i;
-	int		j;
-	t_process *process;
+	int			i;
+	int			j;
+	t_process	*process;
 
 	i = 0;
 	process = vm->process;
@@ -61,8 +60,8 @@ void	ft_print_process(t_vm *vm)
 		ft_printf("carry %d\n", process->carry);
 		while (j < REG_NUMBER)
 		{
-			ft_printf("reg %2d: %3d | reg %2d: %3d\n", j, read_reg(process->regs[j]), j + 1, read_reg(process->regs[j + 1]));
-			// ft_printf("%hhd %hhd %hhd %hhd\n", process->regs[j][0], process->regs[j][1], process->regs[j][2], process->regs[j][3]);
+			ft_printf("reg %2d: %3d | reg %2d: %3d\n", j,
+			read_reg(process->regs[j]), j + 1, read_reg(process->regs[j + 1]));
 			j += 2;
 		}
 		i++;

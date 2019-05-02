@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/02 11:48:26 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/02 18:33:51 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,16 @@ void	run_process(t_vm *vm)
 	t_process	*proc;
 
 	proc = vm->process;
-	//inner loop
 	while (proc)
 	{
-		// protection
 		if (proc == NULL)
 			continue;
-		//graphic
 		if (vm->arena[proc->pc].proc_id == 0)
 			vm->arena[proc->pc].proc_id = 1;
-		// read op code_start
 		if (proc->wait_cycles == 0)
 			read_op_code(vm, proc);
-		// decrease wait cycle
 		if (proc->wait_cycles != 0)
 			proc->wait_cycles--;
-		//do action if wait cycle over
 		if (proc->wait_cycles == 0)
 			perform_op(vm, proc);
 		proc = proc->next;
@@ -80,7 +74,6 @@ void	ft_step(t_vm *vm)
 	static int		last_check = 0;
 
 	i = vm->nb_players - 1;
-	//prelimiary check
 	if (vm->cycles >= last_check + vm->cycle_to_die)
 	{
 		vm->current_checks++;

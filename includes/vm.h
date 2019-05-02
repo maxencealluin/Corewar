@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/01 14:05:13 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/02 18:08:47 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 # define PAD_SIZE	4
 # define BOT_SIZE	4
 # define COMMENT_SIZE	2048
+
+# define R_W 48
+# define L_W 198
+# define L_H 68
+# define T_WIN WINDOW
 
 typedef struct			s_process {
 	unsigned char		regs[REG_NUMBER][REG_SIZE];
@@ -57,10 +62,20 @@ typedef	struct			s_case {
 	unsigned char		by;
 }						t_case;
 
+typedef struct			s_visu {
+	short				w_l;
+	short				w_r;
+	short				h;
+	short				b_w_l;
+	short				b_w_r;
+	short				b_h;
+}						t_visu;
+
 typedef struct			s_vm {
 	t_player			*players[MAX_PLAYERS];
 	t_process			*process;
 	t_case				arena[MEM_SIZE];
+	t_visu				visu;
 	// char				play_order[MAX_PLAYERS];
 	int					cycles;
 	int					players_alive;
@@ -100,6 +115,7 @@ typedef struct			s_op {
 
 void			refresh_window(t_vm *vm);
 void			initialize_window(t_vm *vm);
+void			initialize_color(void);
 void			close_window();
 int				count_players(t_vm *vm);
 
@@ -131,7 +147,7 @@ void			remove_dead_process(t_vm *vm);
 // MAIN LOOP
 
 void			main_loop(t_vm *vm);
-int				check_args(t_vm *vm, t_process *proc, int op_code);
+int				check_args(t_vm *vm, t_process *proc, int op_code, int size);
 void			perform_op(t_vm *vm, t_process *proc);
 void			read_op_code(t_vm *vm, t_process *proc);
 

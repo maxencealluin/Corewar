@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_ncurses_win.c                                   :+:      :+:    :+:   */
+/*   vm_errors_messages_2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 14:37:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/02 17:57:11 by malluin          ###   ########.fr       */
+/*   Created: 2019/04/12 13:45:13 by malluin           #+#    #+#             */
+/*   Updated: 2019/05/02 18:34:45 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libftprintf.h"
 #include "vm.h"
-#include <ncurses.h>
 
-void	initialize_window(t_vm *vm)
+void	error_champ_to_big(void)
 {
-	initscr();
-	initialize_color();
-	cbreak();
-	nodelay(stdscr, TRUE);
-	noecho();
-	keypad(stdscr, TRUE);
-	refresh_window(vm);
+	ft_printf("Error: Champion is too big\n");
+	exit(-2);
 }
 
-void	close_window(void)
+void	error_read(void)
 {
-	endwin();
+	ft_printf("Error: reading champion code\n");
+	exit(-2);
+}
+
+void	error_param(void)
+{
+	ft_printf("Error: wrong parameters in exec code\n");
 }
