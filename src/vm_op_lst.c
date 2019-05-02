@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/01 17:19:14 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/02 08:54:22 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,29 +244,36 @@ int		op_sti(t_vm *vm, t_process *p)
 	k = 1;
 	int size = 3;
 	res = 0;
+	if ((vm->detail & 4) != 0)
+		ft_printf("r%d ", vm->arena[p->pc + 1 + vm->enc_byte[0]].by);
 	while (k < 3)
 	{
 		if (vm->enc_byte[k] == 1)
 		{
 			r = read_arena(vm, p->pc + size, T_REG);
-			res = read_reg(p->regs[r - 1]);
+			res = res + read_reg(p->regs[r - 1]);
+			if ((vm->detail & 4) != 0)
+				ft_printf("%d ", read_reg(p->regs[r - 1]));
 		}
 		else if (vm->enc_byte[k] == 2)
 		{
 			r = read_arena(vm, p->pc + size, IND_SIZE);
 			res = res + read_arena(vm, p->pc + r % IDX_MOD, REG_SIZE);
+			if ((vm->detail & 4) != 0)
+				ft_printf("r%d ", read_arena(vm, p->pc + r % IDX_MOD, REG_SIZE));
 		}
 		else if (vm->enc_byte[k] == 4)
 		{
 			vm->enc_byte[k] = 2;
 			res =  res + read_arena(vm, p->pc + size, DIR_SIZE / 2);
+			if ((vm->detail & 4) != 0)
+				ft_printf("r%d ", read_arena(vm, p->pc + size, DIR_SIZE / 2));
 		}
 		size = size + vm->enc_byte[k];
 		k++;
 	}
-	reg_to_mem(vm, p, vm->arena[p->pc + 1 + vm->enc_byte[0]].by, p->pc + res % IDX_MOD);
-	if ((vm->detail & 4) != 0)
-		ft_printf("r%d", vm->arena[p->pc + 1 + vm->enc_byte[0]].by);
+	reg_to_mem(vm, p, vm->arena[p->pc + 2 + vm->enc_byte[0] + vm->enc_byte[1] ].by, p->pc + res % IDX_MOD);
+	ft_printf("\n");
 	p->step_over = vm->enc_byte[0] + vm->enc_byte[1] + vm->enc_byte[2] + 2;
 	return (1);
 }
