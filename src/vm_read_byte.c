@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:39:44 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/02 18:45:26 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 17:10:17 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,25 @@ void	put_player(t_vm *vm, t_player *player, unsigned char *buff, int idx)
 	}
 }
 
+void	check_errors(t_player *player, unsigned char *buff, int res, char test)
+{
+	if (player->header->magic != 15369203)
+	{
+		ft_memdel((void **)&buff);
+		error_wrong_header();
+	}
+	else if (res > 0 && test != '\0')
+	{
+		ft_memdel((void **)&buff);
+		error_champ_to_big();
+	}
+	else if (res == -1)
+	{
+		ft_memdel((void **)&buff);
+		error_read();
+	}
+}
+
 void	read_player_code(int fd, t_player *player, t_vm *vm)
 {
 	unsigned char	*buff;
@@ -46,17 +65,12 @@ void	read_player_code(int fd, t_player *player, t_vm *vm)
 		exit(-1);
 	ft_bzero(buff, CHAMP_MAX_SIZE);
 	res = read(fd, buff, CHAMP_MAX_SIZE);
+	if (res != (int)player->header->prog_size)
+		error_wrong_weight();
 	res = read(fd, &test, 1);
-	if (res > 0 && test != '\0')
-	{
-		ft_memdel((void **)&buff);
-		error_champ_to_big();
-	}
-	else if (res == -1)
-	{
-		ft_memdel((void **)&buff);
-		error_read();
-	}
+	if (player->header->magic != 15369203 || (res > 0 && test != '\0')
+		|| res == -1)
+		check_errors(player, buff, res, test);
 	else
 	{
 		put_player(vm, player, buff, player->player_number);
