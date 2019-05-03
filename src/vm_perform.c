@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:37:03 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/02 18:49:37 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 10:30:26 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ void	perform_op(t_vm *vm, t_process *proc)
 
 	res = 0;
 	if (proc->next_op >= 1 && proc->next_op <= 16
-			&& op_func[proc->next_op - 1] != NULL)
+			&& g_op_func[proc->next_op - 1] != NULL)
 	{
 		if (check_args(vm, proc, proc->next_op - 1, 2) == 1)
 		{
 			if ((vm->detail & 4) != 0 && proc->next_op != 16)
 				ft_printf("P %4d | %s ", ft_iabs(proc->id_proc)
 					, g_op_tab[proc->next_op - 1].op_name);
-			res = op_func[proc->next_op - 1](vm, proc);
+			res = g_op_func[proc->next_op - 1](vm, proc);
 			if (res == 1)
 				pc_forward_sequence(vm, proc);
 			else
