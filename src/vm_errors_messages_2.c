@@ -6,12 +6,18 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:45:13 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/02 18:34:45 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 16:38:03 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 #include "vm.h"
+
+void	error_wrong_header(void)
+{
+	ft_printf("Error: File has an invalid header\n");
+	exit(-2);
+}
 
 void	error_champ_to_big(void)
 {

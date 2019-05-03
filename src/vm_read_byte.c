@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:39:44 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/02 18:45:26 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 16:44:52 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,12 @@ void	read_player_code(int fd, t_player *player, t_vm *vm)
 	ft_bzero(buff, CHAMP_MAX_SIZE);
 	res = read(fd, buff, CHAMP_MAX_SIZE);
 	res = read(fd, &test, 1);
-	if (res > 0 && test != '\0')
+	if (vm->players[0]->header->magic != 15369203)
+	{
+		ft_memdel((void **)&buff);
+		error_wrong_header();
+	}
+	else if (res > 0 && test != '\0')
 	{
 		ft_memdel((void **)&buff);
 		error_champ_to_big();
