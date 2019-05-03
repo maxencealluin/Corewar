@@ -4,6 +4,7 @@
 		ld  10, r4 		#set des octets 5-8
 		ld   %112,r3
 		ld   %9,r7
+		lld   %9,r7
 		#ld   %0,r3
 		st r3, r5
 		st r3, 568
