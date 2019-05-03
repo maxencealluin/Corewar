@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:45:13 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 16:38:03 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:10:43 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 void	error_wrong_header(void)
 {
 	ft_printf("Error: File has an invalid header\n");
+	exit(-2);
+}
+
+void	error_wrong_weight(void)
+{
+	ft_printf("Error: File has a code size");
+	ft_printf(" that differs from what its header says\n");
 	exit(-2);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:39:44 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/03 16:44:52 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:10:17 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,9 @@ void	put_player(t_vm *vm, t_player *player, unsigned char *buff, int idx)
 	}
 }
 
-void	read_player_code(int fd, t_player *player, t_vm *vm)
+void	check_errors(t_player *player, unsigned char *buff, int res, char test)
 {
-	unsigned char	*buff;
-	char			test;
-	int				res;
-
-	if (!(buff = (unsigned char *)malloc(sizeof(unsigned char)
-		* (CHAMP_MAX_SIZE + 1))))
-		exit(-1);
-	ft_bzero(buff, CHAMP_MAX_SIZE);
-	res = read(fd, buff, CHAMP_MAX_SIZE);
-	res = read(fd, &test, 1);
-	if (vm->players[0]->header->magic != 15369203)
+	if (player->header->magic != 15369203)
 	{
 		ft_memdel((void **)&buff);
 		error_wrong_header();
@@ -62,6 +52,25 @@ void	read_player_code(int fd, t_player *player, t_vm *vm)
 		ft_memdel((void **)&buff);
 		error_read();
 	}
+}
+
+void	read_player_code(int fd, t_player *player, t_vm *vm)
+{
+	unsigned char	*buff;
+	char			test;
+	int				res;
+
+	if (!(buff = (unsigned char *)malloc(sizeof(unsigned char)
+		* (CHAMP_MAX_SIZE + 1))))
+		exit(-1);
+	ft_bzero(buff, CHAMP_MAX_SIZE);
+	res = read(fd, buff, CHAMP_MAX_SIZE);
+	if (res != (int)player->header->prog_size)
+		error_wrong_weight();
+	res = read(fd, &test, 1);
+	if (player->header->magic != 15369203 || (res > 0 && test != '\0')
+		|| res == -1)
+		check_errors(player, buff, res, test);
 	else
 	{
 		put_player(vm, player, buff, player->player_number);

@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 16:38:35 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:08:51 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,5 +224,6 @@ void					error_champ_to_big();
 void					error_read();
 void					error_param();
 void					error_wrong_header(void);
+void					error_wrong_weight(void);
 
 #endif
