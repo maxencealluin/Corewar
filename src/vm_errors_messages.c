@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:45:13 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/02 18:34:40 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 13:28:47 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 void	ft_usage(void)
 {
-	ft_printf("Usage: ./corewar [-dump N] [[-n N] <champion1.cor>] <...>\n");
+	ft_printf("Usage: ./corewar [-dump N -v N | -g] [[-n N] <champion1.cor>]");
+	ft_printf(" <...>\n");
 	ft_printf("#### TEXT OUTPUT MODE #######################\n");
 	ft_printf("-dump N: Dumps memory after N cycles then exits\n");
 	ft_printf("-v    N: Verbosity levels, can be added ");
@@ -25,8 +26,8 @@ void	ft_usage(void)
 	ft_printf("	- 2 : Show cycles\n");
 	ft_printf("	- 4 : Show operations (Params are NOT litteral ...)\n");
 	ft_printf("	- 8 : Show deaths\n");
-	ft_printf("- 16 : Show PC movements (Except for jumps)\n");
-	ft_printf("- 32 : Show Cycles_to_die changes\n");
+	ft_printf("	- 16 : Show PC movements (Except for jumps)\n");
+	ft_printf("	- 32 : Show Cycles_to_die changes\n");
 	ft_printf("#### NCURSES OUTPUT MODE #######################\n");
 	ft_printf("-g    : Ncurses output mode\n");
 	exit(-1);

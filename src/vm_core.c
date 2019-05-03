@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/02 18:33:51 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 14:30:44 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	event_handler(t_vm *vm, t_time *time, int *cycles)
 		else if (ch == KEY_RIGHT || ch == KEY_LEFT)
 		{
 			if (ch == KEY_RIGHT)
-				vm->cycle_sec = vm->cycle_sec >= 595 ? 600 : vm->cycle_sec + 5;
+				vm->cycle_sec = vm->cycle_sec >= 795 ? 800 : vm->cycle_sec + 5;
 			else if (ch == KEY_LEFT)
 				vm->cycle_sec = vm->cycle_sec <= 5 ? 1 : vm->cycle_sec - 5;
 			reset_time(time, cycles);
@@ -82,12 +82,14 @@ void	ft_step(t_vm *vm)
 		{
 			vm->cycle_to_die -= CYCLE_DELTA;
 			if ((vm->detail & 32) != 0)
-				ft_printf("Cycles_to_die is now %d\n", vm->cycle_to_die);
+				ft_printf("Cycle to die is now %d\n", vm->cycle_to_die);
 			vm->current_checks = 0;
 		}
 		vm->number_of_live = 0;
 		last_check = vm->cycles;
 	}
+	if ((vm->detail & 2) != 0 && vm->nb_process > 0)
+		ft_printf("It is now cycle %d\n", vm->cycles + 1);
 	run_process(vm);
 	vm->cycles++;
 }
@@ -102,7 +104,7 @@ void	main_loop(t_vm *vm)
 	reset_time(time, &cycles);
 	while (vm->nb_process > 0 && vm->cycle_to_die > 0)
 	{
-		if (vm->cycles == vm->dump_cycle)
+		if (vm->cycles == vm->dump_cycle && vm->ncurses == 0)
 		{
 			dump_memory(vm);
 			ft_print_process(vm);
@@ -119,8 +121,6 @@ void	main_loop(t_vm *vm)
 				continue;
 		}
 		ft_step(vm);
-		if ((vm->detail & 2) != 0 && vm->nb_process > 0)
-			ft_printf("It is now cycle %d\n", vm->cycles);
 		cycles++;
 	}
 	ft_memdel((void**)&time);

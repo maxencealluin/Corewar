@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/02 18:49:20 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 14:04:13 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	ft_decode_byte_codes(t_vm *vm)
 			vm->enc_byte_codes[i] = T_DIR;
 		else if (vm->enc_byte[i] == T_REG)
 			vm->enc_byte_codes[i] = T_REG;
+		else
+			vm->enc_byte_codes[i] = 0;
 		i++;
 	}
 	if (vm->debug == 1)

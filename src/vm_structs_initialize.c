@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:05:00 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/02 17:02:39 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 14:21:57 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,30 @@ void	initialize_vm(t_vm *vm, int ac)
 	ft_bzero(vm->players, sizeof(vm->players));
 	ft_bzero(vm->arena, sizeof(vm->arena));
 	vm->process = NULL;
-	vm->cycles = 0;
 	vm->players_alive = 0;
-	vm->nb_players = 0;
-	vm->cycle_to_die = CYCLE_TO_DIE;
-	vm->cycle_sec = 50;
-	vm->nb_process = 0;
-	vm->stop = 1;
 	vm->number_of_live = 0;
 	vm->last_player_live = 0;
+	vm->nb_players = 0;
+	vm->nb_process = 0;
+	vm->cycles = 0;
+	vm->cycle_to_die = CYCLE_TO_DIE;
+	vm->cycle_sec = 50;
+	vm->current_checks = 0;
+	vm->stop = 1;
 	vm->dump_cycle = -1;
-	vm->ncurses = 0;
 	vm->enc[0] = 0;
 	vm->enc[1] = 1;
 	vm->enc[2] = DIR_SIZE;
 	vm->enc[3] = IND_SIZE;
 	ft_bzero(vm->enc_byte, sizeof(vm->enc_byte));
 	ft_bzero(vm->enc_byte_codes, sizeof(vm->enc_byte_codes));
-	vm->current_checks = 0;
 	vm->debug = 0;
 	vm->detail = 0;
+	vm->ncurses = 0;
 	vm->ac = ac;
+	vm->visu.boite_l = NULL;
+	vm->visu.boite_r = NULL;
+
 }
 
 void	add_player(t_vm *vm, char *path, int next_nb, int i)
@@ -61,7 +64,6 @@ void	add_player(t_vm *vm, char *path, int next_nb, int i)
 	vm->players[j]->code_start = 0;
 	vm->players[j]->order_arg = i;
 	vm->players[j]->nb_process = 0;
-	vm->players[j]->alive = 1;
 	vm->players_alive += 1;
 	if (!(vm->players[j]->header = (t_header *)malloc(sizeof(t_header))))
 		exit(-1);

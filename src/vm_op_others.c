@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 09:43:00 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/03 14:01:21 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		check_args(t_vm *vm, t_process *proc, int op, int size)
 
 	if (g_op_tab[op].encoding == 0)
 		return (1);
-	ft_decode_byte2(vm, vm->arena[proc->pc + 1].by);
+	ft_decode_byte2(vm, vm->arena[(proc->pc + 1) % MEM_SIZE].by);
 	ft_decode_byte_codes(vm);
 	i = 0;
 	quit = 0;
@@ -45,6 +45,7 @@ int		check_args(t_vm *vm, t_process *proc, int op, int size)
 		i++;
 	}
 	proc->step_over = size;
+	// printf("quit %d\n", quit);
 	return (!quit);
 }
 

@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 12:16:01 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/02 18:39:22 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 14:35:49 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	reorder_players(t_vm *vm)
 			vm->players[c]->player_number = to_assign;
 	}
 	vm->nb_players = vm->players_alive;
-	vm->last_player_live = vm->players[0]->player_number;
+	vm->last_player_live = vm->players[c - 1]->player_number;
 }
 
 int		read_player_number(t_vm *vm, char *str)

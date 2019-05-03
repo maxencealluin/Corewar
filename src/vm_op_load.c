@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/03 09:11:30 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/03 13:51:52 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ int		op_ldi(t_vm *vm, t_process *p)
 		if (vm->enc_byte[k] == 1)
 		{
 			r = read_arena(vm, p->pc + size, 1);
-			if ((vm->detail & 4) != 0)
-				ft_printf("r%d ", r);
 			res = read_reg(p->regs[r - 1]);
+			if ((vm->detail & 4) != 0)
+				ft_printf("%d ", res);
 		}
 		else if (vm->enc_byte[k] == 2)
 		{

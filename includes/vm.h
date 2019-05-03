@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 09:35:21 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/03 13:21:38 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "op.h"
 # include <time.h>
+#include <ncurses.h>
 
 # define MAGIC_SIZE	4
 # define NAME_SIZE	128
@@ -53,7 +54,6 @@ typedef struct			s_player {
 	int					player_number;
 	int					order_arg;
 	int					nb_process;
-	char				alive;
 }						t_player;
 
 typedef	struct			s_case {
@@ -69,6 +69,8 @@ typedef struct			s_visu {
 	short				b_w_l;
 	short				b_w_r;
 	short				b_h;
+	WINDOW				*boite_l;
+	WINDOW				*boite_r;
 }						t_visu;
 
 typedef struct			s_vm {
@@ -114,7 +116,7 @@ typedef struct			s_op {
 void					refresh_window(t_vm *vm);
 void					initialize_window(t_vm *vm);
 void					initialize_color(void);
-void					close_window();
+void					close_window(t_vm *vm);
 int						count_players(t_vm *vm);
 
 /*
@@ -150,7 +152,7 @@ void					remove_dead_process(t_vm *vm);
 
 void					main_loop(t_vm *vm);
 int						check_args(t_vm *vm, t_process *proc,
-	int op_code, int size);
+						int op_code, int size);
 void					perform_op(t_vm *vm, t_process *proc);
 void					read_op_code(t_vm *vm, t_process *proc);
 

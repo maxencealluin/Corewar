@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 09:17:53 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/03 14:14:03 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,15 @@ int		main(int ac, char **av)
 		return (0);
 	initialize_vm(vm, ac);
 	ft_parse_args(vm, ac, av, 1);
+	if (vm->detail != 0 && vm->ncurses == 1)
+		vm->detail = 0;
 	read_files(vm);
 	create_processes(vm);
 	if (vm->ncurses == 1)
 	{
 		initialize_window(vm);
 		main_loop(vm);
-		close_window();
+		close_window(vm);
 	}
 	else
 	{
