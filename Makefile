@@ -6,7 +6,7 @@
 #    By: malluin <malluin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/22 14:56:26 by malluin           #+#    #+#              #
-#    Updated: 2019/05/03 14:37:11 by malluin          ###   ########.fr        #
+#    Updated: 2019/05/03 14:39:14 by malluin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,13 @@ SRC_VM_NAME =		op.c \
 					vm_args_parsing.c \
 					vm_debug.c \
 					vm_read_byte.c \
-					vm_process_mgmt.c vm_process_mgmt_2.c\
+					vm_process_mgmt.c	vm_process_mgmt_2.c\
 					vm_utils.c \
 					vm_print.c \
-					vm_op_utils.c vm_op_utils_2.c \
+					vm_op_utils.c		vm_op_utils_2.c \
 					vm_op_others.c \
-					vm_op_arithmetic.c \
-					vm_op_load.c vm_op_load_utils.c \
+					vm_op_arithmetic.c	vm_op_arithmetic_2.c \
+					vm_op_load.c		vm_op_load_utils.c \
 					vm_op_st_jmp.c \
 					vm_end.c \
 					vm_perform.c

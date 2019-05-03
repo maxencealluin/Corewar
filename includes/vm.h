@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 14:37:19 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 14:40:05 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,8 @@ void					end_game(t_vm *vm);
 void					free_structs(t_vm *vm);
 int						op_load_utils(t_vm *vm, t_process *p, int res, int r);
 int						op_ldi_utils(t_vm *vm, t_process *p, int k, int size);
+int						*read_args(t_vm *vm, t_process *proc, int *size,
+						int nb_args);
 
 /*
 ** Debug
