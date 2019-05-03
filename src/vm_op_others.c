@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 14:57:33 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 16:20:02 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		op_live(t_vm *vm, t_process *proc)
 	nb = read_arena(vm, proc->pc + 1, DIR_SIZE);
 	proc->step_over = 5;
 	if ((vm->detail & 4) != 0)
-		ft_printf("%d\n", nb);
+		ft_printf(" %d\n", nb);
 	while (i < vm->nb_players)
 	{
 		if (vm->players[i] != NULL && nb == vm->players[i]->player_number)
@@ -86,7 +86,7 @@ int		op_fork(t_vm *vm, t_process *proc)
 		+ MEM_SIZE) % MEM_SIZE);
 	ft_print_process(vm);
 	if ((vm->detail & 4) != 0)
-		ft_printf("%d (%d)\n", arg, proc->pc + arg % IDX_MOD);
+		ft_printf(" %d (%d)\n", arg, proc->pc + arg % IDX_MOD);
 	return (1);
 }
 
@@ -100,7 +100,7 @@ int		op_lfork(t_vm *vm, t_process *proc)
 		% MEM_SIZE);
 	ft_print_process(vm);
 	if ((vm->detail & 4) != 0)
-		ft_printf("%d (%d)\n", arg, proc->pc + arg);
+		ft_printf(" %d (%d)\n", arg, proc->pc + arg);
 	return (1);
 }
 

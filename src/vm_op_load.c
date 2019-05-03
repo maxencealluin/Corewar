@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/03 14:54:18 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 16:58:11 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		op_load(t_vm *vm, t_process *p)
 	}
 	res = op_load_utils(vm, p, r, 1);
 	if ((vm->detail & 4) != 0)
-		ft_printf("r%d\n", r);
+		ft_printf(" r%d\n", r);
 	p->carry = res == 0 ? 1 : 0;
 	p->step_over = 2 + vm->enc_byte[0] + vm->enc_byte[1];
 	return (1);
@@ -50,7 +50,7 @@ int		op_lld(t_vm *vm, t_process *p)
 	p->carry = res == 0 ? 1 : 0;
 	p->step_over = 2 + vm->enc_byte[0] + vm->enc_byte[1];
 	if ((vm->detail & 4) != 0)
-		ft_printf("r%d\n", r);
+		ft_printf(" r%d\n", r);
 	return (1);
 }
 
@@ -74,7 +74,7 @@ int		op_ldi(t_vm *vm, t_process *p)
 	}
 	reg = read_arena(vm, p->pc + size++, T_REG);
 	if ((vm->detail & 4) != 0)
-		ft_printf("r%d ", reg);
+		ft_printf(" r%d", reg);
 	assign_reg(p, reg, read_arena(vm, p->pc + (res % IDX_MOD), REG_SIZE));
 	p->step_over = size;
 	if ((vm->detail & 4) != 0)
@@ -119,7 +119,7 @@ int		op_lldi(t_vm *vm, t_process *p)
 	r = read_arena(vm, p->pc + 1 + by[0] + 1 + by[1], by[2]);
 	assign_reg(p, r, res);
 	p->step_over = by[0] + by[1] + by[2] + 2;
-	p->carry = 1;
+	p->carry = res == 0 ? 1 : 0;
 	ft_memdel((void **)&by);
 	if ((vm->detail & 4) != 0)
 		ft_printf("\n");

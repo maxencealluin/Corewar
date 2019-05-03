@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:37:03 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 10:30:26 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:19:33 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	pc_forward_sequence(t_vm *vm, t_process *proc)
 	int		i;
 
 	vm->arena[proc->pc].proc_id = 0;
-	if ((vm->detail & 16) != 0 && proc->next_op != 9)
+	if ((vm->detail & 16) != 0)
 	{
 		ft_printf("ADV %d (%06p -> %06p) ", proc->step_over, proc->pc,
 			((proc->pc + proc->step_over) % MEM_SIZE + MEM_SIZE) % MEM_SIZE);
@@ -39,6 +39,14 @@ void	pc_forward_sequence(t_vm *vm, t_process *proc)
 			+ MEM_SIZE) % MEM_SIZE].by);
 		ft_printf("\n");
 	}
+	proc->pc = ((proc->pc + proc->step_over) % MEM_SIZE + MEM_SIZE) % MEM_SIZE;
+	vm->arena[proc->pc].proc_id = 1;
+	proc->step_over = 0;
+}
+
+void	pc_jump(t_vm *vm, t_process *proc)
+{
+	vm->arena[proc->pc].proc_id = 0;
 	proc->pc = ((proc->pc + proc->step_over) % MEM_SIZE + MEM_SIZE) % MEM_SIZE;
 	vm->arena[proc->pc].proc_id = 1;
 	proc->step_over = 0;
@@ -62,11 +70,13 @@ void	perform_op(t_vm *vm, t_process *proc)
 		if (check_args(vm, proc, proc->next_op - 1, 2) == 1)
 		{
 			if ((vm->detail & 4) != 0 && proc->next_op != 16)
-				ft_printf("P %4d | %s ", ft_iabs(proc->id_proc)
+				ft_printf("P %4d | %s", ft_iabs(proc->id_proc)
 					, g_op_tab[proc->next_op - 1].op_name);
 			res = g_op_func[proc->next_op - 1](vm, proc);
 			if (res == 1)
 				pc_forward_sequence(vm, proc);
+			else if (res == 2)
+				pc_jump(vm, proc);
 			else
 				pc_forward_one(vm, proc);
 		}

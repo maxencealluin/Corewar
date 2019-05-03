@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:04:46 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/03 13:59:19 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:53:15 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		op_load_utils(t_vm *vm, t_process *p, int r, int idx_m)
 	{
 		res = read_arena(vm, (p->pc + 2), DIR_SIZE);
 		if ((vm->detail & 4) != 0)
-			ft_printf("%d ", res);
+			ft_printf(" %d", res);
 		assign_reg(p, r, res);
 	}
 	else if (vm->enc_byte[0] == IND_SIZE)
@@ -33,7 +33,7 @@ int		op_load_utils(t_vm *vm, t_process *p, int r, int idx_m)
 		else
 			res = read_arena(vm, (p->pc + 2), IND_SIZE);
 		if ((vm->detail & 4) != 0)
-			ft_printf("%d ", res);
+			ft_printf(" %d", res);
 		res = read_arena(vm, p->pc + res, DIR_SIZE);
 		assign_reg(p, r, res);
 	}
@@ -49,14 +49,14 @@ int		op_ldi_utils(t_vm *vm, t_process *p, int k, int size)
 	{
 		res = read_arena(vm, p->pc + size, 1);
 		if ((vm->detail & 4) != 0)
-			ft_printf("r%d ", res);
+			ft_printf(" r%d", res);
 		res = read_reg(p->regs[res - 1]);
 	}
 	else if (vm->enc_byte[k] == 2)
 	{
 		res = read_arena(vm, p->pc + size, IND_SIZE);
 		if ((vm->detail & 4) != 0)
-			ft_printf("%d ", read_arena(vm, p->pc + res, DIR_SIZE));
+			ft_printf(" %d", read_arena(vm, p->pc + res, DIR_SIZE));
 		res = read_arena(vm, p->pc + res, DIR_SIZE);
 	}
 	else if (vm->enc_byte[k] == 4)
@@ -64,7 +64,7 @@ int		op_ldi_utils(t_vm *vm, t_process *p, int k, int size)
 		vm->enc_byte[k] = 2;
 		res = read_arena(vm, p->pc + size, IND_SIZE);
 		if ((vm->detail & 4) != 0)
-			ft_printf("%d ", read_arena(vm, p->pc + size, IND_SIZE));
+			ft_printf(" %d", read_arena(vm, p->pc + size, IND_SIZE));
 	}
 	return (res);
 }

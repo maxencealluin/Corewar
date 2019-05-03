@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:40:21 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 14:57:56 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 16:00:15 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	menu(t_vm *vm)
 	move(vm->visu.b_h + 2, vm->visu.b_w_r + 3);
 	printw("---- Welcome to COREWAR ---");
 	move(vm->visu.b_h + 4, vm->visu.b_w_r + 3);
-	printw("Cycle passed: %d", vm->cycles + 1);
+	printw("Current cycle: %d", vm->cycles + 1);
 	move(vm->visu.b_h + 5, vm->visu.b_w_r + 3);
 	printw("Cycle to die: %d", vm->cycle_to_die);
 	move(vm->visu.b_h + 6, vm->visu.b_w_r + 3);

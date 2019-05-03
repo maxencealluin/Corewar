@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 14:32:55 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/03 14:33:14 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:18:56 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		op_xor(t_vm *vm, t_process *proc)
 	if (!(r = read_args(vm, proc, &size, 3)))
 		return (0);
 	if ((vm->detail & 4) != 0)
-		ft_printf("%d %d r%d\n", r[0], r[1], r[2]);
+		ft_printf(" %d %d r%d\n", r[0], r[1], r[2]);
 	proc->step_over = size;
 	r[1] = r[0] ^ r[1];
 	if (r[2] >= 1 && r[2] <= REG_NUMBER)
@@ -47,7 +47,7 @@ int		op_and(t_vm *vm, t_process *proc)
 	if (!(r = read_args(vm, proc, &size, 3)))
 		return (0);
 	if ((vm->detail & 4) != 0)
-		ft_printf("%d %d r%d\n", r[0], r[1], r[2]);
+		ft_printf(" %d %d r%d\n", r[0], r[1], r[2]);
 	proc->step_over = size;
 	r[1] = r[0] & r[1];
 	if (r[2] >= 1 && r[2] <= REG_NUMBER)

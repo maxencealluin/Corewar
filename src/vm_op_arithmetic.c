@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 14:33:03 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:18:51 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		op_add(t_vm *vm, t_process *proc)
 	r2 = read_arena(vm, proc->pc + 3, T_REG);
 	r3 = read_arena(vm, proc->pc + 4, T_REG);
 	if ((vm->detail & 4) != 0)
-		ft_printf("r%d r%d r%d\n", r1, r2, r3);
+		ft_printf(" r%d r%d r%d\n", r1, r2, r3);
 	proc->step_over = 5;
 	if ((r1 < 1 || r1 > REG_NUMBER) || (r2 < 1 || r2 > REG_NUMBER))
 		return (1);
@@ -47,7 +47,7 @@ int		op_sub(t_vm *vm, t_process *proc)
 	r2 = read_arena(vm, proc->pc + 3, T_REG);
 	r3 = read_arena(vm, proc->pc + 4, T_REG);
 	if ((vm->detail & 4) != 0)
-		ft_printf("r%d r%d r%d\n", r1, r2, r3);
+		ft_printf(" r%d r%d r%d\n", r1, r2, r3);
 	proc->step_over = 5;
 	if ((r1 < 1 || r1 > REG_NUMBER) || (r2 < 1 || r2 > REG_NUMBER))
 		return (1);
@@ -99,7 +99,7 @@ int		op_or(t_vm *vm, t_process *proc)
 	if (!(r = read_args(vm, proc, &size, 3)))
 		return (0);
 	if ((vm->detail & 4) != 0)
-		ft_printf("%d %d r%d\n", r[0], r[1], r[2]);
+		ft_printf(" %d %d r%d\n", r[0], r[1], r[2]);
 	proc->step_over = size;
 	r[1] = r[0] | r[1];
 	if (r[2] >= 1 && r[2] <= REG_NUMBER)
