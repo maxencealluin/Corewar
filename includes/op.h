@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/04/26 15:11:28 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 09:37:34 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef char	t_arg_type;
 # define T_DIR					2
 # define T_IND					4
 # define T_LAB					8
-
 
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
