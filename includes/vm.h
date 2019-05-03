@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/02 18:08:47 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 09:35:21 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ typedef struct			s_vm {
 	t_process			*process;
 	t_case				arena[MEM_SIZE];
 	t_visu				visu;
-	// char				play_order[MAX_PLAYERS];
 	int					cycles;
 	int					players_alive;
 	int					cycle_to_die;
@@ -87,7 +86,6 @@ typedef struct			s_vm {
 	int					dump_cycle;
 	int					nb_players;
 	char				ncurses;
-	// int					*order;
 	int					enc[4];
 	int					enc_byte[4];
 	int					enc_byte_codes[4];
@@ -109,113 +107,114 @@ typedef struct			s_op {
 	int					size_direct;
 }						t_op;
 
+/*
+** Ncurses
+*/
 
+void					refresh_window(t_vm *vm);
+void					initialize_window(t_vm *vm);
+void					initialize_color(void);
+void					close_window();
+int						count_players(t_vm *vm);
 
-// NCURSES
+/*
+** Init structures
+*/
 
-void			refresh_window(t_vm *vm);
-void			initialize_window(t_vm *vm);
-void			initialize_color(void);
-void			close_window();
-int				count_players(t_vm *vm);
+void					initialize_vm(t_vm *vm, int ac);
+void					add_player(t_vm *vm, char *path, int next_nb, int i);
 
+/*
+** Parsing
+*/
 
+void					ft_parse_args(t_vm *vm, int ac, char **av, int i);
+void					vm_read_byte(t_player *player, t_vm *vm);
 
-// INTIALIZATION
+/*
+** Init and utils for processes
+*/
 
-void			initialize_vm(t_vm *vm, int ac);
-void			add_player(t_vm *vm, char *path, int next_nb, int i);
+void					create_processes(t_vm *vm);
+int						read_reg(unsigned char *str);
+void					assign_reg(t_process *process, short reg, int value);
 
+void					add_child_process(t_vm *vm, t_process *parent,
+	int child_pc);
+void					remove_process(t_vm *vm, t_process *node);
+void					remove_dead_process(t_vm *vm);
 
+/*
+** Main loop
+*/
 
-// PARSING
+void					main_loop(t_vm *vm);
+int						check_args(t_vm *vm, t_process *proc,
+	int op_code, int size);
+void					perform_op(t_vm *vm, t_process *proc);
+void					read_op_code(t_vm *vm, t_process *proc);
 
-void			ft_parse_args(t_vm *vm, int ac, char **av, int i);
-void			vm_read_byte(t_player *player, t_vm *vm);
+/*
+** Print
+*/
 
-// INIT + UTILS
+void					print_intro(t_vm *vm);
+void					dump_memory(t_vm *vm);
+int						*ft_decode_byte(t_vm *vm, unsigned char c, int *tab);
+void					ft_decode_byte2(t_vm *vm, unsigned char c);
+void					ft_decode_byte_codes(t_vm *vm);
+int						is_register(int decoded_by, unsigned char arena_by);
+void					print_op();
 
-void			create_processes(t_vm *vm);
-int				read_reg(unsigned char *str);
-void			assign_reg(t_process *process, short reg, int value);
+/*
+** Operations
+*/
 
-void			add_child_process(t_vm *vm, t_process *parent, int child_pc);
-void			remove_process(t_vm *vm, t_process *node);
-void			remove_dead_process(t_vm *vm);
+int						op_live(t_vm *vm, t_process *proc);
+int						op_load(t_vm *vm, t_process *proc);
+int						op_store(t_vm *vm, t_process *p);
+int						op_add(t_vm *vm, t_process *proc);
+int						op_sub(t_vm *vm, t_process *proc);
+int						op_and(t_vm *vm, t_process *proc);
+int						op_or(t_vm *vm, t_process *proc);
+int						op_xor(t_vm *vm, t_process *proc);
+int						op_zjmp(t_vm *vm, t_process *p);
+int						op_fork(t_vm *vm, t_process *proc);
+int						op_lld(t_vm *vm, t_process *p);
+int						op_lldi(t_vm *vm, t_process *p);
+int						op_lfork(t_vm *vm, t_process *proc);
+int						op_aff(t_vm *vm, t_process *proc);
+int						op_ldi(t_vm *vm, t_process *p);
+int						op_sti(t_vm *vm, t_process *p);
+void					reg_to_reg(int src_reg, int dst_reg, t_process *p);
+void					reg_to_mem(t_vm *vm, t_process *p, int reg, int pos);
+void					mem_to_reg(int reg, int pos, t_vm *vm, t_process *p);
+int						find_pos(t_vm *vm, t_process *p, int t[4]);
+int						read_arena(t_vm *vm, int pos, int size);
+void					end_game(t_vm *vm);
+void					free_structs(t_vm *vm);
 
+/*
+** Debug
+*/
 
-// MAIN LOOP
+void					ft_print_players(t_vm *vm);
+void					ft_print_xstr(int size, char *str, int wid);
+void					ft_print_xarena(t_vm *vm, int wid);
+void					increment_memory(t_vm *vm);
+void					ft_print_process(t_vm *vm);
 
-void			main_loop(t_vm *vm);
-int				check_args(t_vm *vm, t_process *proc, int op_code, int size);
-void			perform_op(t_vm *vm, t_process *proc);
-void			read_op_code(t_vm *vm, t_process *proc);
+/*
+** Errors
+*/
 
-
-// PRINT
-void			print_intro(t_vm *vm);
-void			dump_memory(t_vm *vm);
-
-// ?? franck
-int				*ft_decode_byte(t_vm *vm, unsigned char c, int *tab);
-void			ft_decode_byte2(t_vm *vm, unsigned char c);
-void			ft_decode_byte_codes(t_vm *vm);
-
-int				is_register(int decoded_by, unsigned char arena_by);
-
-// void			pick_order(t_vm *vm, int *tab);
-void			print_op();
-
-// OPERATIONS
-int				op_live(t_vm *vm, t_process *proc);
-int				op_load(t_vm *vm, t_process *proc);
-int				op_store(t_vm *vm, t_process *p);
-int				op_add(t_vm *vm, t_process *proc);
-int				op_sub(t_vm *vm, t_process *proc);
-int				op_and(t_vm *vm, t_process *proc);
-int				op_or(t_vm *vm, t_process *proc);
-int				op_xor(t_vm *vm, t_process *proc);
-int				op_zjmp(t_vm *vm, t_process *p);
-//sti
-int				op_fork(t_vm *vm, t_process *proc);
-int				op_lld(t_vm *vm, t_process *p);
-int				op_lldi(t_vm *vm, t_process *p);
-int				op_lfork(t_vm *vm, t_process *proc);
-int				op_aff(t_vm *vm, t_process *proc);
-int				op_ldi(t_vm *vm, t_process *p);
-int				op_sti(t_vm *vm, t_process *p);
-
-
-
-
-void			reg_to_reg(int src_reg, int dst_reg, t_process *p);
-void			reg_to_mem(t_vm *vm, t_process *p, int reg, int pos);
-void			mem_to_reg(int reg, int pos, t_vm *vm, t_process *p);
-int				find_pos(t_vm *vm, t_process *p, int t[4]);
-
-
-
-int				read_arena(t_vm *vm, int pos, int size);
-
-void			end_game(t_vm *vm);
-void			free_structs(t_vm *vm);
-
-// DEBUG
-
-void			ft_print_players(t_vm *vm);
-void			ft_print_xstr(int size, char *str, int wid);
-void			ft_print_xarena(t_vm *vm, int wid);
-void			increment_memory(t_vm *vm);
-void			ft_print_process(t_vm *vm);
-
-// ERRORS
-void			ft_usage(void);
-void			ft_error_read(t_vm *vm, char *str);
-void			ft_error_too_many(t_vm *vm);
-void			ft_incorrect_number(t_vm *vm);
-void			ft_error_already_assigned(t_vm *vm);
-void			error_champ_to_big();
-void			error_read();
-void			error_param();
+void					ft_usage(void);
+void					ft_error_read(t_vm *vm, char *str);
+void					ft_error_too_many(t_vm *vm);
+void					ft_incorrect_number(t_vm *vm);
+void					ft_error_already_assigned(t_vm *vm);
+void					error_champ_to_big();
+void					error_read();
+void					error_param();
 
 #endif

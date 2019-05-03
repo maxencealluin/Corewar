@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 08:58:14 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/03 09:24:24 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,8 @@ int		check_args(t_vm *vm, t_process *proc, int op)
 		i++;
 	}
 	proc->step_over = size;
-	// if (quit == 1)
-		// printf("FAIL %d\n", proc->next_op);
 	return (!quit);
 }
-
-// while (i < 3)
-// {
-// 	if (vm->enc_byte[i] == T_REG)
-// 	{
-// 		r[i] = read_arena(vm, proc->pc + size, T_REG);
-// 		if (r[i] >= 1 && r[i] <= 16 && i != 2)
-// 			r[i] = read_reg(proc->regs[r[i] - 1]);
-// 	}
-// 	else if (vm->enc_byte[i] == DIR_SIZE)
-// 		r[i] = read_arena(vm, proc->pc + size, DIR_SIZE);
-// 	else if (vm->enc_byte[i] == IND_SIZE)
-// 	{
-// 		r[i] = read_arena(vm, proc->pc + size, IND_SIZE);
-// 		r[i] = read_arena(vm, proc->pc + r[i] % IDX_MOD, DIR_SIZE);
-// 	}
-// 	size += vm->enc_byte[i++];
-// }
 
 int		op_live(t_vm *vm, t_process *proc)
 {
@@ -91,7 +71,7 @@ int		op_live(t_vm *vm, t_process *proc)
 				ft_printf("Player %d (%s) is said to be alive.\n",
 				vm->players[i]->player_number,
 				vm->players[i]->header->prog_name);
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -104,7 +84,8 @@ int		op_fork(t_vm *vm, t_process *proc)
 
 	arg = read_arena(vm, proc->pc + 1, IND_SIZE);
 	proc->step_over = 3;
-	add_child_process(vm, proc, ((proc->pc + arg % IDX_MOD) % MEM_SIZE + MEM_SIZE)
+	add_child_process(vm, proc, ((proc->pc + arg % IDX_MOD)
+		% MEM_SIZE + MEM_SIZE)
 		% MEM_SIZE);
 	ft_print_process(vm);
 	if ((vm->detail & 4) != 0)
@@ -118,15 +99,17 @@ int		op_lfork(t_vm *vm, t_process *proc)
 
 	arg = read_arena(vm, proc->pc + 1, IND_SIZE);
 	proc->step_over = 3;
-	add_child_process(vm, proc, ((proc->pc + arg) % MEM_SIZE + MEM_SIZE) % MEM_SIZE);
+	add_child_process(vm, proc, ((proc->pc + arg)
+		% MEM_SIZE + MEM_SIZE) % MEM_SIZE);
 	ft_print_process(vm);
 	if ((vm->detail & 4) != 0)
 		ft_printf("%d (%d)\n", arg, proc->pc + arg);
 	return (1);
 }
 
-
- // AAA CHANGER EN VALEUR ASCII
+/*
+** AAA CHANGER EN VALEUR ASCII
+*/
 
 int		op_aff(t_vm *vm, t_process *proc)
 {
