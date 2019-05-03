@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/02 18:29:57 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 09:43:00 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,3 @@ int		op_aff(t_vm *vm, t_process *proc)
 	proc->step_over = 3;
 	return (1);
 }
-
-// AAA CHANGER EN VALEUR ASCII

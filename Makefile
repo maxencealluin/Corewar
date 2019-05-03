@@ -6,7 +6,7 @@
 #    By: malluin <malluin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/22 14:56:26 by malluin           #+#    #+#              #
-#    Updated: 2019/05/03 09:06:33 by fnussbau         ###   ########.fr        #
+#    Updated: 2019/05/03 09:43:40 by fnussbau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,6 @@ SRC_VM_NAME =		op.c \
 					vm_process_mgmt.c \
 					vm_utils.c \
 					vm_print.c \
-					vm_op_utils.c \
 					vm_op_utils.c \
 					vm_op_others.c \
 					vm_op_arithmetic.c \
