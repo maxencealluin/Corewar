@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 13:41:33 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/03 14:08:20 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,6 @@ int						op_sti(t_vm *vm, t_process *p);
 void					reg_to_reg(int src_reg, int dst_reg, t_process *p);
 void					reg_to_mem(t_vm *vm, t_process *p, int reg, int pos);
 void					mem_to_reg(int reg, int pos, t_vm *vm, t_process *p);
-int						find_pos(t_vm *vm, t_process *p, int t[4]);
 int						read_arena(t_vm *vm, int pos, int size);
 void					end_game(t_vm *vm);
 void					free_structs(t_vm *vm);

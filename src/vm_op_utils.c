@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/02 18:49:20 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 14:11:15 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,79 +63,4 @@ int		is_register(int decoded_by, unsigned char arena_by)
 	if (decoded_by != 1 || arena_by > REG_NUMBER || arena_by <= 0)
 		return (0);
 	return (1);
-}
-
-void	reg_to_reg(int src_reg, int dst_reg, t_process *p)
-{
-	int		count;
-
-	count = 0;
-	if (dst_reg > REG_NUMBER || dst_reg < 1 || p == NULL)
-		return ;
-	while (count < REG_SIZE)
-	{
-		p->regs[dst_reg - 1][count] = p->regs[src_reg - 1][count];
-		count++;
-	}
-}
-
-void	reg_to_mem(t_vm *vm, t_process *p, int reg, int pos)
-{
-	int		count;
-	int		i;
-
-	count = 0;
-	if (reg < 1 || reg > REG_NUMBER)
-		return ;
-	while (count < REG_SIZE)
-	{
-		i = ((pos + count) % MEM_SIZE + MEM_SIZE) % MEM_SIZE;
-		vm->arena[i].by = p->regs[reg - 1][count];
-		vm->arena[i].id = p->id_parent;
-		count++;
-	}
-}
-
-int		find_pos(t_vm *vm, t_process *p, int t[4])
-{
-	int		k;
-	int		reg;
-	int		size;
-	int		pos;
-
-	reg = 0;
-	size = 3;
-	k = 1;
-	pos = 0;
-	while (k < 4)
-	{
-		if (t[k] == 1)
-		{
-			reg = read_arena(vm, p->pc + size, T_REG);
-			if (reg >= 1 && reg <= REG_NUMBER)
-				pos = read_reg(p->regs[reg - 1]);
-			size = size + 1;
-			if ((vm->detail & 4) != 0)
-				ft_printf(" r%d", reg);
-		}
-		else if (t[k] == 2)
-		{
-			pos = pos + read_arena(vm, p->pc + size, 2);
-			size = size + 2;
-			if ((vm->detail & 4) != 0)
-				ft_printf(" %d", pos);
-		}
-		else if (t[k] == 3)
-		{
-			reg = read_arena(vm, p->pc + size, 2);
-			pos = pos + read_arena(vm, p->pc + reg, 4);
-			size = size + 2;
-			if ((vm->detail & 4) != 0)
-				ft_printf(" %d\n", pos);
-		}
-		k++;
-	}
-	if ((vm->detail & 4) != 0)
-		ft_printf("\n");
-	return (pos);
 }

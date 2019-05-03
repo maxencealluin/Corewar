@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/02 18:48:51 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 14:31:57 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ int		op_zjmp(t_vm *vm, t_process *p)
 	return (1);
 }
 
+void	dirty(t_vm *vm, t_process *p, int position)
+{
+	reg_to_mem(vm, p, vm->arena[p->pc + 2].by, (p->pc + position % IDX_MOD
+		+ MEM_SIZE) % MEM_SIZE);
+}
+
 int		op_store(t_vm *vm, t_process *p)
 {
 	int				position;
@@ -56,11 +62,39 @@ int		op_store(t_vm *vm, t_process *p)
 		position = read_arena(vm, p->pc + 2 + vm->enc_byte[0], IND_SIZE);
 		if ((vm->detail & 4) != 0)
 			ft_printf("%d\n", position);
-		reg_to_mem(vm, p, vm->arena[p->pc + 2].by, (p->pc + position % IDX_MOD
-			+ MEM_SIZE) % MEM_SIZE);
+		dirty(vm, p, position);
 	}
 	p->step_over = 2 + vm->enc_byte[0] + vm->enc_byte[1];
 	return (1);
+}
+
+int		op_sti_utils(t_vm *vm, t_process *p, int k, int size)
+{
+	int		res;
+
+	res = 0;
+	if (vm->enc_byte[k] == 1)
+	{
+		res = read_arena(vm, p->pc + size, T_REG);
+		res = (res > 0 && res <= REG_NUMBER) ? read_reg(p->regs[res - 1]) : res;
+		if ((vm->detail & 4) != 0)
+			ft_printf("%d ", read_reg(p->regs[res - 1]));
+	}
+	else if (vm->enc_byte[k] == 2)
+	{
+		res = read_arena(vm, p->pc + size, IND_SIZE);
+		res = read_arena(vm, p->pc + res, REG_SIZE);
+		if ((vm->detail & 4) != 0)
+			ft_printf("%d ", read_arena(vm, p->pc + res, REG_SIZE));
+	}
+	else if (vm->enc_byte[k] == 4)
+	{
+		vm->enc_byte[k] = 2;
+		res = res + read_arena(vm, p->pc + size, DIR_SIZE / 2);
+		if ((vm->detail & 4) != 0)
+			ft_printf("%d ", read_arena(vm, p->pc + size, DIR_SIZE / 2));
+	}
+	return (res);
 }
 
 int		op_sti(t_vm *vm, t_process *p)
@@ -79,28 +113,7 @@ int		op_sti(t_vm *vm, t_process *p)
 	k = 1;
 	while (k < 3)
 	{
-		if (vm->enc_byte[k] == 1)
-		{
-			r = read_arena(vm, p->pc + size, T_REG);
-			if (r > 0 && r <= REG_NUMBER)
-				res = res + read_reg(p->regs[r - 1]);
-			if ((vm->detail & 4) != 0)
-				ft_printf("%d ", read_reg(p->regs[r - 1]));
-		}
-		else if (vm->enc_byte[k] == 2)
-		{
-			r = read_arena(vm, p->pc + size, IND_SIZE);
-			res = res + read_arena(vm, p->pc + r, REG_SIZE);
-			if ((vm->detail & 4) != 0)
-				ft_printf("%d ", read_arena(vm, p->pc + r, REG_SIZE));
-		}
-		else if (vm->enc_byte[k] == 4)
-		{
-			vm->enc_byte[k] = 2;
-			res = res + read_arena(vm, p->pc + size, DIR_SIZE / 2);
-			if ((vm->detail & 4) != 0)
-				ft_printf("%d ", read_arena(vm, p->pc + size, DIR_SIZE / 2));
-		}
+		res = res + op_sti_utils(vm, p, k, size);
 		size = size + vm->enc_byte[k];
 		k++;
 	}
