@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:40:21 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 14:25:01 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 14:57:56 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,6 @@ void	borders(t_vm *vm, int to_init)
 	}
 	wborder(vm->visu.boite_l, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	wborder(vm->visu.boite_r, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-	// ft_memdel((void **)&boite);
-	// ft_memdel((void **)&boite);
 }
 
 void	refresh_window(t_vm *vm)

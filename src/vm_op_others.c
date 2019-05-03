@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 14:37:08 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 14:57:33 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int		check_args(t_vm *vm, t_process *proc, int op, int size)
 		i++;
 	}
 	proc->step_over = size;
-	// printf("quit %d\n", quit);
 	return (!quit);
 }
 
@@ -104,6 +103,8 @@ int		op_lfork(t_vm *vm, t_process *proc)
 		ft_printf("%d (%d)\n", arg, proc->pc + arg);
 	return (1);
 }
+
+// COMMENTAIRE
 
 int		op_aff(t_vm *vm, t_process *proc)
 {
