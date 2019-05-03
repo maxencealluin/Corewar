@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 13:21:38 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 14:37:19 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,10 +137,12 @@ void					vm_read_byte(t_player *player, t_vm *vm);
 ** Init and utils for processes
 */
 
+t_process				*new_process(int id_parent, int pc);
+void					add_first_process_front(t_vm *vm, t_player *player,
+	t_process **blist);
 void					create_processes(t_vm *vm);
 int						read_reg(unsigned char *str);
 void					assign_reg(t_process *process, short reg, int value);
-
 void					add_child_process(t_vm *vm, t_process *parent,
 	int child_pc);
 void					remove_process(t_vm *vm, t_process *node);
@@ -191,10 +193,11 @@ int						op_sti(t_vm *vm, t_process *p);
 void					reg_to_reg(int src_reg, int dst_reg, t_process *p);
 void					reg_to_mem(t_vm *vm, t_process *p, int reg, int pos);
 void					mem_to_reg(int reg, int pos, t_vm *vm, t_process *p);
-int						find_pos(t_vm *vm, t_process *p, int t[4]);
 int						read_arena(t_vm *vm, int pos, int size);
 void					end_game(t_vm *vm);
 void					free_structs(t_vm *vm);
+int						op_load_utils(t_vm *vm, t_process *p, int res, int r);
+int						op_ldi_utils(t_vm *vm, t_process *p, int k, int size);
 
 /*
 ** Debug

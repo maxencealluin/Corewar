@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 11:42:41 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/02 18:46:11 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/03 11:35:51 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,33 +92,5 @@ void		remove_dead_process(t_vm *vm)
 			continue;
 		}
 		proc = proc->next;
-	}
-}
-
-void		add_child_process(t_vm *vm, t_process *parent, int child_pc)
-{
-	t_process	*tmp;
-
-	tmp = new_process(parent->id_parent, child_pc);
-	vm->nb_process += 1;
-	if (tmp == NULL || vm->process == NULL)
-		return ;
-	tmp->next = vm->process;
-	vm->process = tmp;
-	tmp->carry = parent->carry;
-	tmp->last_live = parent->last_live;
-	tmp->id_parent = parent->id_parent;
-	ft_memcpy((void *)tmp->regs, (void *)parent->regs, sizeof(parent->regs));
-	vm->arena[tmp->pc].proc_id = 1;
-}
-
-void		create_processes(t_vm *vm)
-{
-	int		i;
-
-	i = 0;
-	while (i < vm->nb_players)
-	{
-		add_first_process_front(vm, vm->players[i++], &vm->process);
 	}
 }
