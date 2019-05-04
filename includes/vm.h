@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 17:23:56 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/04 11:30:10 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef	struct			s_case {
 	int					id;
 	int					proc_id;
 	unsigned char		by;
+	int					st_id;//
 }						t_case;
 
 typedef struct			s_visu {

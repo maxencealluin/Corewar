@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:37:03 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 16:19:33 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/04 12:04:21 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,10 @@ void	perform_op(t_vm *vm, t_process *proc)
 				ft_printf("P %4d | %s", ft_iabs(proc->id_proc)
 					, g_op_tab[proc->next_op - 1].op_name);
 			res = g_op_func[proc->next_op - 1](vm, proc);
+			if (proc->next_op - 1 == 2 || proc->next_op - 1 == 10)//
+			{
+				// ft_printf(" ST or STI CHANGE AN ID HERE \n");
+			}
 			if (res == 1)
 				pc_forward_sequence(vm, proc);
 			else if (res == 2)

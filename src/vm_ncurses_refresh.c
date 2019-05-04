@@ -6,12 +6,16 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:40:21 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 16:00:15 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/04 12:27:16 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libftprintf.h"
+#define FLUO_YELLOW 100
+#define FLUO_CYAN 101
+#define FLUO_BLUE 102
+#define FLUO_RED 103
 
 void	initialize_color(void)
 {
@@ -22,16 +26,26 @@ void	initialize_color(void)
 		ft_printf("Your terminal does not support color\n");
 		exit(1);
 	}
+	init_color(FLUO_YELLOW, 1000, 1000, 600);
+	init_color(FLUO_CYAN, 600, 1000, 1000);
 	init_pair(0, COLOR_WHITE, COLOR_BLACK);
 	init_pair(10, COLOR_BLACK, COLOR_WHITE);
 	init_pair(1, COLOR_YELLOW, COLOR_BLACK);
 	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
+	init_pair(101, FLUO_YELLOW, COLOR_BLACK);//
+	init_pair(111, FLUO_YELLOW, COLOR_BLACK);//
 	init_pair(2, COLOR_CYAN, COLOR_BLACK);
 	init_pair(12, COLOR_BLACK, COLOR_CYAN);
+	init_pair(102, FLUO_CYAN, COLOR_BLACK);//
+	init_pair(112, FLUO_CYAN, COLOR_BLACK);//
 	init_pair(3, COLOR_BLUE, COLOR_BLACK);
 	init_pair(13, COLOR_BLACK, COLOR_BLUE);
+	init_pair(103, FLUO_BLUE, COLOR_BLACK);//
+	init_pair(113, FLUO_BLUE, COLOR_BLACK);//
 	init_pair(4, COLOR_RED, COLOR_BLACK);
 	init_pair(14, COLOR_BLACK, COLOR_RED);
+	init_pair(104, FLUO_RED, COLOR_BLACK);//
+	init_pair(114, FLUO_RED, COLOR_BLACK);//
 	init_pair(30, COLOR_WHITE, COLOR_WHITE);
 }
 
@@ -48,10 +62,10 @@ void	arena_display(t_vm *vm)
 		if (i % 64 == 0)
 			printw("  ");
 		attron(COLOR_PAIR(ft_iabs(vm->arena[i].id) + 10 * (vm->arena[i].proc_id
-			!= 0)));
+			!= 0) + 100 * (vm->arena[i].st_id != 0)));//
 		printw("%02hhx", vm->arena[i].by);
 		attroff(COLOR_PAIR(ft_iabs(vm->arena[i].id) + 10 * (vm->arena[i].proc_id
-			!= 0)));
+			!= 0) + 100 * (vm->arena[i].st_id != 0)));
 		printw(" ");
 		i = (i % 64) * 3 + 10 > vm->visu.w_l ? i + (64 - i % 64) : i + 1;
 		if (i % 64 == 0)
