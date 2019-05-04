@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 14:30:44 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/04 13:01:25 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,22 @@ void	ft_step(t_vm *vm)
 	vm->cycles++;
 }
 
+void	fluo_style(t_vm *vm)
+{
+	int k;
+
+	k = 0;
+	if (vm->cycles % 50 == 0)
+	{
+		while (k < MEM_SIZE)
+		{
+			vm->arena[k].st_id = 0;
+			k++;
+		}
+	}
+
+}
+
 void	main_loop(t_vm *vm)
 {
 	int		cycles;
@@ -116,6 +132,7 @@ void	main_loop(t_vm *vm)
 			refresh_window(vm);
 			time->current = clock();
 			move(10, COLS - COLS / 6);
+			fluo_style(vm);
 			if (((time->current - time->begin) / 1000 < (unsigned long)
 			(cycles * 1000 / vm->cycle_sec)) || vm->stop == 1)
 				continue;
