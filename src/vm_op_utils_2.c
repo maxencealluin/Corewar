@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 14:10:50 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/04 12:04:29 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/06 11:04:52 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	reg_to_mem(t_vm *vm, t_process *p, int reg, int pos)
 		i = ((pos + count) % MEM_SIZE + MEM_SIZE) % MEM_SIZE;
 		vm->arena[i].by = p->regs[reg - 1][count];
 		vm->arena[i].id = p->id_parent;
-		vm->arena[i].st_id = 1;
+		vm->arena[i].st_id = 40;
 		count++;
 	}
 }

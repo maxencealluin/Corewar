@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/04 13:01:25 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/06 12:06:07 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,16 @@ void	run_process(t_vm *vm)
 	}
 }
 
+void	reset_lives(t_vm *vm)
+{
+	int		i;
+
+	i = 0;
+	while (i < vm->nb_players)
+		vm->players[i++]->lives_curr = 0;
+	vm->current_checks = 0;
+}
+
 void	ft_step(t_vm *vm)
 {
 	int				i;
@@ -83,7 +93,7 @@ void	ft_step(t_vm *vm)
 			vm->cycle_to_die -= CYCLE_DELTA;
 			if ((vm->detail & 32) != 0)
 				ft_printf("Cycle to die is now %d\n", vm->cycle_to_die);
-			vm->current_checks = 0;
+			reset_lives(vm);
 		}
 		vm->number_of_live = 0;
 		last_check = vm->cycles;
@@ -92,22 +102,6 @@ void	ft_step(t_vm *vm)
 		ft_printf("It is now cycle %d\n", vm->cycles + 1);
 	run_process(vm);
 	vm->cycles++;
-}
-
-void	fluo_style(t_vm *vm)
-{
-	int k;
-
-	k = 0;
-	if (vm->cycles % 50 == 0)
-	{
-		while (k < MEM_SIZE)
-		{
-			vm->arena[k].st_id = 0;
-			k++;
-		}
-	}
-
 }
 
 void	main_loop(t_vm *vm)
@@ -129,13 +123,15 @@ void	main_loop(t_vm *vm)
 		if (vm->ncurses == 1)
 		{
 			event_handler(vm, time, &cycles);
-			refresh_window(vm);
 			time->current = clock();
-			move(10, COLS - COLS / 6);
-			fluo_style(vm);
 			if (((time->current - time->begin) / 1000 < (unsigned long)
 			(cycles * 1000 / vm->cycle_sec)) || vm->stop == 1)
+			{
+				refresh_window(vm, 0);
 				continue;
+			}
+			else
+				refresh_window(vm, 1);
 		}
 		ft_step(vm);
 		cycles++;

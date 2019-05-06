@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:05:00 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 14:56:54 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/06 12:35:18 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	add_player(t_vm *vm, char *path, int next_nb, int i)
 	vm->players[j]->code_start = 0;
 	vm->players[j]->order_arg = i;
 	vm->players[j]->nb_process = 0;
+	vm->players[j]->lives_curr = 0;
 	vm->players_alive += 1;
 	if (!(vm->players[j]->header = (t_header *)malloc(sizeof(t_header))))
 		exit(-1);

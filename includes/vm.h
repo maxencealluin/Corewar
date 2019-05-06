@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/04 11:30:10 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/06 12:09:36 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,15 @@
 # define BOT_SIZE	4
 # define COMMENT_SIZE	2048
 
-# define R_W 48
+# define R_W 52
 # define L_W 198
 # define L_H 68
 # define T_WIN WINDOW
+
+# define FLUO_YELLOW 100
+# define FLUO_GREEN 101
+# define FLUO_BLUE 102
+# define FLUO_RED 103
 
 typedef struct			s_process {
 	unsigned char		regs[REG_NUMBER][REG_SIZE];
@@ -54,13 +59,14 @@ typedef struct			s_player {
 	int					player_number;
 	int					order_arg;
 	int					nb_process;
+	int					lives_curr;
 }						t_player;
 
 typedef	struct			s_case {
 	int					id;
 	int					proc_id;
 	unsigned char		by;
-	int					st_id;//
+	int					st_id;
 }						t_case;
 
 typedef struct			s_visu {
@@ -114,7 +120,7 @@ typedef struct			s_op {
 ** Ncurses
 */
 
-void					refresh_window(t_vm *vm);
+void					refresh_window(t_vm *vm, int run);
 void					initialize_window(t_vm *vm);
 void					initialize_color(void);
 void					close_window(t_vm *vm);

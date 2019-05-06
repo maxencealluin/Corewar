@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 16:20:02 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/06 11:29:55 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int		op_live(t_vm *vm, t_process *proc)
 		if (vm->players[i] != NULL && nb == vm->players[i]->player_number)
 		{
 			vm->last_player_live = nb;
+			vm->players[i]->lives_curr += 1;
 			if (vm->ncurses == 0 && (vm->detail & 1) != 0)
 				ft_printf("Player %d (%s) is said to be alive.\n",
 				vm->players[i]->player_number,

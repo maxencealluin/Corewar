@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 11:42:41 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 15:49:50 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/06 12:36:53 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ t_process	*new_process(int id_parent, int pc)
 void		add_first_process_front(t_vm *vm, t_player *player,
 			t_process **blist)
 {
-	t_process	*tmp;
+	t_process		*tmp;
+	static int		id_visu = 1;
 
-	tmp = new_process(player->player_number, player->code_start);
+	tmp = new_process(id_visu++, player->code_start);
 	vm->nb_process += 1;
 	if (tmp == NULL || blist == NULL)
 		return ;

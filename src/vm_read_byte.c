@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:39:44 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/03 17:10:17 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/06 12:40:16 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	read_player_code(int fd, t_player *player, t_vm *vm)
 	unsigned char	*buff;
 	char			test;
 	int				res;
+	static int		idx = 1;
 
 	if (!(buff = (unsigned char *)malloc(sizeof(unsigned char)
 		* (CHAMP_MAX_SIZE + 1))))
@@ -73,7 +74,7 @@ void	read_player_code(int fd, t_player *player, t_vm *vm)
 		check_errors(player, buff, res, test);
 	else
 	{
-		put_player(vm, player, buff, player->player_number);
+		put_player(vm, player, buff, idx++);
 		ft_memdel((void **)&buff);
 	}
 }
