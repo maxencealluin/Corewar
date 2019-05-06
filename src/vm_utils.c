@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 13:07:52 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/01 14:51:56 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/06 14:33:57 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,14 @@ void	assign_reg(t_process *process, short reg, int value)
 		process->regs[reg - 1][i] = 0xFF & (value >> (REG_SIZE - 1 - i) * 8);
 		i++;
 	}
+}
+
+void	reset_lives(t_vm *vm)
+{
+	int		i;
+
+	i = 0;
+	while (i < vm->nb_players)
+		vm->players[i++]->lives_curr = 0;
+	vm->current_checks = 0;
 }

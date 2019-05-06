@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/06 11:29:55 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/06 14:44:58 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int		check_args(t_vm *vm, t_process *proc, int op, int size)
 {
 	int		i;
 	int		quit;
-	int		res;
 
 	if (g_op_tab[op].encoding == 0)
 		return (1);
@@ -34,10 +33,8 @@ int		check_args(t_vm *vm, t_process *proc, int op, int size)
 		if ((vm->enc_byte_codes[i] & g_op_tab[op].args_size[i]) == 0)
 			quit = 1;
 		else if (vm->enc_byte[i] == T_REG)
-		{
-			res = read_arena(vm, proc->pc + size, T_REG);
-			quit = (res < 1 || res > REG_NUMBER) ? 1 : quit;
-		}
+			quit = is_register(vm->enc_byte[i], read_arena(vm, proc->pc
+				+ size, 1)) ? 0 : quit;
 		if (vm->enc_byte[i] == DIR_SIZE)
 			size += (vm->enc_byte[i] - 2 * g_op_tab[op].size_direct);
 		else

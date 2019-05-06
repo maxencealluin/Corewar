@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/06 12:06:07 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/06 14:34:23 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,6 @@ void	run_process(t_vm *vm)
 			perform_op(vm, proc);
 		proc = proc->next;
 	}
-}
-
-void	reset_lives(t_vm *vm)
-{
-	int		i;
-
-	i = 0;
-	while (i < vm->nb_players)
-		vm->players[i++]->lives_curr = 0;
-	vm->current_checks = 0;
 }
 
 void	ft_step(t_vm *vm)

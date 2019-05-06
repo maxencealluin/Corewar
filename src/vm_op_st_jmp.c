@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/03 16:21:19 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/06 15:50:37 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		op_store(t_vm *vm, t_process *p)
 		return (1);
 	}
 	if ((vm->detail & 4) != 0)
-		ft_printf(" r%d ", vm->arena[p->pc + 2].by);
+		ft_printf(" r%d", vm->arena[p->pc + 2].by);
 	if (is_register(vm->enc_byte[1], vm->arena[p->pc + 2 + vm->enc_byte[0]].by))
 	{
 		reg_to_reg(vm->arena[p->pc + 2].by, vm->arena[p->pc + 2 + 1].by, p);
@@ -76,9 +76,9 @@ int		op_sti_utils(t_vm *vm, t_process *p, int k, int size)
 	if (vm->enc_byte[k] == 1)
 	{
 		res = read_arena(vm, p->pc + size, T_REG);
-		res = (res > 0 && res <= REG_NUMBER) ? read_reg(p->regs[res - 1]) : res;
-		if ((vm->detail & 4) != 0)
+		if ((vm->detail & 4) != 0 && res > 0 && res <= REG_NUMBER)
 			ft_printf(" %d", read_reg(p->regs[res - 1]));
+		res = (res > 0 && res <= REG_NUMBER) ? read_reg(p->regs[res - 1]) : res;
 	}
 	else if (vm->enc_byte[k] == 2)
 	{
@@ -100,14 +100,12 @@ int		op_sti_utils(t_vm *vm, t_process *p, int k, int size)
 int		op_sti(t_vm *vm, t_process *p)
 {
 	int				k;
-	int				r;
 	int				res;
 	int				size;
 
 	ft_decode_byte2(vm, vm->arena[p->pc + 1].by);
 	if ((vm->detail & 4) != 0)
 		ft_printf(" r%d", vm->arena[p->pc + 1 + vm->enc_byte[0]].by);
-	r = 0;
 	res = 0;
 	size = 3;
 	k = 1;
@@ -119,7 +117,8 @@ int		op_sti(t_vm *vm, t_process *p)
 	}
 	reg_to_mem(vm, p, vm->arena[p->pc + 2].by, p->pc + res % IDX_MOD);
 	if ((vm->detail & 4) != 0)
-		ft_printf("\n");
+		ft_printf("\n	-> store to %d (with pc and mod %d)\n", res,
+			p->pc + res % IDX_MOD);
 	p->step_over = vm->enc_byte[0] + vm->enc_byte[1] + vm->enc_byte[2] + 2;
 	return (1);
 }

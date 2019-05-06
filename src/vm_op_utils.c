@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/03 14:47:24 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/06 14:40:41 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_decode_byte_codes(t_vm *vm)
 
 int		is_register(int decoded_by, unsigned char arena_by)
 {
-	if (decoded_by != 1 || arena_by > REG_NUMBER || arena_by <= 0)
+	if (decoded_by != T_REG || arena_by > REG_NUMBER || arena_by <= 0)
 		return (0);
 	return (1);
 }

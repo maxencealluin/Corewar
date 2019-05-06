@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:04:46 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/03 16:53:15 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/06 15:42:18 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ int		op_load_utils(t_vm *vm, t_process *p, int r, int idx_m)
 	}
 	else if (vm->enc_byte[0] == IND_SIZE)
 	{
+		res = read_arena(vm, (p->pc + 2), IND_SIZE);
 		if (idx_m == 1)
-			res = read_arena(vm, (p->pc + 2) % IDX_MOD, IND_SIZE);
+			res = read_arena(vm, p->pc + res % IDX_MOD, DIR_SIZE);
 		else
-			res = read_arena(vm, (p->pc + 2), IND_SIZE);
+			res = read_arena(vm, p->pc + res, DIR_SIZE);
 		if ((vm->detail & 4) != 0)
 			ft_printf(" %d", res);
-		res = read_arena(vm, p->pc + res, DIR_SIZE);
 		assign_reg(p, r, res);
 	}
 	return (res);

@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/06 12:09:36 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/06 14:34:13 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int						read_reg(unsigned char *str);
 void					assign_reg(t_process *process, short reg, int value);
 void					add_child_process(t_vm *vm, t_process *parent,
 	int child_pc);
-void					remove_process(t_vm *vm, t_process *node);
+// void					remove_process(t_vm *vm, t_process *node);
 void					remove_dead_process(t_vm *vm);
 
 /*
@@ -164,6 +164,7 @@ int						check_args(t_vm *vm, t_process *proc,
 						int op_code, int size);
 void					perform_op(t_vm *vm, t_process *proc);
 void					read_op_code(t_vm *vm, t_process *proc);
+void					reset_lives(t_vm *vm);
 
 /*
 ** Print

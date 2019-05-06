@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 11:42:41 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/06 12:36:53 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/06 14:33:31 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,10 @@ void		add_first_process_front(t_vm *vm, t_player *player,
 	assign_reg(tmp, 1, player->player_number);
 }
 
-void		remove_process(t_vm *vm, t_process *node)
+void		remove_process(t_vm *vm, t_process *parent, t_process *node)
 {
-	t_process	*parent;
-
-	parent = vm->process;
+	if (parent == NULL)
+		parent = vm->process;
 	if (parent == node)
 	{
 		vm->process = parent->next;
@@ -77,8 +76,10 @@ void		remove_dead_process(t_vm *vm)
 {
 	t_process *proc;
 	t_process *tmp;
+	t_process *parent;
 
 	proc = vm->process;
+	parent = NULL;
 	while (proc)
 	{
 		if (proc->last_live <= vm->cycles - vm->cycle_to_die)
@@ -90,9 +91,11 @@ void		remove_dead_process(t_vm *vm)
 				proc->id_proc, vm->cycles - proc->last_live - 1,
 				vm->cycle_to_die);
 			proc = proc->next;
-			remove_process(vm, tmp);
+			remove_process(vm, parent, tmp);
 			continue;
 		}
+		else
+			parent = proc;
 		proc = proc->next;
 	}
 }

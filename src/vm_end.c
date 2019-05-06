@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:29:54 by malluin           #+#    #+#             */
-/*   Updated: 2019/04/26 15:33:53 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/06 14:22:47 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	free_structs(t_vm *vm)
 			continue;
 		ft_memdel((void **)&(vm->players[i]->header));
 		ft_memdel((void **)&(vm->players[i]->file_path));
+		ft_memdel((void **)&(vm->players[i]));
 	}
-	ft_memdel((void **)&vm->players);
 	while (vm->process)
 	{
 		tmp = vm->process;
