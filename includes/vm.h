@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/06 14:34:13 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/07 09:56:49 by fnussbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "op.h"
 # include <time.h>
-#include <ncurses.h>
+# include <ncurses.h>
 
 # define MAGIC_SIZE	4
 # define NAME_SIZE	128
@@ -152,7 +152,6 @@ int						read_reg(unsigned char *str);
 void					assign_reg(t_process *process, short reg, int value);
 void					add_child_process(t_vm *vm, t_process *parent,
 	int child_pc);
-// void					remove_process(t_vm *vm, t_process *node);
 void					remove_dead_process(t_vm *vm);
 
 /*
