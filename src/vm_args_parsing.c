@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 12:16:01 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 14:35:49 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/08 13:52:28 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	reorder_players(t_vm *vm)
 	int		c;
 	int		to_assign;
 
-	to_assign = -1;
+	to_assign = 1;
 	c = -1;
 	if (vm->players_alive <= 0)
 		ft_usage();
@@ -46,7 +46,7 @@ void	reorder_players(t_vm *vm)
 		{
 			if (vm->players[j++]->player_number == to_assign)
 			{
-				to_assign--;
+				to_assign++;
 				j = 0;
 				continue;
 			}
