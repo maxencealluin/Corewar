@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 13:07:52 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/06 14:33:57 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/08 12:26:42 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,19 @@ void	reset_lives(t_vm *vm)
 	while (i < vm->nb_players)
 		vm->players[i++]->lives_curr = 0;
 	vm->current_checks = 0;
+}
+
+int		time_mgt(t_vm *vm, t_time *time, int cycles)
+{
+	if (((time->current - time->begin) / 1000 < (unsigned long)
+	(cycles * 1000 / vm->cycle_sec)) || vm->stop == 1)
+	{
+		refresh_window(vm, 0);
+		return (1);
+	}
+	else
+	{
+		refresh_window(vm, 1);
+		return (0);
+	}
 }

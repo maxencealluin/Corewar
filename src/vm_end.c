@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:29:54 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/06 14:22:47 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/08 12:34:11 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,4 @@ void	end_game(t_vm *vm)
 		find_player_name(vm, vm->last_player_live));
 	free_structs(vm);
 	ft_memdel((void **)&vm);
-	exit(1);
 }

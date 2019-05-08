@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:37:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/06 12:34:22 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/08 12:33:55 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ void	close_window(t_vm *vm)
 	delwin(vm->visu.boite_l);
 	delwin(vm->visu.boite_r);
 	endwin();
+	end_game(vm);
 }

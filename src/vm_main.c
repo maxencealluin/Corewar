@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 14:56:37 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/08 12:35:44 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int		main(int ac, char **av)
 	initialize_vm(vm, ac);
 	vm->ncurses = 0;
 	ft_parse_args(vm, ac, av, 1);
-	if (vm->detail != 0 && vm->ncurses == 1)
-		vm->detail = 0;
+	vm->detail = vm->ncurses == 1 ? 0 : vm->detail;
 	read_files(vm);
 	create_processes(vm);
 	if (vm->ncurses == 1)
@@ -53,6 +52,7 @@ int		main(int ac, char **av)
 	{
 		print_intro(vm);
 		main_loop(vm);
+		end_game(vm);
 	}
 	return (0);
 }

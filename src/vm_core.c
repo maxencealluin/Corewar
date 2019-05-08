@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/06 14:34:23 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/08 12:34:44 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,25 +107,17 @@ void	main_loop(t_vm *vm)
 		if (vm->cycles == vm->dump_cycle && vm->ncurses == 0)
 		{
 			dump_memory(vm);
-			ft_print_process(vm);
 			break ;
 		}
 		if (vm->ncurses == 1)
 		{
 			event_handler(vm, time, &cycles);
 			time->current = clock();
-			if (((time->current - time->begin) / 1000 < (unsigned long)
-			(cycles * 1000 / vm->cycle_sec)) || vm->stop == 1)
-			{
-				refresh_window(vm, 0);
-				continue;
-			}
-			else
-				refresh_window(vm, 1);
+			if (time_mgt(vm, time, cycles) == 1)
+				continue ;
 		}
 		ft_step(vm);
 		cycles++;
 	}
 	ft_memdel((void**)&time);
-	end_game(vm);
 }

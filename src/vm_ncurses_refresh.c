@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:40:21 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/06 12:34:54 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/08 12:16:58 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ void	menu_players(t_vm *vm, int bx, int by)
 	{
 		move(bx++, by);
 		nm = ft_strsub(vm->players[i]->header->prog_name, 0, vm->visu.w_r - 20);
-		printw("Player %d: %s", vm->players[i]->player_number, nm);
+		printw("Player %d:", vm->players[i]->player_number);
+		attron(COLOR_PAIR(i + 1));
+		printw(" %s", nm);
+		attroff(COLOR_PAIR(i + 1));
 		move(bx++, by);
 		printw("  Lives in current period: %-5d", vm->players[i]->lives_curr);
 		i++;

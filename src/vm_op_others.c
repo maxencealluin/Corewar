@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/06 14:44:58 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/08 12:28:05 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ int		op_lfork(t_vm *vm, t_process *proc)
 	return (1);
 }
 
-// COMMENTAIRE
-
 int		op_aff(t_vm *vm, t_process *proc)
 {
 	int		nb;
@@ -113,7 +111,7 @@ int		op_aff(t_vm *vm, t_process *proc)
 	{
 		nb = read_reg(proc->regs[nb - 1]);
 		if (vm->ncurses == 0)
-			ft_printf("Aff: value: %d ascii: %c\n", nb, nb % 256);
+			ft_printf("Aff: %c\n", nb % 256);
 	}
 	proc->step_over = 3;
 	return (1);

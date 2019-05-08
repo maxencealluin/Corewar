@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/07 09:56:49 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/08 12:27:26 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,12 +146,12 @@ void					vm_read_byte(t_player *player, t_vm *vm);
 
 t_process				*new_process(int id_parent, int pc);
 void					add_first_process_front(t_vm *vm, t_player *player,
-	t_process **blist);
+						t_process **blist);
 void					create_processes(t_vm *vm);
 int						read_reg(unsigned char *str);
 void					assign_reg(t_process *process, short reg, int value);
 void					add_child_process(t_vm *vm, t_process *parent,
-	int child_pc);
+						int child_pc);
 void					remove_dead_process(t_vm *vm);
 
 /*
@@ -164,6 +164,7 @@ int						check_args(t_vm *vm, t_process *proc,
 void					perform_op(t_vm *vm, t_process *proc);
 void					read_op_code(t_vm *vm, t_process *proc);
 void					reset_lives(t_vm *vm);
+int						time_mgt(t_vm *vm, t_time *time, int cycles);
 
 /*
 ** Print
