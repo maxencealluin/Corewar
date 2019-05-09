@@ -6,7 +6,7 @@
 #    By: malluin <malluin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/22 14:56:26 by malluin           #+#    #+#              #
-#    Updated: 2019/05/09 17:58:53 by rkirszba         ###   ########.fr        #
+#    Updated: 2019/05/09 19:00:21 by malluin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ HEADER_NAME = op.h
 SRC_PATH = src
 OBJ_PATH = obj
 
-CC = gcc #-g-
+CC = gcc -g #-fsanitize=address
 CCFLAGS =   -Wall -Wextra -Werror
 
 CPPFLAGS = -I $(HEADER_PATH) -MMD

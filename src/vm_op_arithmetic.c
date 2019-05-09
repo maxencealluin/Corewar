@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/09 17:09:27 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/09 18:30:11 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int		op_or(t_vm *vm, t_process *proc)
 
 	r = NULL;
 	size = 2;
-	ft_decode_byte2(vm, vm->arena[proc->pc + 1].by);
+	ft_decode_byte2(vm, vm->arena[(proc->pc + 1 + MEM_SIZE) % MEM_SIZE].by);
 	if (!(r = read_args(vm, proc, &size, 3)))
 		return (0);
 	if ((vm->detail & 4) != 0)

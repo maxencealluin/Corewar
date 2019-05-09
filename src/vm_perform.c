@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:37:03 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/09 17:10:46 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/09 18:52:44 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ extern t_op g_op_tab[17];
 
 void	read_op_code(t_vm *vm, t_process *proc)
 {
-	proc->next_op = vm->arena[proc->pc].by;
+	proc->next_op = vm->arena[verif(proc->pc)].by;
 	if (proc->next_op >= 1 && proc->next_op <= 16)
 		proc->wait_cycles = g_op_tab[proc->next_op - 1].cycles;
 }
@@ -28,7 +28,7 @@ void	pc_forward_sequence(t_vm *vm, t_process *proc)
 {
 	int		i;
 
-	vm->arena[proc->pc].proc_id = 0;
+	vm->arena[proc->pc % MEM_SIZE].proc_id = 0;
 	if ((vm->detail & 16) != 0)
 	{
 		ft_printf("ADV %d (%06p -> %06p) ", proc->step_over, proc->pc,
@@ -40,23 +40,23 @@ void	pc_forward_sequence(t_vm *vm, t_process *proc)
 		ft_printf("\n");
 	}
 	proc->pc = ((proc->pc + proc->step_over) % MEM_SIZE + MEM_SIZE) % MEM_SIZE;
-	vm->arena[proc->pc].proc_id = 1;
+	vm->arena[proc->pc % MEM_SIZE].proc_id = 1;
 	proc->step_over = 0;
 }
 
 void	pc_jump(t_vm *vm, t_process *proc)
 {
-	vm->arena[proc->pc].proc_id = 0;
+	vm->arena[proc->pc % MEM_SIZE].proc_id = 0;
 	proc->pc = ((proc->pc + proc->step_over) % MEM_SIZE + MEM_SIZE) % MEM_SIZE;
-	vm->arena[proc->pc].proc_id = 1;
+	vm->arena[proc->pc % MEM_SIZE].proc_id = 1;
 	proc->step_over = 0;
 }
 
 void	pc_forward_one(t_vm *vm, t_process *proc)
 {
-	vm->arena[proc->pc].proc_id = 0;
+	vm->arena[proc->pc % MEM_SIZE].proc_id = 0;
 	proc->pc = (proc->pc + 1) % MEM_SIZE;
-	vm->arena[proc->pc].proc_id = 1;
+	vm->arena[proc->pc % MEM_SIZE].proc_id = 1;
 }
 
 void	perform_op(t_vm *vm, t_process *proc)

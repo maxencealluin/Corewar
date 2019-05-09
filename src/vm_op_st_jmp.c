@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/09 17:10:17 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/09 18:51:25 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,35 @@ int		op_zjmp(t_vm *vm, t_process *p)
 
 void	dirty(t_vm *vm, t_process *p, int position)
 {
-	reg_to_mem(vm, p, vm->arena[p->pc + 2].by, (p->pc + position % IDX_MOD
-		+ MEM_SIZE) % MEM_SIZE);
+	if ((vm->detail & 4) != 0)
+		ft_printf(" %d\n", position);
+	reg_to_mem(vm, p, vm->arena[verif(p->pc + 2)].by,
+		(p->pc + position % IDX_MOD + MEM_SIZE) % MEM_SIZE);
 }
 
 int		op_store(t_vm *vm, t_process *p)
 {
 	int				position;
 
-	ft_decode_byte2(vm, vm->arena[p->pc + 1].by);
-	if (is_register(vm->enc_byte[0], vm->arena[p->pc + 2].by) == 0)
+	ft_decode_byte2(vm, vm->arena[verif(p->pc + 1)].by);
+	if (is_register(vm->enc_byte[0], vm->arena[verif(p->pc + 2)].by) == 0)
 	{
 		p->step_over = 2 + vm->enc_byte[0] + vm->enc_byte[1];
 		return (1);
 	}
 	if ((vm->detail & 4) != 0)
-		ft_printf(" r%d", vm->arena[p->pc + 2].by);
-	if (is_register(vm->enc_byte[1], vm->arena[p->pc + 2 + vm->enc_byte[0]].by))
+		ft_printf(" r%d", vm->arena[verif(p->pc + 2)].by);
+	if (is_register(vm->enc_byte[1], vm->arena[verif(p->pc + 2
+			+ vm->enc_byte[0])].by))
 	{
-		reg_to_reg(vm->arena[p->pc + 2].by, vm->arena[p->pc + 2 + 1].by, p);
+		reg_to_reg(vm->arena[verif(p->pc + 2)].by,
+			vm->arena[verif(p->pc + 3)].by, p);
 		if ((vm->detail & 4) != 0)
-			ft_printf(" r%d\n", vm->arena[p->pc + 2 + 1].by);
+			ft_printf(" r%d\n", vm->arena[verif(p->pc + 3)].by);
 	}
 	else
 	{
 		position = read_arena(vm, p->pc + 2 + vm->enc_byte[0], IND_SIZE);
-		if ((vm->detail & 4) != 0)
-			ft_printf(" %d\n", position);
 		dirty(vm, p, position);
 	}
 	p->step_over = 2 + vm->enc_byte[0] + vm->enc_byte[1];
@@ -103,9 +105,10 @@ int		op_sti(t_vm *vm, t_process *p)
 	int				res;
 	int				size;
 
-	ft_decode_byte2(vm, vm->arena[p->pc + 1].by);
+	ft_decode_byte2(vm, vm->arena[(p->pc + 1 + MEM_SIZE) % MEM_SIZE].by);
 	if ((vm->detail & 4) != 0)
-		ft_printf(" r%d", vm->arena[p->pc + 1 + vm->enc_byte[0]].by);
+		ft_printf(" r%d", vm->arena[(p->pc + 1 + vm->enc_byte[0] + MEM_SIZE)
+			% MEM_SIZE].by);
 	res = 0;
 	size = 3;
 	k = 1;
@@ -115,7 +118,8 @@ int		op_sti(t_vm *vm, t_process *p)
 		size = size + vm->enc_byte[k];
 		k++;
 	}
-	reg_to_mem(vm, p, vm->arena[p->pc + 2].by, p->pc + res % IDX_MOD);
+	reg_to_mem(vm, p, vm->arena[((p->pc + 2) + MEM_SIZE) % MEM_SIZE].by,
+		p->pc + res % IDX_MOD);
 	if ((vm->detail & 4) != 0)
 		ft_printf("\n	-> store to %d (with pc and mod %d)\n", res,
 			p->pc + res % IDX_MOD);

@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:39:44 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/09 17:07:33 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/09 18:36:54 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ void	put_player(t_vm *vm, t_player *player, unsigned char *buff, int idx)
 	player->code_start = zero;
 	while (i < CHAMP_MAX_SIZE && i < player->header->prog_size)
 	{
-		ft_memmove(&vm->arena[zero + i].by, &buff[i], 1);
-		vm->arena[zero + i].id = idx;
+		ft_memmove(&vm->arena[(zero + i + MEM_SIZE) % MEM_SIZE].by,
+			&buff[i], 1);
+		vm->arena[(zero + i + MEM_SIZE) % MEM_SIZE].id = idx;
 		i++;
 	}
 }

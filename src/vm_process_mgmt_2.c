@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 11:35:34 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/09 17:08:08 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/09 18:37:14 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		add_child_process(t_vm *vm, t_process *parent, int child_pc)
 	tmp->last_live = parent->last_live;
 	tmp->id_parent = parent->id_parent;
 	ft_memcpy((void *)tmp->regs, (void *)parent->regs, sizeof(parent->regs));
-	vm->arena[tmp->pc].proc_id = 1;
+	vm->arena[tmp->pc % MEM_SIZE].proc_id = 1;
 }
 
 void		create_processes(t_vm *vm)

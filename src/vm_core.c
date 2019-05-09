@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/09 17:05:28 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/09 18:53:24 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	run_process(t_vm *vm)
 	{
 		if (proc == NULL)
 			continue;
-		if (vm->arena[proc->pc].proc_id == 0)
-			vm->arena[proc->pc].proc_id = 1;
+		if (vm->arena[verif(proc->pc)].proc_id == 0)
+			vm->arena[verif(proc->pc)].proc_id = 1;
 		if (proc->wait_cycles == 0)
 			read_op_code(vm, proc);
 		if (proc->wait_cycles != 0)

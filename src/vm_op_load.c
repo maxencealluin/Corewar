@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_op_load.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkirszba <rkirszba@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/09 18:10:30 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/09 18:31:31 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		op_load(t_vm *vm, t_process *p)
 	int				res;
 	int				r;
 
-	ft_decode_byte2(vm, vm->arena[p->pc + 1].by);
+	ft_decode_byte2(vm, vm->arena[(p->pc + 1 + MEM_SIZE) % MEM_SIZE].by);
 	r = read_arena(vm, p->pc + 2 + vm->enc_byte[0], vm->enc_byte[1]);
 	if (is_register(vm->enc_byte[1], r) == 0)
 	{
@@ -39,7 +39,7 @@ int		op_lld(t_vm *vm, t_process *p)
 	int				res;
 	int				r;
 
-	ft_decode_byte2(vm, vm->arena[p->pc + 1].by);
+	ft_decode_byte2(vm, vm->arena[(p->pc + 1 + MEM_SIZE) % MEM_SIZE].by);
 	r = read_arena(vm, p->pc + 2 + vm->enc_byte[0], vm->enc_byte[1]);
 	if (is_register(vm->enc_byte[1], r) == 0)
 	{
@@ -65,7 +65,7 @@ int		op_ldi(t_vm *vm, t_process *p)
 	res = 0;
 	reg = 0;
 	size = 2;
-	ft_decode_byte2(vm, vm->arena[p->pc + 1].by);
+	ft_decode_byte2(vm, vm->arena[(p->pc + 1 + MEM_SIZE) % MEM_SIZE].by);
 	while (k < 2)
 	{
 		res = res + op_ldi_utils(vm, p, k, size);
@@ -85,7 +85,7 @@ int		*set_enc_by(t_vm *vm, t_process *p, int *by)
 {
 	unsigned char	c;
 
-	c = vm->arena[p->pc + 1].by;
+	c = vm->arena[(p->pc + 1 + MEM_SIZE) % MEM_SIZE].by;
 	if (!(by = (int *)malloc(sizeof(int) * 4)))
 		exit(-1);
 	if (!(by = ft_decode_byte(vm, c, by)))
@@ -107,7 +107,7 @@ int		op_lldi(t_vm *vm, t_process *p)
 	res = 0;
 	reg = 0;
 	size = 2;
-	ft_decode_byte2(vm, vm->arena[p->pc + 1].by);
+	ft_decode_byte2(vm, vm->arena[(p->pc + 1 + MEM_SIZE) % MEM_SIZE].by);
 	while (k < 2)
 	{
 		res = res + op_ldi_utils(vm, p, k, size);

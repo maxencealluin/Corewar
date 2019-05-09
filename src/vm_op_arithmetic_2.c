@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 14:32:55 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/09 17:09:40 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/09 18:29:48 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		op_xor(t_vm *vm, t_process *proc)
 
 	r = NULL;
 	size = 2;
-	ft_decode_byte2(vm, vm->arena[proc->pc + 1].by);
+	ft_decode_byte2(vm, vm->arena[(proc->pc + 1 + MEM_SIZE) % MEM_SIZE].by);
 	if (!(r = read_args(vm, proc, &size, 3)))
 		return (0);
 	if ((vm->detail & 4) != 0)
@@ -43,7 +43,7 @@ int		op_and(t_vm *vm, t_process *proc)
 
 	r = NULL;
 	size = 2;
-	ft_decode_byte2(vm, vm->arena[proc->pc + 1].by);
+	ft_decode_byte2(vm, vm->arena[(proc->pc + 1 + MEM_SIZE) % MEM_SIZE].by);
 	if (!(r = read_args(vm, proc, &size, 3)))
 		return (0);
 	if ((vm->detail & 4) != 0)
