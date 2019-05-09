@@ -6,12 +6,15 @@
 #    By: malluin <malluin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/22 14:56:26 by malluin           #+#    #+#              #
-#    Updated: 2019/05/08 12:36:00 by malluin          ###   ########.fr        #
+#    Updated: 2019/05/09 17:58:53 by rkirszba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_VM = corewar
 NAME_ASM = asm
+
+LIB_PATH = ./libft
+HEADER_PATH = includes/
 
 SRC_VM_NAME =	op.c \
 				vm_main.c \
@@ -35,20 +38,34 @@ SRC_VM_NAME =	op.c \
 				vm_end.c \
 				vm_perform.c
 
-SRC_ASM_NAME = 	op.c \
-				asm_main.c
+SRC_ASM_NAME = 	asm_create_value.c\
+				asm_scanner.c\
+			   	asm_scanner_functions.c\
+			   	asm_assembler.c\
+				asm_error_manager.c\
+			   	asm_error_value_manager.c\
+			   	asm_globales.c\
+			   	asm_parser.c\
+				asm_parser_functions.c\
+				asm_tokens_functions.c\
+				asm_tokens_functions_scanner.c\
+				asm_display.c\
+				asm_free_functions.c\
+				asm_encoder.c\
+				asm_encoder_functions.c\
+				asm_writer.c
+
 
 HEADER_NAME = op.h
 
 SRC_PATH = src
 OBJ_PATH = obj
-HEADER_PATH = includes/
 
 CC = gcc #-g-
 CCFLAGS =   -Wall -Wextra -Werror
 
-CPPFLAGS = -I ./libft/includes -I ./libft/libft/includes -I $(HEADER_PATH) -MMD
-LIBFLAGS = -L ./libft/ -lftprintf -lncurses
+CPPFLAGS = -I $(HEADER_PATH) -MMD
+LIBFLAGS = -L $(LIB_PATH) -lft -lncurses
 
 HEADER = $(addprefix $(HEADER_PATH)/,$(HEADER_NAME))
 
@@ -60,7 +77,7 @@ OBJ_ASM_NAME = $(SRC_ASM_NAME:.c=.o)
 SRC_ASM = $(addprefix $(SRC_PATH)/,$(SRC_ASM_NAME))
 OBJ_ASM = $(addprefix $(OBJ_PATH)/,$(OBJ_ASM_NAME))
 
-all: $(NAME_VM) $(NAME_ASM)
+all: lib $(NAME_VM) $(NAME_ASM)
 
 $(NAME_VM): $(OBJ_VM)
 	@make -C libft/
@@ -70,7 +87,7 @@ $(NAME_ASM): $(OBJ_ASM)
 	@make -C libft/
 	$(CC) $(CCFLAGS) $(LIBFLAGS) $^ -o $@
 
-libft:
+lib:
 	@make -C libft/
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
@@ -98,7 +115,7 @@ norme:
 	norminette $(SRC_ASM)
 	norminette $(INCLUDES)
 
-.PHONY: make clean fclean re
+.PHONY: lib make clean fclean re
 
 -include $(OBJ_VM_NAME:.o=.d)
 -include $(OBJ_ASM_NAME:.o=.d)

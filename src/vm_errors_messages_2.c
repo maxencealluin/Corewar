@@ -6,11 +6,11 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:45:13 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 17:10:43 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/09 17:06:50 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "libft.h"
 #include "vm.h"
 
 void	error_wrong_header(void)

@@ -6,13 +6,12 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 11:35:34 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/03 11:35:51 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/09 17:08:08 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
-#include "libftprintf.h"
 
 void		add_child_process(t_vm *vm, t_process *parent, int child_pc)
 {

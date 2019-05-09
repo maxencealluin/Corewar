@@ -6,12 +6,12 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 14:32:55 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/03 16:18:56 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:09:40 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-#include "libftprintf.h"
+#include "libft.h"
 #include <ncurses.h>
 
 int		op_xor(t_vm *vm, t_process *proc)

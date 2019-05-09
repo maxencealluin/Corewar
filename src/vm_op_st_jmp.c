@@ -6,13 +6,13 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/06 15:50:37 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:10:17 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "op.h"
-#include "libftprintf.h"
+#include "libft.h"
 
 int		op_zjmp(t_vm *vm, t_process *p)
 {

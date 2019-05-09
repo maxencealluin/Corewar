@@ -6,14 +6,14 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/08 12:34:44 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:05:28 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <ncurses.h>
 #include <time.h>
-#include "libftprintf.h"
+#include "libft.h"
 
 void	reset_time(t_time *time, int *cycles)
 {

@@ -6,13 +6,13 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 14:10:50 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/06 11:04:52 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:08:50 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "op.h"
-#include "libftprintf.h"
+#include "libft.h"
 
 void	reg_to_reg(int src_reg, int dst_reg, t_process *p)
 {

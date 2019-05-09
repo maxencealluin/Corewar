@@ -6,13 +6,13 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/08 12:28:05 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:09:13 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "op.h"
-#include "libftprintf.h"
+#include "libft.h"
 #include <ncurses.h>
 
 extern t_op g_op_tab[17];

@@ -6,12 +6,12 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:22:40 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/03 16:06:26 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:08:21 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-#include "libftprintf.h"
+#include "libft.h"
 
 void	print_intro(t_vm *vm)
 {

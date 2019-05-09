@@ -6,13 +6,13 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:37:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/08 12:33:55 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:06:07 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include <ncurses.h>
-#include "libftprintf.h"
+#include "libft.h"
 
 void	initialize_color_2(void)
 {

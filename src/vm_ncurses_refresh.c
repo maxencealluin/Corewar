@@ -6,12 +6,12 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:40:21 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/08 16:14:54 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:06:21 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-#include "libftprintf.h"
+#include "libft.h"
 
 void	arena_display(t_vm *vm, int run)
 {

@@ -6,13 +6,13 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/05/02 18:37:32 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:03:31 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "op.h"
-#include "libftprintf.h"
+#include "libft.h"
 
 t_op	g_op_tab[17] =
 {

@@ -1,82 +1,116 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: malluin <malluin@student.42.fr>            +#+  +:+       +#+         #
+#    By: rkirszba <rkirszba@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/11/22 14:56:26 by malluin           #+#    #+#              #
-#    Updated: 2019/05/06 13:49:17 by malluin          ###   ########.fr        #
+#    Created: 2018/11/08 15:43:12 by ccepre            #+#    #+#              #
+#    Updated: 2019/05/09 17:12:24 by rkirszba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = libft.a
 
-SRC_NAME =    ft_conv.c \
-			  ft_printf.c \
-			  scan_input.c \
-			  utils_parsing.c \
-			  show.c \
-			  fac_opt.c \
-			  lst_action.c \
-			  set_refs.c \
-			  ft_atol.c \
-			  store_format.c \
-			  ft_opt.c \
-			  ft_lltoa_base.c \
-			  ft_opt2.c \
-			  ft_strcalc.c \
-			  ft_strcalc2.c \
-			  ft_bytes.c \
-			  ft_convf.c \
-			  ft_bytes2.c \
-			  ft_wchar.c \
-			  ft_wstr.c \
-			  ft_color.c \
-			  ft_putfinal.c \
-			  ft_ulltoa_base.c \
-			  ft_bits.c \
-			  free.c
-SRC_PATH = src
-OBJ_PATH = obj
-INCLUDES = ./includes/
-CC = gcc
-CCFLAGS = -Wall -Wextra -Werror
-CPPFLAGS = -I ./libft/includes -I $(INCLUDES)
-LIBFLAGS = -L ./libft/ -lft
+FLAGS = -Wall -Wextra -Werror
 
-OBJ_NAME = $(SRC_NAME:.c=.o)
-	SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
-	OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
+OBJS_PATH = ./objects
+LIB_PATH = .
+PRINTF_PATH = ft_printf
+INC_PATH = ./../includes
 
-all: $(NAME)
+LIB_NAME = ft_strcpy.c\
+		   ft_strdel.c\
+		   ft_atoi.c\
+		   ft_atol.c\
+		   ft_iabs.c\
+		   ft_memdel.c\
+		   ft_memmove.c\
+		   ft_strdup.c\
+		   ft_strsub.c\
+		   ft_strcat.c\
+		   ft_strncat.c\
+		   ft_strchr.c\
+		   ft_strjoin.c\
+		   ft_strjoinarg.c\
+		   ft_strnew.c\
+		   ft_strcmp.c\
+		   ft_strlen.c\
+		   ft_bzero.c\
+		   ft_memalloc.c\
+		   ft_memset.c\
+		   ft_itoa_base.c\
+		   ft_pow.c \
+		   ft_strsplit.c \
+		   ft_isdigit.c \
+		   ft_putstrtab.c \
+		   ft_putstr.c \
+		   ft_putchar.c \
+		   ft_putendl.c \
+		   ft_putinttab.c \
+		   ft_putnbr.c \
+		   ft_itoa.c \
+		   ft_strjointab.c \
+		   ft_abs.c \
+		   ft_strstr.c \
+		   ft_memcpy.c \
+		   ft_dtoa.c \
+		   ft_strncmp.c \
+		   ft_strappend.c\
+		   ft_strnappend.c\
+		   ft_strncmpchr.c\
+		   ft_strndup.c\
+		   get_next_line.c
 
-$(NAME): $(OBJ)
-	@$(MAKE) -C libft/
-	@$(AR) rc $@ $?
-	@$(AR) r $@ $$($(AR) t libft/libft.a | grep ".o" | sed "s/^/libft\//")
-	ranlib $@
+PRINTF_NAME = ft_printf.c \
+		   lst_functions.c \
+		   ft_stack_applier.c \
+		   ft_format.c \
+		   ft_modifier.c \
+		   ft_conversion.c \
+		   ft_precision.c \
+		   ft_attributs.c \
+		   ft_width.c \
+		   ft_parser.c \
+		   ft_struct_fct.c
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
-	@$(CC) $(CCFLAGS) $(CPPFLAGS) -c $< -o $@
+INC_NAME = ft_printf.h \
+		   libft.h \
+		   get_next_line.h
 
-$(OBJ_PATH) :
-	@mkdir $(OBJ_PATH) 2> /dev/null || true
+LIB = $(addprefix $(LIB_PATH)/, $(LIB_NAME))
+PRINTF = $(addprefix $(PRINTF_PATH)/, $(PRINTF_NAME))
+INC = $(addprefix $(INC_PATH)/, $(INC_NAME))
 
-clean:
-	@$(MAKE) $@ -C libft/
-	$(RM) $(OBJ)
-	@rmdir $(OBJ_PATH) 2> /dev/null || true
+HEADERS = ./../includes
 
-fclean:    clean
-	@$(MAKE) $@ -C libft/
-	@$(RM) $(NAME)
+OBJS_LIB_NAME = $(LIB_NAME:.c=.o)
+OBJS_PRINTF_NAME = $(PRINTF_NAME:.c=.o)
 
-re: fclean
-	$(MAKE)
+OBJS_LIB = $(addprefix $(OBJS_PATH)/, $(LIB_NAME:.c=.o))
+OBJS_PRINTF = $(addprefix $(OBJS_PATH)/, $(PRINTF:.c=.o))
 
-norme:
-	norminette $(SRC)
-	norminette $(INCLUDES)
+all : $(OBJS_PATH) $(NAME)
 
-.PHONY: all clean fclean re
+$(OBJS_PATH)/%.o : $(SRC_PATH)%.c $(INC)
+	gcc $(FLAGS) -c $< -o $@ -I $(HEADERS)
+
+.PHONY : clean fclean re
+
+$(NAME) : $(OBJS_LIB) $(OBJS_PRINTF) $(INC)
+	ar rc $(NAME) $(OBJS_LIB) $(OBJS_PRINTF)
+	@ranlib $(NAME)
+	@echo "Libft has been well compiled"
+
+$(OBJS_PATH) :
+	mkdir $(OBJS_PATH) 2> /dev/null || true
+	mkdir $(OBJS_PATH)/$(PRINTF_PATH) 2> /dev/null || true
+
+clean :
+	rm -f $(OBJS_LIB) $(OBJS_PRINTF)
+	@rmdir $(OBJS_PATH) 2> /dev/null || true
+
+fclean : clean
+	rm -f $(NAME)
+
+re : fclean all

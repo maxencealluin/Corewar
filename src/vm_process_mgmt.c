@@ -6,13 +6,13 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 11:42:41 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/06 14:33:31 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:07:46 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
-#include "libftprintf.h"
+#include "libft.h"
 
 t_process	*new_process(int id_parent, int pc)
 {

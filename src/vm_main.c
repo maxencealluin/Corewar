@@ -6,14 +6,13 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 10:59:53 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/08 12:35:44 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:04:12 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "op.h"
 #include "libft.h"
-#include "libftprintf.h"
 
 void	read_files(t_vm *vm)
 {

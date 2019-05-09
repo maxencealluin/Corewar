@@ -6,13 +6,13 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:39:44 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/06 12:40:16 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:07:33 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
-#include "libftprintf.h"
+#include "libft.h"
 #include "fcntl.h"
 
 void	put_player(t_vm *vm, t_player *player, unsigned char *buff, int idx)

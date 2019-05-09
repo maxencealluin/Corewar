@@ -6,13 +6,13 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:20:14 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/06 14:40:41 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:08:40 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 #include "vm.h"
-#include "libftprintf.h"
+#include "libft.h"
 
 int		*ft_decode_byte(t_vm *vm, unsigned char c, int *tab)
 {

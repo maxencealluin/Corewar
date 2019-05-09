@@ -6,13 +6,13 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:29:54 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/08 12:34:11 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:10:35 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "op.h"
-#include "libftprintf.h"
+#include "libft.h"
 
 void	free_structs(t_vm *vm)
 {
