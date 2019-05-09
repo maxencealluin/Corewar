@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:39:31 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/08 12:28:05 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:47:53 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		check_args(t_vm *vm, t_process *proc, int op, int size)
 			quit = 1;
 		else if (vm->enc_byte[i] == T_REG)
 			quit = is_register(vm->enc_byte[i], read_arena(vm, proc->pc
-				+ size, 1)) ? 0 : quit;
+				+ size, 1)) == 0 ? 1 : quit;
 		if (vm->enc_byte[i] == DIR_SIZE)
 			size += (vm->enc_byte[i] - 2 * g_op_tab[op].size_direct);
 		else
