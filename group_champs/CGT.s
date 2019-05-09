@@ -1,5 +1,5 @@
-.name "champion"
-.comment ""
+.name "CGT"
+.comment "You cannot pass !"
 
 
 protect:

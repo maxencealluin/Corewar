@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_op_load.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rkirszba <rkirszba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/09 17:09:52 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/09 18:10:30 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int		op_load(t_vm *vm, t_process *p)
 		return (1);
 	}
 	res = op_load_utils(vm, p, r, 1);
-	if ((vm->detail & 4) != 0)
-		ft_printf(" r%d\n", r);
 	p->carry = res == 0 ? 1 : 0;
 	p->step_over = 2 + vm->enc_byte[0] + vm->enc_byte[1];
+	if ((vm->detail & 4) != 0)
+		ft_printf(" r%d\n", r);
 	return (1);
 }
 
