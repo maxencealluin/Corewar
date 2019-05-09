@@ -6,7 +6,7 @@
 #    By: malluin <malluin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/22 14:56:26 by malluin           #+#    #+#              #
-#    Updated: 2019/05/09 17:58:53 by rkirszba         ###   ########.fr        #
+#    Updated: 2019/05/09 18:39:46 by rkirszba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,6 +114,10 @@ norme:
 	norminette $(SRC_VM)
 	norminette $(SRC_ASM)
 	norminette $(INCLUDES)
+
+san : $(OBJ_ASM) libft/libft.a
+	@make -C libft/
+	gcc -g3 -fsanitize=address -o $(NAME_ASM) $(OBJ_ASM) $(LIBFLAGS) $(CPPFLAGS)
 
 .PHONY: lib make clean fclean re
 

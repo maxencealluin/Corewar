@@ -6,7 +6,7 @@
 /*   By: rkirszba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 17:43:00 by rkirszba          #+#    #+#             */
-/*   Updated: 2019/05/09 17:43:18 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/09 18:42:54 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ int			complete_token(t_token *token, int state, t_reader *reader)
 	{
 		token->lexem = state;
 		if ((ret = create_value(token, reader)))
+		{
+			free(token);
 			return (ret);
+		}
 		ft_strdel(&(reader->rest));
 	}
 	return (0);
