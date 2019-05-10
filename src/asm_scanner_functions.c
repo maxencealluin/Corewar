@@ -6,7 +6,7 @@
 /*   By: rkirszba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 17:41:53 by rkirszba          #+#    #+#             */
-/*   Updated: 2019/05/09 18:46:29 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:00:22 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,15 @@ int	automate(char c, int state)
 	i = -1;
 	while (++i < 12)
 	{
+		if (c == 0)
+		{
+			i = 12;
+			break;
+		}
 		if ((ret = ft_strchr(g_index_col_lex[i], c)))
 			break ;
 	}
-	new_state = g_automate_lex[state][i];
+	new_state = g_automate_lex[state][i];	
 	return (new_state);
 }
 
