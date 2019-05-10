@@ -6,7 +6,7 @@
 /*   By: rkirszba <rkirszba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 17:09:56 by ccepre            #+#    #+#             */
-/*   Updated: 2019/05/09 17:30:51 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/10 13:59:43 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "libft.h"
 # include "op.h"
 
-# define BUFF_SIZE_ASM 1
-# define BUFF_SIZE_W 2048
+# define BUFF_SIZE_ASM 2048
+# define BUFF_SIZE_W 4096
 
 typedef enum		e_lex
 {

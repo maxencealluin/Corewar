@@ -6,7 +6,7 @@
 /*   By: rkirszba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 17:39:49 by rkirszba          #+#    #+#             */
-/*   Updated: 2019/05/09 17:40:01 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/10 12:49:27 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,9 @@ int				parser_asm(t_token **tokens, t_instr **instructions,\
 		if ((ret = state_manager_parser(instructions, &instruction, *tokens,\
 						&state)))
 			return (ret);
-		if (!tmp && state != 4)
-			ret = print_syn_error((*tokens)->line,\
-					(*tokens)->col, NONE, state);
+		if ((!tmp && (state != 4 || !instruction || (instruction->params\
+							&& instruction->params->lexem == COMMENT))))
+			ret = print_syn_error((*tokens)->line, (*tokens)->col, NONE, state);
 		complete_instruction(&instruction, *tokens);
 		*tokens = tmp;
 	}

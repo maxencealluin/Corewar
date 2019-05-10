@@ -6,7 +6,7 @@
 /*   By: rkirszba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 17:38:25 by rkirszba          #+#    #+#             */
-/*   Updated: 2019/05/09 17:38:34 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/10 14:17:59 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ int		print_len_error(t_token *token, int max)
 int		print_int_error(t_token *token, int min, int max)
 {
 	ft_printf("%d:%d: Syntax error: ", token->line, token->col);
-	ft_printf("Invalid value (min: %d & max: %d)\n", min, max);
+	ft_printf("Invalid register value (min: %d & max: %d)\n", min, max);
 	return (1);
 }
