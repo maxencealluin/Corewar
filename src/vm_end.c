@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:29:54 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/09 17:10:35 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/10 16:42:47 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_structs(t_vm *vm)
 	t_process	*tmp;
 
 	i = -1;
-	while (++i < vm->nb_players)
+	while (++i < vm->players_alive)
 	{
 		if (vm->players[i] == NULL)
 			continue;

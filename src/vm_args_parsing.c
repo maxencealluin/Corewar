@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 12:16:01 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/09 17:07:10 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/10 16:37:38 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,21 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-int		file_exists(char *path)
+int		file_exists(t_vm *vm, char *path)
 {
 	int		fd;
+	int		size;
+	char	tmp[2192 + CHAMP_MAX_SIZE + 1];
 
 	if ((fd = open(path, O_RDONLY)) == -1)
 		return (0);
 	if (read(fd, NULL, 0) == -1)
 		return (0);
+	size = read(fd, tmp, 2192 + CHAMP_MAX_SIZE + 1);
+	if (size < 2192)
+		error_champ_too_small(vm);
+	else if (size > 2192 + CHAMP_MAX_SIZE)
+		error_champ_too_big(vm);
 	close(fd);
 	return (1);
 }
@@ -86,7 +93,7 @@ void	ft_parse_args_2(t_vm *vm, char **av, int *next_nb, int *i)
 		vm->debug = 1;
 	else
 	{
-		if (file_exists(av[*i]) == 0)
+		if (file_exists(vm, av[*i]) == 0)
 			ft_error_read(vm, av[*i]);
 		add_player(vm, av[*i], *next_nb, *i);
 		*next_nb = 0;
@@ -114,7 +121,7 @@ void	ft_parse_args(t_vm *vm, int ac, char **av, int i)
 				ft_error_read(vm, "-n");
 			else
 				next_nb = read_player_number(vm, av[i++]);
-			if (file_exists(av[i]) == 0)
+			if (file_exists(vm, av[i]) == 0)
 				ft_error_read(vm, av[i]);
 		}
 		else

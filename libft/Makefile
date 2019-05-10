@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rkirszba <rkirszba@student.42.fr>          +#+  +:+       +#+         #
+#    By: ccepre <ccepre@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/08 15:43:12 by ccepre            #+#    #+#              #
-#    Updated: 2019/05/09 17:12:24 by rkirszba         ###   ########.fr        #
+#    Updated: 2019/05/10 16:16:52 by malluin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,7 @@ OBJS_PRINTF = $(addprefix $(OBJS_PATH)/, $(PRINTF:.c=.o))
 all : $(OBJS_PATH) $(NAME)
 
 $(OBJS_PATH)/%.o : $(SRC_PATH)%.c $(INC)
-	gcc $(FLAGS) -c $< -o $@ -I $(HEADERS)
+	@gcc $(FLAGS) -c $< -o $@ -I $(HEADERS)
 
 .PHONY : clean fclean re
 

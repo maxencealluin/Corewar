@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/09 18:43:34 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/10 16:35:38 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,10 +229,10 @@ void					ft_error_read(t_vm *vm, char *str);
 void					ft_error_too_many(t_vm *vm);
 void					ft_incorrect_number(t_vm *vm);
 void					ft_error_already_assigned(t_vm *vm);
-void					error_champ_to_big();
-void					error_read();
-void					error_param();
-void					error_wrong_header(void);
-void					error_wrong_weight(void);
+void					error_champ_too_big(t_vm *vm);
+void					error_champ_too_small(t_vm *vm);
+void					error_read(t_vm *vm);
+void					error_wrong_header(t_vm *vm);
+void					error_wrong_weight(t_vm *vm);
 
 #endif
