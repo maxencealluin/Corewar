@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/09 18:51:25 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/13 16:03:14 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,16 +85,16 @@ int		op_sti_utils(t_vm *vm, t_process *p, int k, int size)
 	else if (vm->enc_byte[k] == 2)
 	{
 		res = read_arena(vm, p->pc + size, IND_SIZE);
-		res = read_arena(vm, p->pc + res, REG_SIZE);
+		res = read_arena(vm, p->pc + res % IDX_MOD, REG_SIZE);
 		if ((vm->detail & 4) != 0)
 			ft_printf(" %d", read_arena(vm, p->pc + res, REG_SIZE));
 	}
 	else if (vm->enc_byte[k] == 4)
 	{
 		vm->enc_byte[k] = 2;
-		res = res + read_arena(vm, p->pc + size, DIR_SIZE / 2);
+		res = res + read_arena(vm, p->pc + size, IND_SIZE);
 		if ((vm->detail & 4) != 0)
-			ft_printf(" %d", read_arena(vm, p->pc + size, DIR_SIZE / 2));
+			ft_printf(" %d", read_arena(vm, p->pc + size, IND_SIZE));
 	}
 	return (res);
 }

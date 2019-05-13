@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/09 18:31:31 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/13 15:52:19 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int		op_lldi(t_vm *vm, t_process *p)
 	ft_decode_byte2(vm, vm->arena[(p->pc + 1 + MEM_SIZE) % MEM_SIZE].by);
 	while (k < 2)
 	{
-		res = res + op_ldi_utils(vm, p, k, size);
+		res = res + op_lldi_utils(vm, p, k, size);
 		size = size + vm->enc_byte[k];
 		k++;
 	}

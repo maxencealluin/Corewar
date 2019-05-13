@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:04:46 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/09 17:10:02 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/13 15:53:30 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,35 @@ int		op_load_utils(t_vm *vm, t_process *p, int r, int idx_m)
 }
 
 int		op_ldi_utils(t_vm *vm, t_process *p, int k, int size)
+{
+	int res;
+
+	res = 0;
+	if (vm->enc_byte[k] == 1)
+	{
+		res = read_arena(vm, p->pc + size, 1);
+		if ((vm->detail & 4) != 0)
+			ft_printf(" r%d", res);
+		res = read_reg(p->regs[res - 1]);
+	}
+	else if (vm->enc_byte[k] == 2)
+	{
+		res = read_arena(vm, p->pc + size, IND_SIZE);
+		if ((vm->detail & 4) != 0)
+			ft_printf(" %d", read_arena(vm, p->pc + res, DIR_SIZE));
+		res = read_arena(vm, p->pc + res % IDX_MOD, DIR_SIZE);
+	}
+	else if (vm->enc_byte[k] == 4)
+	{
+		vm->enc_byte[k] = 2;
+		res = read_arena(vm, p->pc + size, IND_SIZE);
+		if ((vm->detail & 4) != 0)
+			ft_printf(" %d", read_arena(vm, p->pc + size, IND_SIZE));
+	}
+	return (res);
+}
+
+int		op_lldi_utils(t_vm *vm, t_process *p, int k, int size)
 {
 	int res;
 
