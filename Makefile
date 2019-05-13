@@ -6,10 +6,11 @@
 #    By: malluin <malluin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/22 14:56:26 by malluin           #+#    #+#              #
-#    Updated: 2019/05/09 19:01:26 by malluin          ###   ########.fr        #
+#    Updated: 2019/05/13 18:49:10 by ccepre           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME = compil
 NAME_VM = corewar
 NAME_ASM = asm
 
@@ -41,7 +42,6 @@ SRC_VM_NAME =	op.c \
 SRC_ASM_NAME = 	asm_create_value.c\
 				asm_scanner.c\
 			   	asm_scanner_functions.c\
-			   	asm_assembler.c\
 				asm_error_manager.c\
 			   	asm_error_value_manager.c\
 			   	asm_globales.c\
@@ -53,10 +53,16 @@ SRC_ASM_NAME = 	asm_create_value.c\
 				asm_free_functions.c\
 				asm_encoder.c\
 				asm_encoder_functions.c\
-				asm_writer.c
+				asm_writer.c\
+				dasm_decoder.c\
+				dasm_header_decoder.c\
+				dasm_instruction_decoder.c\
+			   	#asm_assembler.c\
 
 
-HEADER_NAME = op.h
+SRC_DASM_NAME = dasm_decoder.c\
+				dasm_header_decoder.c\
+				dasm_instruction_decoder.c
 
 SRC_PATH = src
 OBJ_PATH = obj
@@ -77,7 +83,9 @@ OBJ_ASM_NAME = $(SRC_ASM_NAME:.c=.o)
 SRC_ASM = $(addprefix $(SRC_PATH)/,$(SRC_ASM_NAME))
 OBJ_ASM = $(addprefix $(OBJ_PATH)/,$(OBJ_ASM_NAME))
 
-all: lib $(NAME_VM) $(NAME_ASM)
+all: $(NAME)
+
+$(NAME): lib $(NAME_VM) $(NAME_ASM)
 
 $(NAME_VM): $(OBJ_VM)
 	@make -C libft/

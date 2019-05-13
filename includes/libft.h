@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 15:02:53 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/09 16:56:48 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/13 18:59:18 by ccepre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,6 @@ char				*ft_strndup(char *s1, size_t n);
 int					ft_strnappend(char **str, char *ext, int n);
 int					ft_strappend(char **str, char *ext);
 int					ft_printf(char *format, ...);
+char				*ft_strjoinarg(int nb, ...);
 
 #endif

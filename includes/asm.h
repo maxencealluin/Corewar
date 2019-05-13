@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkirszba <rkirszba@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccepre <ccepre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 17:09:56 by ccepre            #+#    #+#             */
-/*   Updated: 2019/05/13 17:01:57 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/13 19:09:57 by ccepre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ extern t_lex		g_index_col_syn[9];
 extern t_lex		g_index_col_syn[9];
 
 int					write_output(t_writer *writer, char *file_name);
+int					verif_name(char *file_name, char *ext);
 int					scanner_asm(int fd, t_token **tokens, t_token **labels);
 
 int					automate(char c, int state);
@@ -161,6 +162,10 @@ void				replace_label_value(t_writer *writer, t_token *labels,\
 int					give_size_param(int opcode, t_lex lexem);
 void				complete_labels(t_writer *writer, t_token *label,\
 					t_token *labels);
+
+int					header_decoder(char **output, int *inst_size, int fd);
+int					instruction_decoder(t_reader *reader, char *start, char **output);
+int					get_value(char *start, int size);
 
 int					ft_power(int nb, int pow);
 #endif
