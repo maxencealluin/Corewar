@@ -6,18 +6,18 @@
 /*   By: rkirszba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 17:38:25 by rkirszba          #+#    #+#             */
-/*   Updated: 2019/05/10 14:17:59 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/13 12:37:33 by ccepre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		print_arg_error(int errnum, char *prog_name)
+int		print_arg_error(int errnum, char *prog_name, char *ext)
 {
 	if (errnum == 1)
-		ft_printf("Usage: %s <sourcefile.s>\n", prog_name);
+		ft_printf("Usage: %s <sourcefile>%s\n", prog_name, ext);
 	else
-		ft_printf("Invalid file name: must be <file_name>.s\n");
+		ft_printf("Invalid file name: must be <file_name>%s\n", ext);
 	return (1);
 }
 

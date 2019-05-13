@@ -6,13 +6,13 @@
 /*   By: rkirszba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 17:35:43 by rkirszba          #+#    #+#             */
-/*   Updated: 2019/05/09 17:35:51 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/13 12:38:03 by ccepre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static int	verif_name(char *file_name)
+int	verif_name(char *file_name, char *ext)
 {
 	int		i;
 
@@ -22,7 +22,7 @@ static int	verif_name(char *file_name)
 	while (file_name[++i])
 		if (file_name[i] == '.')
 			break ;
-	if (ft_strcmp(&(file_name[i]), ".s"))
+	if (ft_strcmp(&(file_name[i]), ext))
 		return (1);
 	return (0);
 }
@@ -38,8 +38,8 @@ int			main(int ac, char **av)
 	tokens = NULL;
 	labels = NULL;
 	instructions = NULL;
-	if (ac < 2 || verif_name(av[ac - 1]))
-		return (print_arg_error((ac < 2), av[0]));
+	if (ac < 2 || verif_name(av[ac - 1], ".s"))
+		return (print_arg_error((ac < 2), av[0], ".s"));
 	if ((fd = open(av[ac - 1], O_RDONLY)) == -1)
 		return (print_sys_error(errno));
 	if ((ret = scanner_asm(fd, &tokens, &labels))\
