@@ -6,7 +6,7 @@
 /*   By: rkirszba <rkirszba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 17:09:56 by ccepre            #+#    #+#             */
-/*   Updated: 2019/05/13 15:37:54 by ccepre           ###   ########.fr       */
+/*   Updated: 2019/05/13 17:01:57 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void				remove_token(t_token **tokens, t_token *token);
 int					parser_asm(t_token **tokens, t_instr **instructions,\
 					t_token *labels);
 
-int					print_arg_error(int errnum, char *name_prog);
+int					print_arg_error(int errnum, char *name_prog, char *ext);
 int					print_sys_error(int errnum);
 int					print_lex_error(int line, int col);
 int					print_syn_error(int line, int col, t_lex lexem, int state);
