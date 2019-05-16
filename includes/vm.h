@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 11:39:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/13 15:52:41 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/14 16:26:08 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,6 @@ int						*ft_decode_byte(t_vm *vm, unsigned char c, int *tab);
 void					ft_decode_byte2(t_vm *vm, unsigned char c);
 void					ft_decode_byte_codes(t_vm *vm);
 int						is_register(int decoded_by, unsigned char arena_by);
-void					print_op();
 
 /*
 ** Operations

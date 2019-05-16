@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:05:00 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/10 15:31:22 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/14 14:35:33 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	add_player(t_vm *vm, char *path, int next_nb, int i)
 		ft_error_too_many(vm);
 	if (!(vm->players[j] = (t_player *)malloc(sizeof(t_player))))
 		exit(-1);
-	vm->players[j]->file_path = ft_strdup(path);
+	if (!(vm->players[j]->file_path = ft_strdup(path)))
+		vm->players[j]->file_path = NULL;
 	vm->players[j]->player_number = next_nb;
 	vm->players[j]->code_start = 0;
 	vm->players[j]->order_arg = i;

@@ -6,7 +6,7 @@
 /*   By: ccepre <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:51:37 by ccepre            #+#    #+#             */
-/*   Updated: 2018/12/17 17:03:08 by ccepre           ###   ########.fr       */
+/*   Updated: 2019/05/14 13:44:02 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int			ft_hashtag(char **result, t_stack *stack, int len_arg)
 		verif = 0;
 		while ((*result)[verif] == '0')
 			verif++;
-		if (verif == len_arg && !(stack->precision == 0 && len_arg == 0 && \
-					stack->format == 'o'))
+		if (verif == len_arg && !(stack->precision == 1 && len_arg == 0
+					&& stack->format == 'o'))
 			return (len_arg);
 		len_arg = hashtag_application(result, stack, len_arg);
 	}

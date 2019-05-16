@@ -6,7 +6,7 @@
 /*   By: ccepre <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 10:43:58 by ccepre            #+#    #+#             */
-/*   Updated: 2018/12/18 17:38:40 by ccepre           ###   ########.fr       */
+/*   Updated: 2019/05/14 13:44:33 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static char			*ft_global_round(char *result, long double nb, int i)
 	int n;
 
 	n = result[i] - '0';
-	if ((nb * 10 > 5 && (result[i] - '0') < 10) || (nb * 10 == 5 &&\
-				(result[i] - '0') % 2 == 1))
+	if ((nb * 10 > 5 && (result[i] - '0') < 10) || (nb * 10 == 5
+				&& (result[i] - '0') % 2 == 1))
 		n++;
 	if (n < 10)
 		result[i] = n + '0';

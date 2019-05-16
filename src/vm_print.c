@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:22:40 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/10 16:15:05 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/14 16:39:38 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,15 @@ void	print_intro(t_vm *vm)
 		ft_printf("Introducing contestants...\n");
 		while (i < vm->nb_players && vm->players[i] != NULL)
 		{
-			ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
+			ft_printf("* Player %d, weighing %d bytes, \"",
 			ft_iabs(vm->players[i]->player_number),
-			vm->players[i]->header->prog_size,
-			vm->players[i]->header->prog_name, vm->players[i]->header->comment);
+			vm->players[i]->header->prog_size);
+			write(1, &vm->players[i]->header->prog_name,
+				ft_strlen(vm->players[i]->header->prog_name));
+			write(1, "\" (\"", 4);
+			write(1, &vm->players[i]->header->comment,
+				ft_strlen(vm->players[i]->header->comment));
+			write(1, "\") !\n", 5);
 			i++;
 		}
 	}

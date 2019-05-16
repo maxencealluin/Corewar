@@ -6,7 +6,7 @@
 /*   By: rkirszba <rkirszba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 11:54:10 by rkirszba          #+#    #+#             */
-/*   Updated: 2019/05/08 18:15:18 by ccepre           ###   ########.fr       */
+/*   Updated: 2019/05/14 14:40:51 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int		write_output(t_writer *writer, char *file_name)
 	int i;
 	int fd;
 
-	i = -1;
-	while (file_name[++i])
+	i = ft_strlen(file_name);
+	while (file_name[--i])
 		if (file_name[i] == '.')
 			break ;
 	file_name[i] = 0;

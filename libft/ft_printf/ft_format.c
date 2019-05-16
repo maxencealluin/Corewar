@@ -6,7 +6,7 @@
 /*   By: ccepre <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 13:33:41 by ccepre            #+#    #+#             */
-/*   Updated: 2018/12/21 13:15:26 by ccepre           ###   ########.fr       */
+/*   Updated: 2019/05/14 14:18:33 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	str_format(va_list ap, t_stack *stack, char **result)
 		*result = precision(*result, stack);
 	else if (!(*result))
 		*result = ft_strdup("(null)");
+	if (!*result)
+		return (-1);
 	return ((int)ft_strlen(*result));
 }
 

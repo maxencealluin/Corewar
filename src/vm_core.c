@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:45:58 by malluin           #+#    #+#             */
-/*   Updated: 2019/05/09 18:53:24 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/14 16:13:58 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_step(t_vm *vm)
 	{
 		vm->current_checks++;
 		remove_dead_process(vm);
-		if (vm->current_checks >= MAX_CHECKS || vm->number_of_live > NBR_LIVE)
+		if (vm->current_checks >= MAX_CHECKS || vm->number_of_live >= NBR_LIVE)
 		{
 			vm->cycle_to_die -= CYCLE_DELTA;
 			if ((vm->detail & 32) != 0)

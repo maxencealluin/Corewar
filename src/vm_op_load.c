@@ -6,7 +6,7 @@
 /*   By: fnussbau <fnussbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 10:19:58 by fnussbau          #+#    #+#             */
-/*   Updated: 2019/05/13 15:52:19 by malluin          ###   ########.fr       */
+/*   Updated: 2019/05/14 16:23:39 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,21 +79,6 @@ int		op_ldi(t_vm *vm, t_process *p)
 	assign_reg(p, reg, read_arena(vm, p->pc + (res % IDX_MOD), REG_SIZE));
 	p->step_over = size;
 	return (1);
-}
-
-int		*set_enc_by(t_vm *vm, t_process *p, int *by)
-{
-	unsigned char	c;
-
-	c = vm->arena[(p->pc + 1 + MEM_SIZE) % MEM_SIZE].by;
-	if (!(by = (int *)malloc(sizeof(int) * 4)))
-		exit(-1);
-	if (!(by = ft_decode_byte(vm, c, by)))
-	{
-		ft_memdel((void **)&by);
-		exit(-1);
-	}
-	return (by);
 }
 
 int		op_lldi(t_vm *vm, t_process *p)

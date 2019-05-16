@@ -6,7 +6,7 @@
 /*   By: ccepre <ccepre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 17:09:56 by ccepre            #+#    #+#             */
-/*   Updated: 2019/05/13 19:09:57 by ccepre           ###   ########.fr       */
+/*   Updated: 2019/05/14 16:48:06 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ extern t_lex		g_index_col_syn[9];
 extern t_lex		g_index_col_syn[9];
 
 int					write_output(t_writer *writer, char *file_name);
-int					verif_name(char *file_name, char *ext);
 int					scanner_asm(int fd, t_token **tokens, t_token **labels);
 
 int					automate(char c, int state);
@@ -124,7 +123,7 @@ void				remove_token(t_token **tokens, t_token *token);
 int					parser_asm(t_token **tokens, t_instr **instructions,\
 					t_token *labels);
 
-int					print_arg_error(int errnum, char *name_prog, char *ext);
+int					print_arg_error(int errnum, char *name_prog);
 int					print_sys_error(int errnum);
 int					print_lex_error(int line, int col);
 int					print_syn_error(int line, int col, t_lex lexem, int state);
@@ -143,11 +142,7 @@ int					ft_strnappend(char **str, char *ext, int n);
 int					ft_strappend(char **str, char *ext);
 char				*ft_strndup(char *s1, size_t n);
 
-//void				check_tokens(t_token *tokens);
-//void				check_instructions(t_instr *instructions);
 void				print_lexem(t_lex lexem);
-//void				print_token(t_token *token);
-//void				print_tokens(t_token *tokens);
 
 void				insert_value(char *str, unsigned int value, int size);
 int					write_into_buffer(t_writer *writer, unsigned int nb,\
@@ -162,10 +157,6 @@ void				replace_label_value(t_writer *writer, t_token *labels,\
 int					give_size_param(int opcode, t_lex lexem);
 void				complete_labels(t_writer *writer, t_token *label,\
 					t_token *labels);
-
-int					header_decoder(char **output, int *inst_size, int fd);
-int					instruction_decoder(t_reader *reader, char *start, char **output);
-int					get_value(char *start, int size);
 
 int					ft_power(int nb, int pow);
 #endif

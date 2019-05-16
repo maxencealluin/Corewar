@@ -6,16 +6,14 @@
 #    By: malluin <malluin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/22 14:56:26 by malluin           #+#    #+#              #
-#    Updated: 2019/05/13 18:49:10 by ccepre           ###   ########.fr        #
+#    Updated: 2019/05/14 16:47:41 by malluin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = compil
 NAME_VM = corewar
 NAME_ASM = asm
 
 LIB_PATH = ./libft
-HEADER_PATH = includes/
 
 SRC_VM_NAME =	op.c \
 				vm_main.c \
@@ -42,6 +40,7 @@ SRC_VM_NAME =	op.c \
 SRC_ASM_NAME = 	asm_create_value.c\
 				asm_scanner.c\
 			   	asm_scanner_functions.c\
+			   	asm_assembler.c\
 				asm_error_manager.c\
 			   	asm_error_value_manager.c\
 			   	asm_globales.c\
@@ -53,21 +52,15 @@ SRC_ASM_NAME = 	asm_create_value.c\
 				asm_free_functions.c\
 				asm_encoder.c\
 				asm_encoder_functions.c\
-				asm_writer.c\
-				dasm_decoder.c\
-				dasm_header_decoder.c\
-				dasm_instruction_decoder.c\
-			   	#asm_assembler.c\
+				asm_writer.c
 
-
-SRC_DASM_NAME = dasm_decoder.c\
-				dasm_header_decoder.c\
-				dasm_instruction_decoder.c
+HEADER_PATH = includes/
+HEADER_NAME = op.h
 
 SRC_PATH = src
 OBJ_PATH = obj
 
-CC = gcc -g #-fsanitize=address
+CC = gcc
 CCFLAGS =   -Wall -Wextra -Werror
 
 CPPFLAGS = -I $(HEADER_PATH) -MMD
@@ -83,9 +76,10 @@ OBJ_ASM_NAME = $(SRC_ASM_NAME:.c=.o)
 SRC_ASM = $(addprefix $(SRC_PATH)/,$(SRC_ASM_NAME))
 OBJ_ASM = $(addprefix $(OBJ_PATH)/,$(OBJ_ASM_NAME))
 
-all: $(NAME)
+all: lib $(NAME_VM) $(NAME_ASM)
 
-$(NAME): lib $(NAME_VM) $(NAME_ASM)
+lib:
+	@make -C libft/
 
 $(NAME_VM): $(OBJ_VM)
 	@make -C libft/
@@ -94,9 +88,6 @@ $(NAME_VM): $(OBJ_VM)
 $(NAME_ASM): $(OBJ_ASM)
 	@make -C libft/
 	$(CC) $(CCFLAGS) $(LIBFLAGS) $^ -o $@
-
-lib:
-	@make -C libft/
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
 	$(CC) $(CCFLAGS) $(CPPFLAGS) -o $@ -c $<
@@ -123,11 +114,7 @@ norme:
 	norminette $(SRC_ASM)
 	norminette $(INCLUDES)
 
-san : $(OBJ_ASM) libft/libft.a
-	@make -C libft/
-	gcc -g3 -fsanitize=address -o $(NAME_ASM) $(OBJ_ASM) $(LIBFLAGS) $(CPPFLAGS)
-
 .PHONY: lib make clean fclean re
 
--include $(OBJ_VM_NAME:.o=.d)
--include $(OBJ_ASM_NAME:.o=.d)
+-include $(OBJ_VM:.o=.d)
+-include $(OBJ_ASM:.o=.d)

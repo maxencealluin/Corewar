@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 17:55:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/03/20 14:56:55 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/05/14 14:32:05 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ char	*allocate(char *buff, char *tmp2, int b, int e)
 	ft_memmove((tmp + ft_strlen(tmp2)), buff + b, (e - b));
 	(tmp + ft_strlen(tmp2))[e - b] = '\0';
 	free(tmp2);
-	tmp2 = ft_strdup(tmp);
+	if (!(tmp2 = ft_strdup(tmp)))
+		return (NULL);
 	free(tmp);
 	return (tmp2);
 }
@@ -63,7 +64,8 @@ int		read_next(const int fd, char **line, t_blist *lst, int out)
 	int				e;
 	char			*tmp2;
 
-	tmp2 = ft_strdup("");
+	if (!(tmp2 = ft_strdup("")))
+		return (-1);
 	while (out == 0)
 	{
 		if (findeol(lst->buff, 2) == 0)
@@ -79,7 +81,8 @@ int		read_next(const int fd, char **line, t_blist *lst, int out)
 		tmp2 = allocate(lst->buff, tmp2, b, e);
 		ft_bzero(lst->buff + b, e - b + (lst->buff[e] == '\n'));
 	}
-	*line = ft_strdup(tmp2);
+	if (!(*line = ft_strdup(tmp2)))
+		*line = NULL;
 	ft_memdel((void **)&tmp2);
 	return (lst->ret);
 }

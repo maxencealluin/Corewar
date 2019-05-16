@@ -6,7 +6,7 @@
 /*   By: rkirszba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 17:40:42 by rkirszba          #+#    #+#             */
-/*   Updated: 2019/05/09 17:41:37 by rkirszba         ###   ########.fr       */
+/*   Updated: 2019/05/14 13:53:36 by rkirszba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ static int	manage_last_token(t_reader *reader, t_token **tokens)
 	t_token *token;
 	int		ret;
 
-	if (!(token = get_back_token(tokens)))
-		return (0);
-	if (g_automate_lex[token->lexem][0] == -2\
+	if (!(token = get_back_token(tokens))\
+			|| g_automate_lex[token->lexem][0] == -2\
 			|| g_automate_lex[token->lexem][0] == -3)
 		return (0);
 	if (reader->state != 0)

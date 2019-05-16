@@ -6,7 +6,7 @@
 /*   By: ccepre <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 16:11:42 by ccepre            #+#    #+#             */
-/*   Updated: 2018/12/19 15:12:52 by ccepre           ###   ########.fr       */
+/*   Updated: 2019/05/14 13:43:45 by malluin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ int			ft_width(char **result, t_stack *stack, int len_arg)
 
 	if (len_arg < stack->width)
 	{
-		if (stack->attributs && ft_strchr(stack->attributs, '0') &&\
-				(stack->precision == -1 ||\
-				!ft_strchr("diouxXpbf", stack->format))\
+		if (stack->attributs && ft_strchr(stack->attributs, '1')
+				&& (stack->precision == -1
+				|| !ft_strchr("diouxXpbf", stack->format))
 				&& !ft_strchr(stack->attributs, '-'))
 			return (ft_zero(result, stack, len_arg));
 		if (!(str = (char*)ft_memalloc(stack->width + 1)))
