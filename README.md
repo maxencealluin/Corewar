@@ -11,4 +11,4 @@ The idea was simple. You compete by designing viruses to overtake a computer. Yo
 
 Our implementation looks like this: 
 
-(https://ibb.co/TPQZCKT)
+![Alt text](https://i.ibb.co/MPzbX8h/May-28-2019-19-36-07.gif "Implementation")
