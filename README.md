@@ -1,6 +1,6 @@
 # Corewar
 
-A reproduction of the Corewar game: Virtual Machine with GUI using Ncurses library, Assembly compiler and champion written in redcode.
+A reproduction of the Corewar game: Virtual Machine with GUI using Ncurses library, Assembly compiler and champion written in redcode. This is a team project which has been made as part of the cursus of 42.
 
 ## Description : 
 
@@ -37,6 +37,12 @@ The game will remain active until every process is dead. Once that happens the l
 
 Therefore the goal of the game is to create a champion in such a way that the processes will declare it alive repeatdly until the end of the game. The different operations provided and the technical specificities of the game allow for a broad range of strategies. 
 
+### Assembler
+
+The assembler is a program that converts the champion (.s files) which are written in redcode (a pseudo programming language with a syntax close to assembly language) into binaries (.cor) that can be read by the virtual machine.
+
+This implementation uses lexical and syntaxic analysis to determine if the program is correctly written. This allows the program to provides users with the type and location of the error encountered. 
+
 ## Installation : 
 
 Clone the repository and run `make`
@@ -64,3 +70,12 @@ Text output mode:
 #### Assembler: 
 `./asm <sourcefile.s>`
 
+
+
+### Team
+
+The project was made at 42 by:
+* M.Alluin
+* C.Cepre
+* R.Kirszbaum
+* F.Nussbau 
