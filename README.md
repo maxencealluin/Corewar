@@ -78,4 +78,4 @@ The project was made at 42 by:
 * M.Alluin
 * C.Cepre
 * R.Kirszbaum
-* F.Nussbau 
+* F.Nussbauer
